@@ -3,46 +3,542 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>স্বপ্নতরী (SVYO)</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#1a365d">
+    <title>SWAPNATARI VOLUNTARY YOUTH ORGANIZATION (SVYO)</title>
+    <!-- Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body { font-family: sans-serif; margin: 0; background: #f4f7f6; padding-bottom: 70px; }
-        .header { background: #1a365d; color: white; padding: 30px 15px; text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
-        .header h1 { margin: 0; font-size: 22px; }
-        .header p { margin: 5px 0 0; font-size: 14px; opacity: 0.9; }
-        .container { padding: 15px; }
-        .card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .card h3 { margin-top: 0; color: #1a365d; border-left: 4px solid #27ae60; padding-left: 8px; }
-        .btn { display: inline-block; background: #27ae60; color: white; padding: 10px 20px; border-radius: 20px; text-decoration: none; font-weight: bold; margin-top: 10px; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; height: 60px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 -3px 10px rgba(0,0,0,0.05); }
-        .nav-item { text-align: center; color: #a0aec0; font-size: 12px; cursor: pointer; text-decoration: none; }
-        .nav-item i { font-size: 20px; display: block; }
-        .nav-item.active { color: #27ae60; }
+        :root {
+            --primary: #27ae60;
+            --secondary: #1a365d;
+            --bg: #f4f7f6;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; }
+
+        /* App Header */
+        .app-header { background: var(--secondary); color: white; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 1100; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .app-header h1 { font-size: 20px; font-weight: 700; }
+        .app-header .eng-title { font-size: 11px; letter-spacing: 0.5px; opacity: 0.9; margin-top: 2px; text-transform: uppercase; font-family: Arial, sans-serif; }
+        .app-header p { font-size: 13px; color: #58fa9b; margin-top: 4px; font-weight: bold; }
+
+        /* Main Container */
+        .app-container { padding: 15px; max-width: 500px; margin: 0 auto; }
+
+        /* Screens Animation Logic */
+        .app-screen { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .app-screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Section Headings */
+        h2 { font-size: 18px; color: var(--secondary); margin: 20px 0 12px 0; border-left: 4px solid var(--primary); padding-left: 8px; display: flex; align-items: center; gap: 8px; }
+        h2:first-of-type { margin-top: 5px; }
+        h3 { font-size: 15px; color: var(--secondary); margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+
+        /* Component Cards */
+        .card { background: var(--card-bg); padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.02); }
+        
+        /* Hero Section Styling */
+        .hero { background: linear-gradient(135deg, rgba(26,54,93,0.95), rgba(39,174,96,0.9)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=500') no-repeat center/cover; color: white; padding: 25px 15px; border-radius: 15px; text-align: center; margin-bottom: 15px; }
+        .hero .logo-icon { font-size: 35px; margin-bottom: 8px; color: #fff; }
+        .hero h2 { color: white; border: none; padding: 0; font-size: 21px; margin-bottom: 2px; justify-content: center; }
+        .hero .eng-sub { font-size: 11px; opacity: 0.8; font-family: Arial, sans-serif; margin-bottom: 8px; }
+        .hero .badge { background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 20px; font-size: 10px; display: inline-block; margin-bottom: 12px; }
+        .hero p { font-size: 13px; opacity: 0.95; margin-bottom: 15px; line-height: 1.5; }
+        
+        /* Buttons Ecosystem */
+        .btn-group { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+        .btn { padding: 8px 15px; border-radius: 25px; border: none; font-weight: 600; cursor: pointer; text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 5px; transition: 0.2s; }
+        .btn:active { transform: scale(0.95); }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-full { width: 100%; justify-content: center; margin-top: 5px; border-radius: 8px; padding: 10px; }
+
+        /* Realtime Stats Counter Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
+        .stat-box { background: white; padding: 12px 5px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .stat-box i { color: var(--primary); font-size: 18px; margin-bottom: 4px; }
+        .stat-box div { font-size: 18px; font-weight: 700; color: var(--secondary); }
+        .stat-box p { font-size: 11px; color: #718096; }
+
+        /* Dynamic Member Cards Design */
+        .member-card { display: flex; align-items: center; gap: 12px; background: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); border-left: 3px solid var(--secondary); }
+        .member-avatar { width: 42px; height: 42px; background: #edf2f7; color: var(--secondary); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 16px; flex-shrink: 0; }
+        .member-info { flex-grow: 1; }
+        .member-info h4 { font-size: 14px; color: var(--secondary); font-weight: 700; }
+        .member-info p { font-size: 12px; color: var(--primary); font-weight: 600; }
+        .member-info span { font-size: 11px; color: #718096; display: block; margin-top: 1px; }
+
+        /* Projects List */
+        .project-item { border-left: 3px solid var(--primary); padding-left: 10px; margin-bottom: 15px; }
+        .project-item h4 { font-size: 14px; color: var(--secondary); margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
+        .project-item p { font-size: 12px; color: #4a5568; line-height: 1.5; text-align: justify; }
+
+        /* Media Gallery with Filter Engine */
+        .filter-bar { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 15px; scrollbar-width: none; }
+        .filter-bar::-webkit-scrollbar { display: none; }
+        .filter-btn { padding: 5px 12px; background: #e2e8f0; border: none; border-radius: 20px; font-size: 11px; cursor: pointer; white-space: nowrap; font-weight: 600; color: #4a5568; }
+        .filter-btn.active { background: var(--primary); color: white; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .gallery-item { background: #eee; border-radius: 8px; overflow: hidden; position: relative; height: 100px; cursor: pointer; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-item .item-type { position: absolute; bottom: 4px; left: 4px; background: rgba(0,0,0,0.7); color: white; padding: 1px 5px; font-size: 9px; border-radius: 3px; }
+
+        /* Forms Architecture */
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: #4a5568; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 13px; outline: none; background: #fff; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
+        
+        .search-area { background: white; padding: 10px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); margin-bottom: 15px; }
+        .search-input-group { position: relative; display: flex; align-items: center; }
+        .search-input-group i { position: absolute; left: 12px; color: #a0aec0; font-size: 13px; }
+        .search-input-group input { width: 100%; padding: 7px 10px 7px 32px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px; outline: none; }
+
+        /* Lightbox Overlay Viewport */
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .lightbox img { max-width: 100%; max-height: 80%; border-radius: 8px; }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 30px; cursor: pointer; }
+
+        /* Bottom Persistent Navigation Bar (7 Tabs Layout) */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; height: 60px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 -3px 10px rgba(0,0,0,0.05); z-index: 1500; }
+        .nav-item { text-align: center; color: #a0aec0; cursor: pointer; padding: 4px 0; font-size: 10px; font-weight: 600; flex: 1; }
+        .nav-item i { font-size: 16px; display: block; margin-bottom: 2px; }
+        .nav-item.active { color: var(--primary); }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>স্বপ্নতরী স্বেচ্ছাসেবী যুব संगठन</h1>
+
+    <!-- Main Header Panel -->
+    <header class="app-header">
+        <h1>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h1>
+        <div class="eng-title">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION (SVYO)</div>
         <p>“সৃষ্টির সেবাই আমাদের স্বপ্নতরী”</p>
-    </div>
-    <div class="container">
-        <div class="card">
-            <h3>সংগঠনের পরিচিতি</h3>
-            <p>প্রতিষ্ঠা: ২০২১ | রেজি নং: যু/উ/অ/সদর-০৯৩</p>
-            <p>কার্যালয়: সোনাআলী ভবন, দক্ষিণ রুমালিয়ার ছরা, ৭নং ওয়ার্ড, পৌরসভা, কক্সবাজার।</p>
+    </header>
+
+    <div class="app-container">
+
+        <!-- =================== 1. HOME SCREEN =================== -->
+        <div id="screen-home" class="app-screen active">
+            <div class="hero">
+                <div class="logo-icon"><i class="fas fa-ship"></i></div>
+                <h2>স্বপ্নতরী (SVYO)</h2>
+                <div class="eng-sub">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
+                <span class="badge"><i class="fas fa-award"></i> নিবন্ধন নং: যু/উ/অ/সদর-০৯৩</span>
+                <p>২০২১ সাল থেকে কক্সবাজারে মানবকল্যাণ, জরুরি রক্ত সরবরাহ, সামাজিক সচেতনতা বৃদ্ধি এবং যুব উন্নয়নে নিয়োজিত একটি নির্ভরযোগ্য সমাজসেবামূলক স্বেচ্ছাসেবী প্ল্যাটফর্ম।</p>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="goToTab('register')"><i class="fas fa-user-plus"></i> আমাদের সাথে যুক্ত হোন</button>
+                    <button class="btn btn-danger" onclick="goToTab('register')"><i class="fas fa-search"></i> রক্তদাতা খুঁজুন</button>
+                </div>
+            </div>
+
+            <h2><i class="fas fa-bars"></i> সংক্ষিপ্ত পরিচিতি</h2>
+            <div class="card">
+                <p style="font-size: 13px; line-height: 1.6; text-align: justify;"><strong>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO)</strong> একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২১ সালে কক্সবাজার পৌরসভার ৭নং ওয়ার্ডের দক্ষিণ রুমালিয়ার ছরা এলাকায় একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়। সমাজ থেকে রক্তের অভাব দূরীকরণ, পরিবেশ রক্ষা এবং যুবসমাজকে দক্ষ জনশক্তিতে রূপান্তর করতে সংগঠনটি নিরলস কাজ করে যাচ্ছে।</p>
+            </div>
+
+            <h2><i class="fas fa-crosshairs"></i> ভিশন ও মিশন</h2>
+            <div class="card" style="border-left: 3px solid var(--secondary);">
+                <p style="font-size: 13px; line-height: 1.5;"><strong>ভিশন:</strong> তরুণদের ঐক্যবদ্ধ করে একটি মানবিক, মাদকমুক্ত, সুশিক্ষিত ও আত্মনির্ভরশীল সমাজ বিনির্মাণ করা।</p>
+                <p style="font-size: 13px; line-height: 1.5; margin-top: 5px;"><strong>মিশন:</strong> প্রত্যন্ত অঞ্চলে বিনামূল্যে রক্তের গ্রুপ নির্ণয়, মুমূর্ষু রোগীদের রক্তদান, বৃক্ষরোপণ, সুবিধাবঞ্চিতদের শিক্ষা সহায়তা এবং যুবকদের লিডারশিপ ও আইটি ট্রেনিং প্রদান করা।</p>
+            </div>
+
+            <h2><i class="fas fa-chart-line"></i> আমাদের পরিসংখ্যান</h2>
+            <div class="stats-grid">
+                <div class="stat-box"><i class="fas fa-tint" style="color:var(--danger)"></i><div>১,২০০+</div><p>রক্তদান</p></div>
+                <div class="stat-box"><i class="fas fa-users"></i><div>৩৫০+</div><p>সদস্য</p></div>
+                <div class="stat-box"><i class="fas fa-tasks"></i><div>২৫+</div><p>প্রকল্প</p></div>
+            </div>
+            
+            <button class="btn btn-primary btn-full" onclick="goToTab('register')"><i class="fas fa-heart"></i> মানবতার সেবায় আজই ডোনেট করুন / জয়েন করুন</button>
         </div>
-        <div class="card">
-            <h3>জরুরি রক্তের যোগাযোগ</h3>
-            <p>কক্সবাজারে ২৪ ঘণ্টা ফ্রি রক্তদান ব্যবস্থাপনার জন্য নিচের নাম্বারে সরাসরি কল করুন।</p>
-            <a href="tel:01839369388" class="btn"><i class="fas fa-phone"></i> 01839369388</a>
+
+
+        <!-- =================== 2. ABOUT US SCREEN =================== -->
+        <div id="screen-about" class="app-screen">
+            <h2><i class="fas fa-history"></i> প্রতিষ্ঠার ইতিহাস ও পূর্ণাঙ্গ পরিচিতি</h2>
+            <div class="card">
+                <p style="font-size:13px; line-height: 1.6; text-align: justify;">মানবতার কল্যাণ এবং স্থানীয় যুবসমাজকে সামাজিক উন্নয়নমূলক কাজে সম্পৃক্ত করার মহৎ উদ্দেশ্যে ২০২১ সালে কক্সবাজারের স্থানীয় তরুণ সমাজসেবক ও সংগঠক <strong>মোহাম্মদ রিয়াজ</strong> এর একক উদ্যোগে এবং একঝাঁক উদ্যমী সহযোদ্ধাদের সক্রিয় সহযোগিতায় <strong>"স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন"</strong> প্রতিষ্ঠিত হয়। প্রতিষ্ঠার পর থেকে সংগঠনটি সফলতার সাথে যুব উন্নয়ন অধিদপ্তরের তালিকাভুক্ত হয়ে (নিবন্ধন নং: যু/উ/অ/সদর-০৯৩) কাজ করে আসছে।</p>
+            </div>
+
+            <h2><i class="fas fa-bullseye"></i> ভিশন, মিশন ও লক্ষ্য</h2>
+            <div class="card">
+                <h3 style="color: var(--primary);"><i class="fas fa-eye"></i> সুদূরপ্রসারী লক্ষ্য:</h3>
+                <p style="font-size:12px; text-align: justify;">কক্সবাজার জেলাসহ দেশব্যাপী একটি শক্তিশালী ব্লাড ডোনার নেটওয়ার্ক গড়ে তোলা এবং প্রতিটি যুবকের ভেতর লুকিয়ে থাকা সুপ্ত প্রতিভাকে জাগ্রত করে সমাজ সংস্কারে কাজে লাগানো।</p>
+            </div>
+
+            <h2><i class="fas fa-user-shield"></i> প্রতিষ্ঠাতা ও প্রতিষ্ঠাতা সদস্যদের তথ্য</h2>
+            <div class="member-card" style="border-left-color: var(--primary);">
+                <div class="member-avatar" style="background: var(--secondary); color: white;"><i class="fas fa-crown"></i></div>
+                <div class="member-info">
+                    <h4>মোহাম্মদ রিয়াজ</h4>
+                    <p>প্রতিষ্ঠাতা</p>
+                </div>
+            </div>
+            <div class="card">
+                <h3 style="font-size:13px; margin-bottom:5px;"><i class="fas fa-users"></i> সম্মানিত প্রতিষ্ঠাতা সদস্যবৃন্দ:</h3>
+                <ul style="font-size:13px; padding-left: 20px; color: #4a5568; line-height: 1.8;">
+                    <li>মাঈনুদ্দিন আহমেদ</li>
+                    <li>নাজিম উদ্দীন</li>
+                    <li>হুমায়রা খানম</li>
+                    <li>নাদিয়া সুলতানা</li>
+                    <li>হেমা বড়ুয়া</li>
+                    <li>হুমায়রা আক্তার</li>
+                </ul>
+            </div>
         </div>
+
+
+        <!-- =================== 3. PROJECTS & ACTIVITIES SCREEN =================== -->
+        <div id="screen-projects" class="app-screen">
+            <h2><i class="fas fa-running"></i> চলমান প্রকল্প ও কার্যক্রম</h2>
+            <div class="card">
+                <div class="project-item">
+                    <h4><i class="fas fa-tint" style="color:var(--danger)"></i> রক্তদান কার্যক্রম</h4>
+                    <p>কক্সবাজার সদর হাসপাতালসহ বিভিন্ন ক্লিনিকে মুমূর্ষু রোগীদের জন্য তাৎক্ষণিক রক্তদাতার ব্যবস্থা করা এবং নিয়মিত ফ্রি ব্লাড গ্রুপিং ক্যাম্পেইন করা।</p>
+                </div>
+                <div class="project-item">
+                    <h4><i class="fas fa-graduation-cap" style="color:#2980b9"></i> শিক্ষা সহায়তা</h4>
+                    <p>দরিদ্র ও সুবিধাবঞ্চিত মেধাবী স্কুল-কলেজের শিক্ষার্থীদের মাঝে বিনামূল্যে খাতা, কলম, স্কুল ব্যাগ বিতরণ এবং জরুরি ভর্তি ও পরীক্ষার ফি প্রদান।</p>
+                </div>
+                <div class="project-item">
+                    <h4><i class="fas fa-box-open" style="color:var(--warning)"></i> ত্রাণ বিতরণ</h4>
+                    <p>প্রাকৃতিক দুর্যোগ, বন্যা ও শীতকালীন তীব্র শৈত্যপ্রবাহে উপকূলের অসহায় মানুষের পাশে শুকনো খাবার, জরুরি ওষুধ এবং কম্বল নিয়ে পাশে দাঁড়ানো।</p>
+                </div>
+                <div class="project-item">
+                    <h4><i class="fas fa-seedling" style="color:var(--primary)"></i> পরিবেশ সংরক্ষণ</h4>
+                    <p>জলবায়ু পরিবর্তনের ঝুঁকি মোকাবেলা ও পরিবেশ সুরক্ষায় প্রতি বছর বর্ষা মৌসুমে ব্যাপক বৃক্ষরোপণ এবং সমুদ্র সৈকত পরিচ্ছন্নতা অভিযান পরিচালনা।</p>
+                </div>
+                <div class="project-item">
+                    <h4><i class="fas fa-laptop-code" style="color:#8e44ad"></i> যুব উন্নয়ন</h4>
+                    <p>বেকার যুবকদের দক্ষ ও স্বাবলম্বী করতে আইটি জ্ঞান, ফ্রিল্যান্সিং পরিচিতি, গ্রাফিক ডিজাইন ও প্রাতিষ্ঠানিক নেতৃত্ব বিষয়ক প্রশিক্ষণ কর্মশালার আয়োজন।</p>
+                </div>
+                <div class="project-item">
+                    <h4><i class="fas fa-bullhorn" style="color:#d35400"></i> সচেতনতামূলক কার্যক্রম</h4>
+                    <p>কিশোর ও যুবসমাজকে ধ্বংসের হাত থেকে বাঁচাতে মাদকবিরোধী সেমিনার, বাল্যবিয়ে রোধ এবং স্বাস্থ্য সচেতনতা তৈ리에 লিফলেট বিতরণ ও ক্যাম্পেইন।</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- =================== 4. GALLERY SCREEN =================== -->
+        <div id="screen-gallery" class="app-screen">
+            <h2><i class="fas fa-images"></i> ছবি ও ভিডিও গ্যালারি</h2>
+            
+            <!-- Category Filter Engine -->
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="filterGallery('all', this)">সব ছবি</button>
+                <button class="filter-btn" onclick="filterGallery('blood', this)">রক্তদান</button>
+                <button class="filter-btn" onclick="filterGallery('edu', this)">শিক্ষা সহায়তা</button>
+                <button class="filter-btn" onclick="filterGallery('relief', this)">ত্রাণ বিতরণ</button>
+                <button class="filter-btn" onclick="filterGallery('env', this)">পরিবেশ সংরক্ষণ</button>
+            </div>
+
+            <!-- Image Grid with Lightbox Trigger -->
+            <div class="gallery-grid">
+                <div class="gallery-item cat-blood" onclick="openLightbox('https://images.unsplash.com/photo-1615461066841-6116ecdccd04?q=80&w=400')">
+                    <img src="https://images.unsplash.com/photo-1615461066841-6116ecdccd04?q=80&w=400" alt="Blood Donation">
+                    <span class="item-type">রক্তদান ক্যাম্প</span>
+                </div>
+                <div class="gallery-item cat-edu" onclick="openLightbox('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=400')">
+                    <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=400" alt="Education Help">
+                    <span class="item-type">শিক্ষা সামগ্রী বিতরণ</span>
+                </div>
+                <div class="gallery-item cat-relief" onclick="openLightbox('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=400')">
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=400" alt="Relief">
+                    <span class="item-type">ত্রাণ বিতরণ</span>
+                </div>
+                <div class="gallery-item cat-env" onclick="openLightbox('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=400')">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=400" alt="Environment">
+                    <span class="item-type">বৃক্ষরোপণ কর্মসূচি</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- =================== 5. EXECUTIVE COMMITTEE SCREEN =================== -->
+        <div id="screen-committee" class="app-screen">
+            <h2><i class="fas fa-user-tie"></i> উপদেষ্টা পরিষদ</h2>
+            <div id="advisor-list">
+                <!-- Dynamically populated from JavaScript -->
+            </div>
+
+            <h2><i class="fas fa-users-cog"></i> কার্যনির্বাহী কমিটি</h2>
+            <div class="search-area">
+                <div class="search-input-group">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="commSearch" placeholder="নাম বা পদবি দিয়ে কার্ড খুঁজুন..." oninput="filterCommittee()">
+                </div>
+            </div>
+            <div id="committee-cards-container">
+                <!-- Dynamically populated from JavaScript with beautiful card design -->
+            </div>
+        </div>
+
+
+        <!-- =================== 6. MEMBERSHIP & BLOOD DONOR SCREEN =================== -->
+        <div id="screen-register" class="app-screen">
+            <h2><i class="fas fa-search-location"></i> Blood Group Search Option</h2>
+            <div class="form-group">
+                <select id="bloodSearch" onchange="runBloodSearch()" style="border: 2px solid var(--danger); font-weight: bold; color: var(--danger);">
+                    <option value="ALL">🩸 সমস্ত নিবন্ধিত রক্তদাতা দেখুন</option>
+                    <option value="A+">A+</option><option value="A-">A-</option>
+                    <option value="B+">B+</option><option value="B-">B-</option>
+                    <option value="O+">O+</option><option value="O-">O-</option>
+                    <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                </select>
+            </div>
+            <div id="donorResults" style="margin-bottom: 20px;"></div>
+
+            <h2><i class="fas fa-user-edit"></i> অনলাইন নিবন্ধন (সদস্য / রক্তদাতা ফর্ম)</h2>
+            <div class="card">
+                <form onsubmit="handleRegistration(event)">
+                    <div class="form-group">
+                        <label>নিবন্ধনের ধরন:</label>
+                        <select id="formType">
+                            <option value="সদস্য">সদস্য নিবন্ধন ফর্ম</option>
+                            <option value="রক্তদাতা">রক্তদাতা নিবন্ধন ফর্ম</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>পূর্ণ নাম (বাংলা অথবা ইংরেজি):</label>
+                        <input type="text" id="formName" required placeholder="উদা: মোহাম্মদ রিয়াজ">
+                    </div>
+                    <div class="form-group">
+                        <label>রক্তের গ্রুপ:</label>
+                        <select id="formBlood">
+                            <option value="A+">A+</option><option value="A-">A-</option>
+                            <option value="B+">B+</option><option value="B-">B-</option>
+                            <option value="O+">O+</option><option value="O-">O-</option>
+                            <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>ফোন নাম্বার:</label>
+                        <input type="tel" id="formPhone" required placeholder="উদা: 018XXXXXXXX">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-check-circle"></i> ডাটাবেজে সাবমিট করুন</button>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- =================== 7. CONTACT SCREEN =================== -->
+        <div id="screen-contact" class="app-screen">
+            <h2><i class="fas fa-address-book"></i> ফোন, ইমেইল, অফিস ঠিকানা</h2>
+            <div class="card">
+                <p style="font-size: 13.5px; margin-bottom: 10px;"><i class="fas fa-building" style="color:var(--primary); width:20px;"></i> <strong>কার্যালয়:</strong> সোনাআলী ভবন, দক্ষিণ রুমালিয়ার ছরা, ৭নং ওয়ার্ড, পৌরসভা, কক্সবাজার।</p>
+                <p style="font-size: 13.5px; margin-bottom: 10px;"><i class="fas fa-phone-alt" style="color:var(--primary); width:20px;"></i> <strong>ফোন:</strong> <a href="tel:01839369388" style="text-decoration:none; color:inherit;">01839369388</a></p>
+                <p style="font-size: 13.5px;"><i class="fas fa-envelope" style="color:var(--primary); width:20px;"></i> <strong>ইমেইল:</strong> swapnataricoxbd@gmail.com</p>
+            </div>
+
+            <h2><i class="fas fa-share-nodes"></i> Facebook, WhatsApp, YouTube ও Email Link</h2>
+            <div class="btn-group" style="margin-bottom: 20px;">
+                <a href="https://facebook.com" target="_blank" class="btn btn-primary" style="background:#3b5998"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="https://wa.me/8801839369388" target="_blank" class="btn btn-primary" style="background:#25d366"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="https://youtube.com" target="_blank" class="btn btn-danger"><i class="fab fa-youtube"></i> YouTube</a>
+                <a href="mailto:swapnataricoxbd@gmail.com" class="btn btn-warning"><i class="fas fa-envelope"></i> Email Link</a>
+            </div>
+
+            <h2><i class="fas fa-map-location-dot"></i> Google Map Integration</h2>
+            <div class="card" style="padding:0; overflow:hidden; height:180px; border-radius: 12px;">
+                <!-- Fixed Sandbox Embedding Vector for Cox's Bazar Area -->
+                <iframe src="https://www.google.com/maps/embed?pb=!11m12!1m3!1d14801.404285859187!2d91.97960325!3d21.43444455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sbn!2sbd!4v1690000000000!5m2!1sbn!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <h2><i class="fas fa-paper-plane"></i> সরাসরি যোগাযোগ ফর্ম</h2>
+            <div class="card">
+                <form onsubmit="alert('আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে।'); this.reset(); return false;">
+                    <div class="form-group"><input type="text" placeholder="আপনার নাম" required></div>
+                    <div class="form-group"><input type="tel" placeholder="আপনার মোবাইল নাম্বার" required></div>
+                    <div class="form-group"><textarea placeholder="আপনার বার্তাটি এখানে লিখুন..." rows="3" required></textarea></div>
+                    <button type="submit" class="btn btn-primary btn-full">বার্তা পাঠান</button>
+                </form>
+            </div>
+        </div>
+
     </div>
+
+    <!-- Lightbox Functional Modal Content Container -->
+    <div id="customLightbox" class="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img id="lightboxImg" src="" alt="Enlarged View">
+    </div>
+
+    <!-- Bottom App Navigation Tabs (7 Dynamic Standard Tabs Ecosystem) -->
     <nav class="bottom-nav">
-        <div class="nav-item active"><i class="fas fa-home"></i>হোম</div>
-        <a href="mailto:swapnataricoxbd@gmail.com" class="nav-item"><i class="fas fa-envelope"></i>ইমেইল</a>
-        <a href="https://wa.me/8801839369388" class="nav-item"><i class="fab fa-whatsapp"></i>হোয়াটসঅ্যাপ</a>
+        <div class="nav-item active" onclick="switchTab('home', this)"><i class="fas fa-home"></i>হোম</div>
+        <div class="nav-item" onclick="switchTab('about', this)"><i class="fas fa-info-circle"></i>পরিচিতি</div>
+        <div class="nav-item" onclick="switchTab('projects', this)"><i class="fas fa-running"></i>কার্যক্রম</div>
+        <div class="nav-item" onclick="switchTab('gallery', this)"><i class="fas fa-images"></i>গ্যালারি</div>
+        <div class="nav-item" onclick="switchTab('committee', this)"><i class="fas fa-user-shield"></i>কমিটি</div>
+        <div class="nav-item" onclick="switchTab('register', this)"><i class="fas fa-user-check"></i>নিবন্ধন</div>
+        <div class="nav-item" onclick="switchTab('contact', this)"><i class="fas fa-phone-alt"></i>যোগাযোগ</div>
     </nav>
+
+    <script>
+        // Core Static Local Data Engine 
+        let bloodDonors = [
+            { name: "মোহাম্মদ রিয়াজ", group: "O+", phone: "01839369388" },
+            { name: "মাঈনুদ্দিন আহমেদ", group: "A+", phone: "01839369388" },
+            { name: "নাজিম উদ্দীন", group: "B+", phone: "01839369388" },
+            { name: "হুমায়রা khanom", group: "AB+", phone: "01839369388" }
+        ];
+
+        let advisors = [
+            { name: "সম্মানিত আলহাজ্ব মো: সোনা আলী", role: "প্রধান উপদেষ্টা", position: "বিশিষ্ট সমাজсеবক, কক্সবাজার" },
+            { name: "ড. আশরাফুল ইসলাম", role: "উপদেষ্টা সদস্য", position: "শিক্ষা অনুরাগী, কক্সবাজার" }
+        ];
+
+        let committeeMembers = [
+            { name: "মোহাম্মদ রিয়াজ", role: "প্রতিষ্ঠাতা", type: "founder" },
+            { name: "মাঈনুদ্দিন আহমেদ", role: "প্রতিষ্ঠাতা সদস্য ও সহ-সভাপতি", type: "executive" },
+            { name: "নাজিম উদ্দীন", role: "প্রতিষ্ঠাতা সদস্য ও সাধারণ সম্পাদক", type: "executive" },
+            { name: "হুমায়রা খানম", role: "প্রতিষ্ঠাতা সদস্য ও সাংগঠনিক সম্পাদক", type: "executive" },
+            { name: "নাদিয়া সুলতানা", role: "প্রতিষ্ঠাতা সদস্য ও অর্থ সম্পাদক", type: "executive" },
+            { name: "হেমা বড়ুয়া", role: "প্রতিষ্ঠাতা সদস্য ও দপ্তর সম্পাদক", type: "executive" },
+            { name: "হুমায়রা আক্তার", role: "প্রতিষ্ঠাতা সদস্য ও প্রচার সম্পাদক", type: "executive" }
+        ];
+
+        window.onload = function() {
+            renderAdvisors();
+            renderCommittee(committeeMembers);
+        };
+
+        function renderAdvisors() {
+            const container = document.getElementById('advisor-list');
+            container.innerHTML = "";
+            advisors.forEach(a => {
+                container.innerHTML += `
+                    <div class="member-card" style="border-left-color: var(--warning);">
+                        <div class="member-avatar" style="color:var(--warning);"><i class="fas fa-user-tie"></i></div>
+                        <div class="member-info">
+                            <h4>${a.name}</h4>
+                            <p>${a.role}</p>
+                            <span>${a.position}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderCommittee(list) {
+            const container = document.getElementById('committee-cards-container');
+            container.innerHTML = "";
+            if(list.length === 0) {
+                container.innerHTML = "<p style='text-align:center; font-size:12px; color:#718096; padding:15px;'>কোনো সদস্যের মিল পাওয়া যায়নি।</p>";
+                return;
+            }
+            list.forEach(m => {
+                let badgeTxt = m.type === 'founder' ? 'প্রতিষ্ঠাতা' : 'নির্বাহী কমিটি';
+                let badgeCol = m.type === 'founder' ? 'background:#feebc8; color:#c05621;' : 'background:#e6fffa; color:#234e52;';
+                container.innerHTML += `
+                    <div class="member-card">
+                        <div class="member-avatar"><i class="fas fa-user"></i></div>
+                        <div class="member-info">
+                            <h4>${m.name}</h4>
+                            <p>${m.role}</p>
+                        </div>
+                        <span style="font-size:10px; font-weight:700; padding:2px 7px; border-radius:10px; ${badgeCol}">${badgeTxt}</span>
+                    </div>
+                `;
+            });
+        }
+
+        function filterCommittee() {
+            let q = document.getElementById('commSearch').value.toLowerCase();
+            let filtered = committeeMembers.filter(m => m.name.toLowerCase().includes(q) || m.role.toLowerCase().includes(q));
+            renderCommittee(filtered);
+        }
+
+        function switchTab(screenId, element) {
+            document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            
+            document.getElementById('screen-' + screenId).classList.add('active');
+            if(element) element.classList.add('active');
+            window.scrollTo(0,0);
+
+            if(screenId === 'register') { runBloodSearch(); }
+        }
+
+        function goToTab(screenId) {
+            const indices = { home:0, about:1, projects:2, gallery:3, committee:4, register:5, contact:6 };
+            const target = document.querySelectorAll('.nav-item')[indices[screenId]];
+            switchTab(screenId, target);
+        }
+
+        function runBloodSearch() {
+            const grp = document.getElementById('bloodSearch').value;
+            const container = document.getElementById('donorResults');
+            container.innerHTML = "";
+
+            let filtered = grp === "ALL" ? bloodDonors : bloodDonors.filter(d => d.group === grp);
+
+            if(filtered.length === 0) {
+                container.innerHTML = "<p style='color:#718096; font-size:12px; text-align:center; padding:10px;'>এই রক্তের গ্রুপের কোনো ডোনার এখনো নিবন্ধিত হয়নি।</p>";
+                return;
+            }
+
+            filtered.forEach(d => {
+                container.innerHTML += `
+                    <div class="member-card" style="justify-content: space-between; border-left: 3px solid var(--danger);">
+                        <div>
+                            <h4>${d.name}</h4>
+                            <span style="font-size:11px;">রক্তের গ্রুপ: <strong style="color:var(--danger)">${d.group}</strong></span>
+                        </div>
+                        <a href="tel:${d.phone}" class="btn btn-primary" style="padding:5px 10px; font-size:11px; background:var(--danger); border-radius:5px;"><i class="fas fa-phone-alt"></i> কল করুন</a>
+                    </div>
+                `;
+            });
+        }
+
+        function handleRegistration(e) {
+            e.preventDefault();
+            const type = document.getElementById('formType').value;
+            const name = document.getElementById('formName').value;
+            const blood = document.getElementById('formBlood').value;
+            const phone = document.getElementById('formPhone').value;
+
+            if(type === "রক্তদাতা") {
+                bloodDonors.unshift({ name: name, group: blood, phone: phone });
+                runBloodSearch();
+            } else {
+                committeeMembers.push({ name: name, role: "সাধারণ সদস্য (আবেদনকারী)", type: "general" });
+                filterCommittee();
+            }
+
+            alert(`সফল হয়েছে! আপনার ${type} নিবন্ধন ডেটা সাময়িকভাবে সিস্টেমে সাবমিট হয়েছে।`);
+            document.getElementById('formName').value = "";
+            document.getElementById('formPhone').value = "";
+        }
+
+        function filterGallery(category, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                if(category === 'all' || item.classList.contains('cat-' + category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function openLightbox(url) {
+            document.getElementById('lightboxImg').src = url;
+            document.getElementById('customLightbox').style.display = 'flex';
+        }
+        function closeLightbox() {
+            document.getElementById('customLightbox').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
