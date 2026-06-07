@@ -23,13 +23,15 @@
         body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; }
 
         /* App Header */
-        .app-header { background: var(--secondary); color: white; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 1100; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .app-header h1 { font-size: 20px; font-weight: 700; }
-        .app-header .eng-title { font-size: 11px; letter-spacing: 0.5px; opacity: 0.9; margin-top: 2px; text-transform: uppercase; font-family: Arial, sans-serif; }
-        .app-header p { font-size: 13px; color: #58fa9b; margin-top: 4px; font-weight: bold; }
+        .app-header { background: var(--secondary); color: white; padding: 12px 15px; text-align: center; position: sticky; top: 0; z-index: 1100; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .app-header .header-logo { width: 45px; height: 45px; border-radius: 50%; background: white; padding: 2px; object-fit: contain; }
+        .app-header .header-text-group { text-align: left; }
+        .app-header h1 { font-size: 16px; font-weight: 700; line-height: 1.2; }
+        .app-header .eng-title { font-size: 10px; letter-spacing: 0.3px; opacity: 0.9; text-transform: uppercase; font-family: Arial, sans-serif; }
+        .app-header p { font-size: 11px; color: #58fa9b; font-weight: bold; margin-top: 1px; }
 
         /* Main Container */
-        .app-container { padding: 15px; max-width: 500px; margin: 0 auto; }
+        .app-container { padding: 15px; max-width: 600px; margin: 0 auto; }
 
         /* Screens Animation Logic */
         .app-screen { display: none; animation: fadeIn 0.3s ease-in-out; }
@@ -46,7 +48,8 @@
         
         /* Hero Section Styling */
         .hero { background: linear-gradient(135deg, rgba(26,54,93,0.95), rgba(39,174,96,0.9)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=500') no-repeat center/cover; color: white; padding: 25px 15px; border-radius: 15px; text-align: center; margin-bottom: 15px; }
-        .hero .logo-icon { font-size: 35px; margin-bottom: 8px; color: #fff; }
+        .hero .logo-img-container { margin-bottom: 10px; }
+        .hero .hero-logo { width: 85px; height: 85px; border-radius: 50%; background: white; padding: 4px; object-fit: contain; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
         .hero h2 { color: white; border: none; padding: 0; font-size: 21px; margin-bottom: 2px; justify-content: center; }
         .hero .eng-sub { font-size: 11px; opacity: 0.8; font-family: Arial, sans-serif; margin-bottom: 8px; }
         .hero .badge { background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 20px; font-size: 10px; display: inline-block; margin-bottom: 12px; }
@@ -57,10 +60,20 @@
         .btn { padding: 8px 15px; border-radius: 25px; border: none; font-weight: 600; cursor: pointer; text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 5px; transition: 0.2s; }
         .btn:active { transform: scale(0.95); }
         .btn-primary { background: var(--primary); color: white; }
+        .btn-secondary { background: var(--secondary); color: white; }
         .btn-danger { background: var(--danger); color: white; }
         .btn-warning { background: var(--warning); color: white; }
         .btn-full { width: 100%; justify-content: center; margin-top: 5px; border-radius: 8px; padding: 10px; }
 
+        /* Grid Framework */
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        @media(max-width: 480px) { .form-grid { grid-template-columns: 1fr; } }
+
+        /* Forms Architecture */
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: #4a5568; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 13px; outline: none; background: #fff; }
+        
         /* Realtime Stats Counter Grid */
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
         .stat-box { background: white; padding: 12px 5px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
@@ -68,59 +81,56 @@
         .stat-box div { font-size: 18px; font-weight: 700; color: var(--secondary); }
         .stat-box p { font-size: 11px; color: #718096; }
 
-        /* Dynamic Member Cards Design */
-        .member-card { display: flex; align-items: center; gap: 12px; background: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); border-left: 3px solid var(--secondary); }
-        .member-avatar { width: 42px; height: 42px; background: #edf2f7; color: var(--secondary); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 16px; flex-shrink: 0; }
-        .member-info { flex-grow: 1; }
-        .member-info h4 { font-size: 14px; color: var(--secondary); font-weight: 700; }
-        .member-info p { font-size: 12px; color: var(--primary); font-weight: 600; }
-        .member-info span { font-size: 11px; color: #718096; display: block; margin-top: 1px; }
+        /* Member Card Layouts */
+        .member-card { display: flex; flex-direction: column; background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid var(--secondary); }
+        .member-header-info { display: flex; gap: 15px; align-items: center; width: 100%; }
+        .member-img-preview { width: 65px; height: 65px; border-radius: 8px; object-fit: cover; background: #edf2f7; border: 1px solid #cbd5e0; }
+        .member-main-details { flex-grow: 1; }
+        .member-main-details h4 { font-size: 15px; color: var(--secondary); }
+        .member-main-details p { font-size: 12px; color: var(--primary); font-weight: 600; }
+        .member-meta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #e2e8f0; font-size: 11.5px; }
 
-        /* Projects List */
-        .project-item { border-left: 3px solid var(--primary); padding-left: 10px; margin-bottom: 15px; }
-        .project-item h4 { font-size: 14px; color: var(--secondary); margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
-        .project-item p { font-size: 12px; color: #4a5568; line-height: 1.5; text-align: justify; }
+        /* Signature Display Architecture */
+        .signature-display-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; text-align: center; padding-top: 10px; border-top: 1px solid #edf2f7; }
+        .sig-box { font-size: 10px; color: #718096; }
+        .sig-box img { max-width: 100%; height: 25px; object-fit: contain; display: block; margin: 0 auto 2px auto; }
+        .sig-line { border-top: 1px solid #cbd5e0; margin-top: 3px; padding-top: 2px; }
 
-        /* Media Gallery with Filter Engine */
-        .filter-bar { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 15px; scrollbar-width: none; }
-        .filter-bar::-webkit-scrollbar { display: none; }
-        .filter-btn { padding: 5px 12px; background: #e2e8f0; border: none; border-radius: 20px; font-size: 11px; cursor: pointer; white-space: nowrap; font-weight: 600; color: #4a5568; }
-        .filter-btn.active { background: var(--primary); color: white; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .gallery-item { background: #eee; border-radius: 8px; overflow: hidden; position: relative; height: 100px; cursor: pointer; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-        .gallery-item .item-type { position: absolute; bottom: 4px; left: 4px; background: rgba(0,0,0,0.7); color: white; padding: 1px 5px; font-size: 9px; border-radius: 3px; }
+        /* ID CARD GENERATOR GRAPHICS COMPONENT */
+        .id-card-wrapper { display: flex; justify-content: center; margin: 20px 0; }
+        .id-card { width: 320px; height: 480px; background: white; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); overflow: hidden; position: relative; border: 4px solid var(--secondary); display: flex; flex-direction: column; }
+        .id-card-top { background: var(--secondary); color: white; padding: 15px 10px; text-align: center; position: relative; }
+        .id-card-top::after { content: ''; position: absolute; bottom: -15px; left: 0; right: 0; height: 15px; background: var(--secondary); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+        .id-card-top h3 { font-size: 13px; color: white; margin: 0; font-weight: 700; text-transform: uppercase; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+        .id-card-top p { font-size: 9px; color: #58fa9b; font-weight: 600; margin-top: 2px; }
+        .id-card-body { flex-grow: 1; padding: 25px 15px 15px 15px; display: flex; flex-direction: column; align-items: center; background: #fff; }
+        .id-photo-container { width: 100px; height: 100px; border-radius: 50%; border: 3.5px solid var(--primary); overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 10px; background: #f7fafc; display: flex; align-items: center; justify-content: center; }
+        .id-photo-container img { width: 100%; height: 100%; object-fit: cover; }
+        .id-name { font-size: 16px; font-weight: 700; color: var(--secondary); margin-bottom: 2px; text-align: center; }
+        .id-role { font-size: 12px; font-weight: 700; color: white; background: var(--primary); padding: 2px 14px; border-radius: 20px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .id-details-table { width: 100%; font-size: 11px; border-collapse: collapse; margin-bottom: 10px; }
+        .id-details-table td { padding: 4px 2px; vertical-align: top; color: #4a5568; }
+        .id-details-table td strong { color: var(--secondary); }
+        .id-card-footer { background: var(--secondary); color: white; text-align: center; padding: 6px; font-size: 9px; font-weight: bold; margin-top: auto; border-top: 3px solid var(--primary); }
 
-        /* Forms Architecture */
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: #4a5568; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 13px; outline: none; background: #fff; }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
-        
-        .search-area { background: white; padding: 10px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); margin-bottom: 15px; }
-        .search-input-group { position: relative; display: flex; align-items: center; }
-        .search-input-group i { position: absolute; left: 12px; color: #a0aec0; font-size: 13px; }
-        .search-input-group input { width: 100%; padding: 7px 10px 7px 32px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px; outline: none; }
-
-        /* Lightbox Overlay Viewport */
-        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
-        .lightbox img { max-width: 100%; max-height: 80%; border-radius: 8px; }
-        .lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 30px; cursor: pointer; }
-
-        /* Bottom Persistent Navigation Bar (7 Tabs Layout) */
+        /* Bottom Persistent Navigation Bar */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; height: 60px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 -3px 10px rgba(0,0,0,0.05); z-index: 1500; }
         .nav-item { text-align: center; color: #a0aec0; cursor: pointer; padding: 4px 0; font-size: 10px; font-weight: 600; flex: 1; }
-        .nav-item i { font-size: 16px; display: block; margin-bottom: 2px; }
+        .nav-item i { font-size: 15px; display: block; margin-bottom: 2px; }
         .nav-item.active { color: var(--primary); }
+        .admin-action-btn-group { display: flex; gap: 5px; margin-top: 10px; justify-content: flex-end; }
     </style>
 </head>
 <body>
 
     <!-- Main Header Panel -->
     <header class="app-header">
-        <h1>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h1>
-        <div class="eng-title">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION (SVYO)</div>
-        <p>“সৃষ্টির সেবাই আমাদের স্বপ্নতরী”</p>
+        <img id="render-header-logo" src="20260304_112626.jpg" alt="SVYO Logo" class="header-logo">
+        <div class="header-text-group">
+            <h1 id="render-app-name">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h1>
+            <div id="render-eng-name" class="eng-title">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
+            <p id="render-slogan">“সৃষ্টির সেবাই আমাদের স্বপ্নতরী”</p>
+        </div>
     </header>
 
     <div class="app-container">
@@ -128,349 +138,489 @@
         <!-- =================== 1. HOME SCREEN =================== -->
         <div id="screen-home" class="app-screen active">
             <div class="hero">
-                <div class="logo-icon"><i class="fas fa-ship"></i></div>
-                <h2>স্বপ্নতরী (SVYO)</h2>
-                <div class="eng-sub">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
-                <span class="badge"><i class="fas fa-award"></i> নিবন্ধন নং: যু/উ/অ/সদর-০৯৩</span>
-                <p>২০২১ সাল থেকে কক্সবাজারে মানবকল্যাণ, জরুরি রক্ত সরবরাহ, সামাজিক সচেতনতা বৃদ্ধি এবং যুব উন্নয়নে নিয়োজিত একটি নির্ভরযোগ্য সমাজসেবামূলক স্বেচ্ছাসেবী প্ল্যাটফর্ম।</p>
+                <div class="logo-img-container">
+                    <img id="render-hero-logo" src="20260304_112626.jpg" alt="SVYO Logo" class="hero-logo">
+                </div>
+                <h2 id="render-hero-title">স্বপ্নতরী (SVYO)</h2>
+                <div id="render-hero-eng" class="eng-sub">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
+                <span class="badge"><i class="fas fa-award"></i> <span id="render-reg-no">নিবন্ধন নং: যু/উ/অ/সদর-০৯৩</span></span>
+                <p id="render-home-desc">২০২১ সাল থেকে কক্সবাজারে মানবকল্যাণ, জরুরি রক্ত সরবরাহ, সামাজিক সচেতনতা বৃদ্ধি এবং যুব উন্নয়নে নিয়োজিত একটি নির্ভরযোগ্য সমাজসেবামূলক স্বেচ্ছাসেবী প্ল্যাটফর্ম।</p>
                 <div class="btn-group">
-                    <button class="btn btn-primary" onclick="goToTab('register')"><i class="fas fa-user-plus"></i> আমাদের সাথে যুক্ত হোন</button>
-                    <button class="btn btn-danger" onclick="goToTab('register')"><i class="fas fa-search"></i> রক্তদাতা খুঁজুন</button>
+                    <button class="btn btn-primary" onclick="goToTab('register')"><i class="fas fa-user-plus"></i> ফরম ও মেম্বারশিপ</button>
+                    <button class="btn btn-danger" onclick="goToTab('contact')"><i class="fas fa-search"></i> রক্তদাতা খুঁজুন</button>
                 </div>
             </div>
 
             <h2><i class="fas fa-bars"></i> সংক্ষিপ্ত পরিচিতি</h2>
             <div class="card">
-                <p style="font-size: 13px; line-height: 1.6; text-align: justify;"><strong>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO)</strong> একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২১ সালে কক্সবাজার পৌরসভার ৭নং ওয়ার্ডের দক্ষিণ রুমালিয়ার ছরা এলাকায় একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়। সমাজ থেকে রক্তের অভাব দূরীকরণ, পরিবেশ রক্ষা এবং যুবসমাজকে দক্ষ জনশক্তিতে রূপান্তর করতে সংগঠনটি নিরলস কাজ করে যাচ্ছে।</p>
-            </div>
-
-            <h2><i class="fas fa-crosshairs"></i> ভিশন ও মিশন</h2>
-            <div class="card" style="border-left: 3px solid var(--secondary);">
-                <p style="font-size: 13px; line-height: 1.5;"><strong>ভিশন:</strong> তরুণদের ঐক্যবদ্ধ করে একটি মানবিক, মাদকমুক্ত, সুশিক্ষিত ও আত্মনির্ভরশীল সমাজ বিনির্মাণ করা।</p>
-                <p style="font-size: 13px; line-height: 1.5; margin-top: 5px;"><strong>মিশন:</strong> প্রত্যন্ত অঞ্চলে বিনামূল্যে রক্তের গ্রুপ নির্ণয়, মুমূর্ষু রোগীদের রক্তদান, বৃক্ষরোপণ, সুবিধাবঞ্চিতদের শিক্ষা সহায়তা এবং যুবকদের লিডারশিপ ও আইটি ট্রেনিং প্রদান করা।</p>
+                <p id="render-about-short" style="font-size: 13px; line-height: 1.6; text-align: justify;"><strong>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO)</strong> একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২১ সালে কক্সবাজার পৌরসভার ৭নং ওয়ার্ডের দক্ষিণ রুমালিয়ার ছরা এলাকায় একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়। সমাজ থেকে রক্তের অভাব দূরীকরণ, পরিবেশ রক্ষা এবং যুবসমাজকে দক্ষ জনশক্তিতে রূপান্তর করতে সংগঠনটি নিরলস কাজ করে যাচ্ছে।</p>
             </div>
 
             <h2><i class="fas fa-chart-line"></i> আমাদের পরিসংখ্যান</h2>
             <div class="stats-grid">
-                <div class="stat-box"><i class="fas fa-tint" style="color:var(--danger)"></i><div>১,২০০+</div><p>রক্তদান</p></div>
-                <div class="stat-box"><i class="fas fa-users"></i><div>৩৫০+</div><p>সদস্য</p></div>
-                <div class="stat-box"><i class="fas fa-tasks"></i><div>২৫+</div><p>প্রকল্প</p></div>
+                <div class="stat-box"><i class="fas fa-tint" style="color:var(--danger)"></i><div id="render-stat-blood">১,২০০+</div><p>রক্তদান</p></div>
+                <div class="stat-box"><i class="fas fa-users"></i><div id="render-stat-members">৩৫০+</div><p>সদস্য</p></div>
+                <div class="stat-box"><i class="fas fa-tasks"></i><div id="render-stat-projects">২৫+</div><p>প্রকল্প</p></div>
             </div>
-            
-            <button class="btn btn-primary btn-full" onclick="goToTab('register')"><i class="fas fa-heart"></i> মানবতার সেবায় আজই ডোনেট করুন / জয়েন করুন</button>
         </div>
 
-
-        <!-- =================== 2. ABOUT US SCREEN =================== -->
+        <!-- =================== 2. COMMITTES & REGISTRY SCREEN =================== -->
         <div id="screen-about" class="app-screen">
-            <h2><i class="fas fa-history"></i> প্রতিষ্ঠার ইতিহাস ও পূর্ণাঙ্গ পরিচিতি</h2>
+            <h2><i class="fas fa-history"></i> প্রতিষ্ঠার ইতিহাস</h2>
             <div class="card">
-                <p style="font-size:13px; line-height: 1.6; text-align: justify;">মানবতার কল্যাণ এবং স্থানীয় যুবসমাজকে সামাজিক উন্নয়নমূলক কাজে সম্পৃক্ত করার মহৎ উদ্দেশ্যে ২০২১ সালে কক্সবাজারের স্থানীয় তরুণ সমাজসেবক ও সংগঠক <strong>মোহাম্মদ রিয়াজ</strong> এর একক উদ্যোগে এবং একঝাঁক উদ্যমী সহযোদ্ধাদের সক্রিয় সহযোগিতায় <strong>"স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন"</strong> প্রতিষ্ঠিত হয়। প্রতিষ্ঠার পর থেকে সংগঠনটি সফলতার সাথে যুব উন্নয়ন অধিদপ্তরের তালিকাভুক্ত হয়ে (নিবন্ধন নং: যু/উ/অ/সদর-০৯৩) কাজ করে আসছে।</p>
+                <p id="render-history-full" style="font-size:13px; line-height: 1.6; text-align: justify;">মানবতার কল্যাণ এবং স্থানীয় যুবসমাজকে সামাজিক উন্নয়নমূলক কাজে সম্পৃক্ত করার মহৎ উদ্দেশ্যে ২০২১ সালে কক্সবাজারের স্থানীয় তরুণ সমাজসেবক ও সংগঠক <strong>মোহাম্মদ রিয়াজ</strong> এর একক উদ্যোগে এবং একঝাঁক উদ্যমী সহযোদ্ধাদের সক্রিয় সহযোগিতায় <strong>"স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন"</strong> প্রতিষ্ঠিত হয়। প্রতিষ্ঠার পর থেকে সংগঠনটি সফলতার সাথে যুব উন্নয়ন অধিদপ্তরের তালিকাভুক্ত হয়ে কাজ করে আসছে।</p>
             </div>
 
-            <h2><i class="fas fa-bullseye"></i> ভিশন, মিশন ও লক্ষ্য</h2>
-            <div class="card">
-                <h3 style="color: var(--primary);"><i class="fas fa-eye"></i> সুদূরপ্রসারী লক্ষ্য:</h3>
-                <p style="font-size:12px; text-align: justify;">কক্সবাজার জেলাসহ দেশব্যাপী একটি শক্তিশালী ব্লাড ডোনার নেটওয়ার্ক গড়ে তোলা এবং প্রতিটি যুবকের ভেতর লুকিয়ে থাকা সুপ্ত প্রতিভাকে জাগ্রত করে সমাজ সংস্কারে কাজে লাগানো।</p>
-            </div>
-
-            <h2><i class="fas fa-user-shield"></i> প্রতিষ্ঠাতা ও প্রতিষ্ঠাতা সদস্যদের তথ্য</h2>
-            <div class="member-card" style="border-left-color: var(--primary);">
-                <div class="member-avatar" style="background: var(--secondary); color: white;"><i class="fas fa-crown"></i></div>
-                <div class="member-info">
-                    <h4>মোহাম্মদ রিয়াজ</h4>
-                    <p>প্রতিষ্ঠাতা</p>
-                </div>
-            </div>
-            <div class="card">
-                <h3 style="font-size:13px; margin-bottom:5px;"><i class="fas fa-users"></i> সম্মানিত প্রতিষ্ঠাতা সদস্যবৃন্দ:</h3>
-                <ul style="font-size:13px; padding-left: 20px; color: #4a5568; line-height: 1.8;">
-                    <li>মাঈনুদ্দিন আহমেদ</li>
-                    <li>নাজিম উদ্দীন</li>
-                    <li>হুমায়রা খানম</li>
-                    <li>নাদিয়া সুলতানা</li>
-                    <li>হেমা বড়ুয়া</li>
-                    <li>হুমায়রা আক্তার</li>
-                </ul>
-            </div>
+            <h2><i class="fas fa-users-cog"></i> আমাদের নিবন্ধিত সদস্য ও উপদেষ্টামণ্ডলী</h2>
+            <div id="render-public-members-list"></div>
         </div>
 
-
-        <!-- =================== 3. PROJECTS & ACTIVITIES SCREEN =================== -->
-        <div id="screen-projects" class="app-screen">
-            <h2><i class="fas fa-running"></i> চলমান প্রকল্প ও কার্যক্রম</h2>
-            <div class="card">
-                <div class="project-item">
-                    <h4><i class="fas fa-tint" style="color:var(--danger)"></i> রক্তদান কার্যক্রম</h4>
-                    <p>কক্সবাজার সদর হাসপাতালসহ বিভিন্ন ক্লিনিকে মুমূর্ষু রোগীদের জন্য তাৎক্ষণিক রক্তদাতার ব্যবস্থা করা এবং নিয়মিত ফ্রি ব্লাড গ্রুপিং ক্যাম্পেইন করা।</p>
-                </div>
-                <div class="project-item">
-                    <h4><i class="fas fa-graduation-cap" style="color:#2980b9"></i> শিক্ষা সহায়তা</h4>
-                    <p>দরিদ্র ও সুবিধাবঞ্চিত মেধাবী স্কুল-কলেজের শিক্ষার্থীদের মাঝে বিনামূল্যে খাতা, কলম, স্কুল ব্যাগ বিতরণ এবং জরুরি ভর্তি ও পরীক্ষার ফি প্রদান।</p>
-                </div>
-                <div class="project-item">
-                    <h4><i class="fas fa-box-open" style="color:var(--warning)"></i> ত্রাণ বিতরণ</h4>
-                    <p>প্রাকৃতিক দুর্যোগ, বন্যা ও শীতকালীন তীব্র শৈত্যপ্রবাহে উপকূলের অসহায় মানুষের পাশে শুকনো খাবার, জরুরি ওষুধ এবং কম্বল নিয়ে পাশে দাঁড়ানো।</p>
-                </div>
-                <div class="project-item">
-                    <h4><i class="fas fa-seedling" style="color:var(--primary)"></i> পরিবেশ সংরক্ষণ</h4>
-                    <p>জলবায়ু পরিবর্তনের ঝুঁকি মোকাবেলা ও পরিবেশ সুরক্ষায় প্রতি বছর বর্ষা মৌসুমে ব্যাপক বৃক্ষরোপণ এবং সমুদ্র সৈকত পরিচ্ছন্নতা অভিযান পরিচালনা।</p>
-                </div>
-                <div class="project-item">
-                    <h4><i class="fas fa-laptop-code" style="color:#8e44ad"></i> যুব উন্নয়ন</h4>
-                    <p>বেকার যুবকদের দক্ষ ও স্বাবলম্বী করতে আইটি জ্ঞান, ফ্রিল্যান্সিং পরিচিতি, গ্রাফিক ডিজাইন ও প্রাতিষ্ঠানিক নেতৃত্ব বিষয়ক প্রশিক্ষণ কর্মশালার আয়োজন।</p>
-                </div>
-                <div class="project-item">
-                    <h4><i class="fas fa-bullhorn" style="color:#d35400"></i> সচেতনতামূলক কার্যক্রম</h4>
-                    <p>কিশোর ও যুবসমাজকে ধ্বংসের হাত থেকে বাঁচাতে মাদকবিরোধী সেমিনার, বাল্যবিয়ে রোধ এবং স্বাস্থ্য সচেতনতা তৈ리에 লিফলেট বিতরণ ও ক্যাম্পেইন।</p>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- =================== 4. GALLERY SCREEN =================== -->
-        <div id="screen-gallery" class="app-screen">
-            <h2><i class="fas fa-images"></i> ছবি ও ভিডিও গ্যালারি</h2>
-            
-            <!-- Category Filter Engine -->
-            <div class="filter-bar">
-                <button class="filter-btn active" onclick="filterGallery('all', this)">সব ছবি</button>
-                <button class="filter-btn" onclick="filterGallery('blood', this)">রক্তদান</button>
-                <button class="filter-btn" onclick="filterGallery('edu', this)">শিক্ষা সহায়তা</button>
-                <button class="filter-btn" onclick="filterGallery('relief', this)">ত্রাণ বিতরণ</button>
-                <button class="filter-btn" onclick="filterGallery('env', this)">পরিবেশ সংরক্ষণ</button>
-            </div>
-
-            <!-- Image Grid with Lightbox Trigger -->
-            <div class="gallery-grid">
-                <div class="gallery-item cat-blood" onclick="openLightbox('https://images.unsplash.com/photo-1615461066841-6116ecdccd04?q=80&w=400')">
-                    <img src="https://images.unsplash.com/photo-1615461066841-6116ecdccd04?q=80&w=400" alt="Blood Donation">
-                    <span class="item-type">রক্তদান ক্যাম্প</span>
-                </div>
-                <div class="gallery-item cat-edu" onclick="openLightbox('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=400')">
-                    <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=400" alt="Education Help">
-                    <span class="item-type">শিক্ষা সামগ্রী বিতরণ</span>
-                </div>
-                <div class="gallery-item cat-relief" onclick="openLightbox('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=400')">
-                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=400" alt="Relief">
-                    <span class="item-type">ত্রাণ বিতরণ</span>
-                </div>
-                <div class="gallery-item cat-env" onclick="openLightbox('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=400')">
-                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=400" alt="Environment">
-                    <span class="item-type">বৃক্ষরোপণ কর্মসূচি</span>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- =================== 5. EXECUTIVE COMMITTEE SCREEN =================== -->
-        <div id="screen-committee" class="app-screen">
-            <h2><i class="fas fa-user-tie"></i> উপদেষ্টা পরিষদ</h2>
-            <div id="advisor-list">
-                <!-- Dynamically populated from JavaScript -->
-            </div>
-
-            <h2><i class="fas fa-users-cog"></i> কার্যনির্বাহী কমিটি</h2>
-            <div class="search-area">
-                <div class="search-input-group">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="commSearch" placeholder="নাম বা পদবি দিয়ে কার্ড খুঁজুন..." oninput="filterCommittee()">
-                </div>
-            </div>
-            <div id="committee-cards-container">
-                <!-- Dynamically populated from JavaScript with beautiful card design -->
-            </div>
-        </div>
-
-
-        <!-- =================== 6. MEMBERSHIP & BLOOD DONOR SCREEN =================== -->
+        <!-- =================== 3. FORMS & REGISTRATION ENGINE =================== -->
         <div id="screen-register" class="app-screen">
-            <h2><i class="fas fa-search-location"></i> Blood Group Search Option</h2>
+            <h2><i class="fas fa-file-signature"></i> অনলাইন আবেদন ফরম (বাংলা ও English)</h2>
+            <div class="card">
+                <form id="membershipForm" onsubmit="handleFormSubmission(event)">
+                    <div class="form-group">
+                        <label>আবেদনের ধরণ (Application Category):</label>
+                        <select id="f_type" onchange="toggleFormDates()">
+                            <option value="সদস্য (Member)">সদস্য পদ আবেদন ফরম / Membership Application</option>
+                            <option value="উপদেষ্টা (Advisor)">উপদেষ্টা পদ আবেদন ফরম / Advisor Application</option>
+                        </select>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group"><label>নাম (বাংলা):</label><input type="text" id="f_name_bn" required></div>
+                        <div class="form-group"><label>Name (English):</label><input type="text" id="f_name_en" required></div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group"><label>পিতার নাম (বাংলা):</label><input type="text" id="f_father_bn" required></div>
+                        <div class="form-group"><label>Father's Name (English):</label><input type="text" id="f_father_en" required></div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group"><label>মাতার নাম (বাংলা):</label><input type="text" id="f_mother_bn" required></div>
+                        <div class="form-group"><label>Mother's Name (English):</label><input type="text" id="f_mother_en" required></div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group"><label>জন্মতারিখ (বাংলা):</label><input type="text" id="f_dob_bn" placeholder="উদা: ১৫ই আগস্ট ২০০১" required></div>
+                        <div class="form-group"><label>Date of Birth (English):</label><input type="date" id="f_dob_en" required></div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group"><label>জন্মনিবন্ধন/এনআইডি নম্বর (বাংলা):</label><input type="text" id="f_nid_bn" required></div>
+                        <div class="form-group"><label>NID/Birth Reg No (English):</label><input type="text" id="f_nid_en" required></div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>রক্তের গ্রুপ (Blood Group):</label>
+                            <select id="f_blood">
+                                <option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option>
+                                <option value="A-">A-</option><option value="B-">B-</option><option value="O-">O-</option><option value="AB-">AB-</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>পেশা / Profession:</label><input type="text" id="f_job" placeholder="পেশা (বাংলা / English)" required></div>
+                    </div>
+
+                    <div class="form-group"><label>পূর্ণাঙ্গ ঠিকানা / Present Address:</label><textarea id="f_address" rows="2" placeholder="ঠিকানা বাংলা অথবা ইংরেজিতে লিখুন" required></textarea></div>
+                    <div class="form-group"><label>মোবাইল নম্বর / Mobile No:</label><input type="tel" id="f_phone" required></div>
+                    
+                    <div class="form-group">
+                        <label>সদস্যের ছবি যুক্ত করুন (Upload Photo):</label>
+                        <input type="file" id="f_photo" accept="image/*" onchange="processImageToBase64(this, 'photo_data')">
+                        <input type="hidden" id="photo_data">
+                    </div>
+
+                    <div class="form-grid" style="margin-top:15px; border-top: 1px dashed #cbd5e0; padding-top:10px;">
+                        <div class="form-group"><label>আবেদনের তারিখ (বাংলা):</label><input type="text" id="f_date_bn" placeholder="উদা: ২৪শে মার্চ ২০২৬" required></div>
+                        <div class="form-group"><label>Application Date (English):</label><input type="date" id="f_date_en" required></div>
+                    </div>
+
+                    <!-- Signature Base64 Upload Buffers -->
+                    <div style="display:none">
+                        <input type="hidden" id="sig_member_data">
+                    </div>
+
+                    <div class="form-group">
+                        <label>আপনার ডিজিটাল স্বাক্ষর আপলোড করুন (Member Signature):</label>
+                        <input type="file" accept="image/*" onchange="processImageToBase64(this, 'sig_member_data')">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full" style="margin-top:10px;"><i class="fas fa-paper-plane"></i> আবেদনপত্র জমা দিন (Submit Form)</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- =================== 4. CONTACT & BLOOD DONORS =================== -->
+        <div id="screen-contact" class="app-screen">
+            <h2><i class="fas fa-search-location"></i> রক্তদাতা অনুসন্ধান অপশন</h2>
             <div class="form-group">
                 <select id="bloodSearch" onchange="runBloodSearch()" style="border: 2px solid var(--danger); font-weight: bold; color: var(--danger);">
-                    <option value="ALL">🩸 সমস্ত নিবন্ধিত রক্তদাতা দেখুন</option>
-                    <option value="A+">A+</option><option value="A-">A-</option>
-                    <option value="B+">B+</option><option value="B-">B-</option>
-                    <option value="O+">O+</option><option value="O-">O-</option>
-                    <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                    <option value="ALL">🩸 সমস্ত রক্তদাতা তালিকা দেখুন</option>
+                    <option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option>
                 </select>
             </div>
-            <div id="donorResults" style="margin-bottom: 20px;"></div>
+            <div id="donorResults"></div>
 
-            <h2><i class="fas fa-user-edit"></i> অনলাইন নিবন্ধন (সদস্য / রক্তদাতা ফর্ম)</h2>
+            <h2><i class="fas fa-address-book"></i> অফিস ও যোগাযোগের তথ্য</h2>
             <div class="card">
-                <form onsubmit="handleRegistration(event)">
-                    <div class="form-group">
-                        <label>নিবন্ধনের ধরন:</label>
-                        <select id="formType">
-                            <option value="সদস্য">সদস্য নিবন্ধন ফর্ম</option>
-                            <option value="রক্তদাতা">রক্তদাতা নিবন্ধন ফর্ম</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>পূর্ণ নাম (বাংলা অথবা ইংরেজি):</label>
-                        <input type="text" id="formName" required placeholder="উদা: মোহাম্মদ রিয়াজ">
-                    </div>
-                    <div class="form-group">
-                        <label>রক্তের গ্রুপ:</label>
-                        <select id="formBlood">
-                            <option value="A+">A+</option><option value="A-">A-</option>
-                            <option value="B+">B+</option><option value="B-">B-</option>
-                            <option value="O+">O+</option><option value="O-">O-</option>
-                            <option value="AB+">AB+</option><option value="AB-">AB-</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>ফোন নাম্বার:</label>
-                        <input type="tel" id="formPhone" required placeholder="উদা: 018XXXXXXXX">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-check-circle"></i> ডাটাবেজে সাবমিট করুন</button>
-                </form>
+                <p style="font-size: 13.5px; margin-bottom: 10px;"><i class="fas fa-building" style="color:var(--primary); width:20px;"></i> <strong>কার্যালয়:</strong> <span id="render-address">সোনাআলী ভবন, দক্ষিণ রুমালিয়ার ছরা, ৭নং ওয়ার্ড, পৌরসভা, কক্সবাজার</span></p>
+                <p style="font-size: 13.5px; margin-bottom: 10px;"><i class="fas fa-phone-alt" style="color:var(--primary); width:20px;"></i> <strong>ফোন:</strong> <span id="render-phone">01839369388</span></p>
+                <p style="font-size: 13.5px;"><i class="fas fa-envelope" style="color:var(--primary); width:20px;"></i> <strong>ইমেইল:</strong> <span id="render-email">swapnataricoxbd@gmail.com</span></p>
             </div>
         </div>
 
-
-        <!-- =================== 7. CONTACT SCREEN =================== -->
-        <div id="screen-contact" class="app-screen">
-            <h2><i class="fas fa-address-book"></i> ফোন, ইমেইল, অফিস ঠিকানা</h2>
-            <div class="card">
-                <p style="font-size: 13.5px; margin-bottom: 10px;"><i class="fas fa-building" style="color:var(--primary); width:20px;"></i> <strong>কার্যালয়:</strong> সোনাআলী ভবন, দক্ষিণ রুমালিয়ার ছরা, ৭নং ওয়ার্ড, পৌরসভা, কক্সবাজার।</p>
-                <p style="font-size: 13.5px; margin-bottom: 10px;"><i class="fas fa-phone-alt" style="color:var(--primary); width:20px;"></i> <strong>ফোন:</strong> <a href="tel:01839369388" style="text-decoration:none; color:inherit;">01839369388</a></p>
-                <p style="font-size: 13.5px;"><i class="fas fa-envelope" style="color:var(--primary); width:20px;"></i> <strong>ইমেইল:</strong> swapnataricoxbd@gmail.com</p>
+        <!-- =================== 5. ADMIN CONTROL PANEL =================== -->
+        <div id="screen-admin" class="app-screen">
+            <h2><i class="fas fa-lock"></i> অ্যাডমিন সিকিউরিটি গেটওয়ে</h2>
+            <div id="admin-login-area" class="card">
+                <div class="form-group"><label>সিক্রেট পিন নম্বর দিন:</label><input type="password" id="adminPin" placeholder="Default Pin: 1234"></div>
+                <button class="btn btn-primary btn-full" onclick="verifyAdmin()">লগইন করুন</button>
             </div>
 
-            <h2><i class="fas fa-share-nodes"></i> Facebook, WhatsApp, YouTube ও Email Link</h2>
-            <div class="btn-group" style="margin-bottom: 20px;">
-                <a href="https://facebook.com" target="_blank" class="btn btn-primary" style="background:#3b5998"><i class="fab fa-facebook-f"></i> Facebook</a>
-                <a href="https://wa.me/8801839369388" target="_blank" class="btn btn-primary" style="background:#25d366"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                <a href="https://youtube.com" target="_blank" class="btn btn-danger"><i class="fab fa-youtube"></i> YouTube</a>
-                <a href="mailto:swapnataricoxbd@gmail.com" class="btn btn-warning"><i class="fas fa-envelope"></i> Email Link</a>
-            </div>
+            <div id="admin-dashboard" style="display: none;">
+                
+                <!-- ID Card Viewer Workstation Modal/Section -->
+                <div id="live-id-card-generator-zone" style="display:none;" class="card">
+                    <h3><i class="fas fa-id-card"></i> লাইভ ডিজিটাল মেম্বার আইডি কার্ড</h3>
+                    <div class="id-card-wrapper">
+                        <div class="id-card" id="printable-id-card">
+                            <div class="id-card-top">
+                                <h3 id="id_card_org_name">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h3>
+                                <p id="id_card_org_eng">SWAPNATARI VOLUNTARY YOUTH ORG.</p>
+                            </div>
+                            <div class="id-card-body">
+                                <div class="id-photo-container">
+                                    <img id="id_card_img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24'><path fill='%23a0aec0' d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/></svg>" alt="Member Photo">
+                                </div>
+                                <div class="id-name" id="id_card_name">সদস্যের নাম</div>
+                                <div class="id-role" id="id_card_role">পদবি</div>
+                                
+                                <table class="id-details-table">
+                                    <tr><td><strong>আইডি নং:</strong></td><td id="id_card_id">SVYO-2026-01</td></tr>
+                                    <tr><td><strong>রক্তের গ্রুপ:</strong></td><td id="id_card_blood" style="color:var(--danger); font-weight:bold;">O+</td></tr>
+                                    <tr><td><strong>মোবাইল:</strong></td><td id="id_card_phone">018XXXXXXXX</td></tr>
+                                    <tr><td><strong>ঠিকানা:</strong></td><td id="id_card_address">কক্সবাজার, বাংলাদেশ</td></tr>
+                                    <tr><td><strong>এনআইডি নং:</strong></td><td id="id_card_nid">XXXXXXXXXXXXX</td></tr>
+                                </table>
+                            </div>
+                            <div class="id-card-footer">“সৃষ্টির সেবাই আমাদের স্বপ্নতরী”</div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" onclick="window.print()"><i class="fas fa-print"></i> কার্ড প্রিন্ট করুন</button>
+                        <button class="btn btn-danger" onclick="document.getElementById('live-id-card-generator-zone').style.display='none';"><i class="fas fa-times"></i> বন্ধ করুন</button>
+                    </div>
+                </div>
 
-            <h2><i class="fas fa-map-location-dot"></i> Google Map Integration</h2>
-            <div class="card" style="padding:0; overflow:hidden; height:180px; border-radius: 12px;">
-                <!-- Fixed Sandbox Embedding Vector for Cox's Bazar Area -->
-                <iframe src="https://www.google.com/maps/embed?pb=!11m12!1m3!1d14801.404285859187!2d91.97960325!3d21.43444455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sbn!2sbd!4v1690000000000!5m2!1sbn!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
+                <h2><i class="fas fa-user-edit"></i> ডাটাবেজে পেন্ডিং আবেদনসমূহ</h2>
+                <div id="render-admin-member-vault"></div>
 
-            <h2><i class="fas fa-paper-plane"></i> সরাসরি যোগাযোগ ফর্ম</h2>
-            <div class="card">
-                <form onsubmit="alert('আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে।'); this.reset(); return false;">
-                    <div class="form-group"><input type="text" placeholder="আপনার নাম" required></div>
-                    <div class="form-group"><input type="tel" placeholder="আপনার মোবাইল নাম্বার" required></div>
-                    <div class="form-group"><textarea placeholder="আপনার বার্তাটি এখানে লিখুন..." rows="3" required></textarea></div>
-                    <button type="submit" class="btn btn-primary btn-full">বার্তা পাঠান</button>
-                </form>
+                <h2><i class="fas fa-edit"></i> অ্যাপের গ্লোবাল তথ্য পরিবর্তন করুন</h2>
+                <div class="card">
+                    <div class="form-group"><label>সংগঠনের নাম (বাংলা):</label><input type="text" id="edit-app-name"></div>
+                    <div class="form-group"><label>সংগঠনের নাম (English):</label><input type="text" id="edit-eng-name"></div>
+                    <div class="form-group"><label>স্লোগান:</label><input type="text" id="edit-slogan"></div>
+                    <div class="form-group"><label>নিবন্ধন নম্বর:</label><input type="text" id="edit-reg-no"></div>
+                    <div class="form-group"><label>লোগো ফাইল নেম / লিংক:</label><input type="text" id="edit-logo-url"></div>
+                    <div class="form-group"><label>মোবাইল নম্বর:</label><input type="text" id="edit-phone"></div>
+                    <div class="form-group"><label>ইমেইল:</label><input type="text" id="edit-email"></div>
+                    <div class="form-group"><label>অফিস কার্যালয়ের ঠিকানা:</label><textarea id="edit-address" rows="2"></textarea></div>
+                    <div class="form-group"><label>সংक्षिप्त পরিচিতি:</label><textarea id="edit-about-short" rows="3"></textarea></div>
+                    <div class="form-group"><label>পূর্ণাঙ্গ ইতিহাস:</label><textarea id="edit-history-full" rows="3"></textarea></div>
+                    
+                    <h3 style="margin-top:15px;">📊 পরিসংখ্যান পরিবর্তন</h3>
+                    <div style="display:flex; gap:5px;">
+                        <input type="text" id="edit-stat-blood" placeholder="রক্তদান">
+                        <input type="text" id="edit-stat-members" placeholder="সদস্য">
+                        <input type="text" id="edit-stat-projects" placeholder="প্রকল্প">
+                    </div>
+
+                    <h3 style="margin-top:20px;"><i class="fas fa-signature"></i> অফিসিয়াল স্বাক্ষর আপলোড প্যানেল (অ্যাডমিন)</h3>
+                    <div class="form-group">
+                        <label>প্রতিষ্ঠাতা পরিচালকের স্বাক্ষর (Founder Signature File):</label>
+                        <input type="file" accept="image/*" onchange="processImageToBase64(this, 'sig_founder_global')">
+                        <input type="hidden" id="sig_founder_global">
+                    </div>
+                    <div class="form-group">
+                        <label>সভাপতির স্বাক্ষর (President Signature File):</label>
+                        <input type="file" accept="image/*" onchange="processImageToBase64(this, 'sig_president_global')">
+                        <input type="hidden" id="sig_president_global">
+                    </div>
+                    <div class="form-group">
+                        <label>সাধারণ সম্পাদকের স্বাক্ষর (General Secretary Signature File):</label>
+                        <input type="file" accept="image/*" onchange="processImageToBase64(this, 'sig_gs_global')">
+                        <input type="hidden" id="sig_gs_global">
+                    </div>
+
+                    <button class="btn btn-primary btn-full" style="margin-top:15px;" onclick="saveGlobalSettings()">💾 সমস্ত গ্লোবাল পরিবর্তন সেভ করুন</button>
+                </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Lightbox Functional Modal Content Container -->
-    <div id="customLightbox" class="lightbox">
-        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-        <img id="lightboxImg" src="" alt="Enlarged View">
-    </div>
-
-    <!-- Bottom App Navigation Tabs (7 Dynamic Standard Tabs Ecosystem) -->
+    <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="switchTab('home', this)"><i class="fas fa-home"></i>হোম</div>
-        <div class="nav-item" onclick="switchTab('about', this)"><i class="fas fa-info-circle"></i>পরিচিতি</div>
-        <div class="nav-item" onclick="switchTab('projects', this)"><i class="fas fa-running"></i>কার্যক্রম</div>
-        <div class="nav-item" onclick="switchTab('gallery', this)"><i class="fas fa-images"></i>গ্যালারি</div>
-        <div class="nav-item" onclick="switchTab('committee', this)"><i class="fas fa-user-shield"></i>কমিটি</div>
-        <div class="nav-item" onclick="switchTab('register', this)"><i class="fas fa-user-check"></i>নিবন্ধন</div>
-        <div class="nav-item" onclick="switchTab('contact', this)"><i class="fas fa-phone-alt"></i>যোগাযোগ</div>
+        <div class="nav-item" onclick="switchTab('about', this)"><i class="fas fa-users"></i>তালিকা</div>
+        <div class="nav-item" onclick="switchTab('register', this)"><i class="fas fa-file-alt"></i>ফরম</div>
+        <div class="nav-item" onclick="switchTab('contact', this)"><i class="fas fa-hand-holding-water"></i>রক্তদান</div>
+        <div class="nav-item" style="color: var(--danger);" onclick="switchTab('admin', this)"><i class="fas fa-user-shield"></i>অ্যাডমিন</div>
     </nav>
 
     <script>
-        // Core Static Local Data Engine 
-        let bloodDonors = [
-            { name: "মোহাম্মদ রিয়াজ", group: "O+", phone: "01839369388" },
-            { name: "মাঈনুদ্দিন আহমেদ", group: "A+", phone: "01839369388" },
-            { name: "নাজিম উদ্দীন", group: "B+", phone: "01839369388" },
-            { name: "হুমায়রা khanom", group: "AB+", phone: "01839369388" }
-        ];
-
-        let advisors = [
-            { name: "সম্মানিত আলহাজ্ব মো: সোনা আলী", role: "প্রধান উপদেষ্টা", position: "বিশিষ্ট সমাজсеবক, কক্সবাজার" },
-            { name: "ড. আশরাফুল ইসলাম", role: "উপদেষ্টা সদস্য", position: "শিক্ষা অনুরাগী, কক্সবাজার" }
-        ];
-
-        let committeeMembers = [
-            { name: "মোহাম্মদ রিয়াজ", role: "প্রতিষ্ঠাতা", type: "founder" },
-            { name: "মাঈনুদ্দিন আহমেদ", role: "প্রতিষ্ঠাতা সদস্য ও সহ-সভাপতি", type: "executive" },
-            { name: "নাজিম উদ্দীন", role: "প্রতিষ্ঠাতা সদস্য ও সাধারণ সম্পাদক", type: "executive" },
-            { name: "হুমায়রা খানম", role: "প্রতিষ্ঠাতা সদস্য ও সাংগঠনিক সম্পাদক", type: "executive" },
-            { name: "নাদিয়া সুলতানা", role: "প্রতিষ্ঠাতা সদস্য ও অর্থ সম্পাদক", type: "executive" },
-            { name: "হেমা বড়ুয়া", role: "প্রতিষ্ঠাতা সদস্য ও দপ্তর সম্পাদক", type: "executive" },
-            { name: "হুমায়রা আক্তার", role: "প্রতিষ্ঠাতা সদস্য ও প্রচার সম্পাদক", type: "executive" }
-        ];
-
-        window.onload = function() {
-            renderAdvisors();
-            renderCommittee(committeeMembers);
+        // LocalStorage Advanced Persistent Storage Engine
+        let appData = JSON.parse(localStorage.getItem('svyo_v4_config')) || {
+            appName: "স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন",
+            engName: "SWAPNATARI VOLUNTARY YOUTH ORGANIZATION",
+            slogan: "“সৃষ্টির সেবাই আমাদের স্বপ্নতরী”",
+            regNo: "নিবন্ধন নং: যু/উ/অ/সদর-০৯৩",
+            logoUrl: "20260304_112626.jpg",
+            phone: "01839369388",
+            email: "swapnataricoxbd@gmail.com",
+            address: "সোনাআলী ভবন, দক্ষিণ রুমালিয়ার ছরা, ৭নং ওয়ার্ড, পৌরসভা, কক্সবাজার",
+            aboutShort: "স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO) একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২১ সালে কক্সবাজার পৌরসভার ৭নং ওয়ার্ডের দক্ষিণ রুমালিয়ার ছরা এলাকায় একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়।",
+            historyFull: "মানবতার কল্যাণ এবং স্থানীয় যুবসমাজকে সামাজিক উন্নয়নমূলক কাজে সম্পৃক্ত করার মহৎ উদ্দেশ্যে ২০২১ সালে কক্সবাজারের স্থানীয় তরুণ সমাজসেবক ও সংগঠক মোহাম্মদ রিয়াজ এর একক উদ্যোগ এবং একঝাঁক উদ্যমী সহযোদ্ধাদের সক্রিয় সহযোগিতায় \"স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন\" প্রতিষ্ঠিত হয়।",
+            statBlood: "১,২০০+", statMembers: "৩৫০+", statProjects: "২৫+",
+            sigFounder: "", sigPresident: "", sigGS: "",
+            registry: [
+                {
+                    type: "সদস্য (Member)", idNo: "SVYO-2026-001", role: "প্রতিষ্ঠাতা",
+                    nameBn: "মোহাম্মদ রিয়াজ", nameEn: "Mohammad Riaz",
+                    fatherBn: "মৃত নজির আহমদ", fatherEn: "Late Nozir Ahmad",
+                    motherBn: "রওশন আক্তার", motherEn: "Roushan Aktar",
+                    dobBn: "১৫ই অক্টোবর ১৯৯৮", dobEn: "1998-10-15",
+                    nidBn: "XXXXXXXXXX", nidEn: "XXXXXXXXXX",
+                    blood: "O+", job: "গ্রাফিক ডিজাইনার", address: "দক্ষিণ রুমালিয়ার ছরা, কক্সবাজার",
+                    phone: "01839369388", dateBn: "০১লা জানুয়ারি ২০২৬", dateEn: "2026-01-01",
+                    photo: "", sigMember: "", status: "Approved"
+                }
+            ]
         };
 
-        function renderAdvisors() {
-            const container = document.getElementById('advisor-list');
-            container.innerHTML = "";
-            advisors.forEach(a => {
-                container.innerHTML += `
-                    <div class="member-card" style="border-left-color: var(--warning);">
-                        <div class="member-avatar" style="color:var(--warning);"><i class="fas fa-user-tie"></i></div>
-                        <div class="member-info">
-                            <h4>${a.name}</h4>
-                            <p>${a.role}</p>
-                            <span>${a.position}</span>
-                        </div>
+        window.onload = function() { renderAppInterface(); };
+
+        function renderAppInterface() {
+            // UI Dynamic Render Factory Engine
+            document.getElementById('render-app-name').innerText = appData.appName;
+            document.getElementById('render-eng-name').innerText = appData.engName;
+            document.getElementById('render-slogan').innerText = appData.slogan;
+            document.getElementById('render-reg-no').innerText = appData.regNo;
+            document.getElementById('render-header-logo').src = appData.logoUrl;
+            document.getElementById('render-hero-logo').src = appData.logoUrl;
+            document.getElementById('render-hero-title').innerText = appData.appName;
+            document.getElementById('render-hero-eng').innerText = appData.engName;
+            document.getElementById('render-about-short').innerText = appData.aboutShort;
+            document.getElementById('render-history-full').innerText = appData.historyFull;
+            document.getElementById('render-address').innerText = appData.address;
+            document.getElementById('render-phone').innerText = appData.phone;
+            document.getElementById('render-email').innerText = appData.email;
+            document.getElementById('render-stat-blood').innerText = appData.statBlood;
+            document.getElementById('render-stat-members').innerText = appData.statMembers;
+            document.getElementById('render-stat-projects').innerText = appData.statProjects;
+
+            // Render Public Approved Profiles & Applications
+            const publicContainer = document.getElementById('render-public-members-list');
+            publicContainer.innerHTML = "";
+            
+            // Render Admin Workspace
+            const adminContainer = document.getElementById('render-admin-member-vault');
+            adminContainer.innerHTML = "";
+
+            appData.registry.forEach((m, index) => {
+                let imgHtml = m.photo ? `<img src="${m.photo}" class="member-img-preview">` : `<div class="member-avatar" style="width:65px; height:65px; border-radius:8px; background:#edf2f7; display:flex; align-items:center; justify-content:center;"><i class="fas fa-user fa-lg"></i></div>`;
+                
+                let signatureBlockHtml = `
+                    <div class="signature-display-row">
+                        <div class="sig-box">${appData.sigPresident ? `<img src="${appData.sigPresident}">` : ''}<div class="sig-line">সভাপতির স্বাক্ষর</div></div>
+                        <div class="sig-box">${appData.sigGS ? `<img src="${appData.sigGS}">` : ''}<div class="sig-line">সাধারণ সম্পাদকের স্বাক্ষর</div></div>
+                        <div class="sig-box">${appData.sigFounder ? `<img src="${appData.sigFounder}">` : ''}<div class="sig-line">পরিচালকের স্বাক্ষর</div></div>
                     </div>
-                `;
+                    <div class="signature-display-row" style="grid-template-columns: 1fr; margin-top: 5px;">
+                        <div class="sig-box" style="text-align:right;">${m.sigMember ? `<img src="${m.sigMember}" style="margin-left:auto; margin-right:0;">` : ''}<div class="sig-line">আবেদনকারী/সদস্যের স্বাক্ষর</div></div>
+                    </div>`;
+
+                let fullCardTemplate = `
+                    <div class="card member-card">
+                        <div style="font-size:11px; font-weight:bold; background:var(--secondary); color:white; padding:3px 8px; border-radius:4px; margin-bottom:10px; width:fit-content;">${m.type} Form</div>
+                        <div class="member-header-info">
+                            ${imgHtml}
+                            <div class="member-main-details">
+                                <h4>${m.nameBn} (${m.nameEn})</h4>
+                                <p>পদবি/রোল: ${m.role || 'নিবন্ধিত সাধারণ সদস্য'}</p>
+                                <span style="font-size:11px; color:#4a5568;">আইডি নম্বর: <strong>${m.idNo || 'পেন্ডিং'}</strong></span>
+                            </div>
+                        </div>
+                        <div class="member-meta-grid">
+                            <div><strong>পিতা (বাংলা):</strong> ${m.fatherBn}</div><div><strong>Father (Eng):</strong> ${m.fatherEn}</div>
+                            <div><strong>মাতা (বাংলা):</strong> ${m.motherBn}</div><div><strong>Mother (Eng):</strong> ${m.motherEn}</div>
+                            <div><strong>জন্মদিন (বাংলা):</strong> ${m.dobBn}</div><div><strong>DOB (Eng):</strong> ${m.dobEn}</div>
+                            <div><strong>এনআইডি/জন্মনিবন্ধন (বাং):</strong> ${m.nidBn}</div><div><strong>NID/BRN (Eng):</strong> ${m.nidEn}</div>
+                            <div><strong>রক্তের গ্রুপ:</strong> <span style="color:var(--danger);font-weight:bold;">${m.blood}</span></div><div><strong>পেশা:</strong> ${m.job}</div>
+                            <div><strong>মোবাইল নম্বর:</strong> ${m.phone}</div><div><strong>ঠিকানা:</strong> ${m.address}</div>
+                            <div><strong>তারিখ (বাংলা):</strong> ${m.dateBn}</div><div><strong>Date (Eng):</strong> ${m.dateEn}</div>
+                        </div>
+                        ${signatureBlockHtml}
+                    </div>`;
+
+                if(m.status === "Approved") {
+                    publicContainer.innerHTML += fullCardTemplate;
+                }
+
+                // Render in Admin Panel with Workstation Controls
+                let adminActionControls = `
+                    <div class="admin-action-btn-group">
+                        ${m.status === 'Pending' ? `<button class="btn btn-primary" style="padding:4px 8px; font-size:11px;" onclick="approveMember(${index})"><i class="fas fa-check"></i> অনুমোদন দিন</button>` : ''}
+                        <button class="btn btn-warning" style="padding:4px 8px; font-size:11px;" onclick="generateIdCardLive(${index})"><i class="fas fa-id-card"></i> আইডি কার্ড জেনারেট</button>
+                        <button class="btn btn-danger" style="padding:4px 8px; font-size:11px;" onclick="deleteRegistryRecord(${index})"><i class="fas fa-trash"></i> ডিলিট</button>
+                    </div>`;
+                
+                adminContainer.innerHTML += fullCardTemplate + adminActionControls;
             });
+            runBloodSearch();
         }
 
-        function renderCommittee(list) {
-            const container = document.getElementById('committee-cards-container');
-            container.innerHTML = "";
-            if(list.length === 0) {
-                container.innerHTML = "<p style='text-align:center; font-size:12px; color:#718096; padding:15px;'>কোনো সদস্যের মিল পাওয়া যায়নি।</p>";
-                return;
+        // Image Engine Processing Factory
+        function processImageToBase64(inputElement, targetHiddenId) {
+            const file = inputElement.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById(targetHiddenId).value = e.target.result;
+                };
+                reader.readAsDataURL(file);
             }
-            list.forEach(m => {
-                let badgeTxt = m.type === 'founder' ? 'প্রতিষ্ঠাতা' : 'নির্বাহী কমিটি';
-                let badgeCol = m.type === 'founder' ? 'background:#feebc8; color:#c05621;' : 'background:#e6fffa; color:#234e52;';
-                container.innerHTML += `
-                    <div class="member-card">
-                        <div class="member-avatar"><i class="fas fa-user"></i></div>
-                        <div class="member-info">
-                            <h4>${m.name}</h4>
-                            <p>${m.role}</p>
-                        </div>
-                        <span style="font-size:10px; font-weight:700; padding:2px 7px; border-radius:10px; ${badgeCol}">${badgeTxt}</span>
-                    </div>
-                `;
-            });
         }
 
-        function filterCommittee() {
-            let q = document.getElementById('commSearch').value.toLowerCase();
-            let filtered = committeeMembers.filter(m => m.name.toLowerCase().includes(q) || m.role.toLowerCase().includes(q));
-            renderCommittee(filtered);
+        function handleFormSubmission(e) {
+            e.preventDefault();
+            let newRecord = {
+                type: document.getElementById('f_type').value,
+                idNo: "SVYO-" + new Date().getFullYear() + "-" + Math.floor(100 + Math.random() * 900),
+                role: document.getElementById('f_type').value === "উপদেষ্টা (Advisor)" ? "সম্মানিত উপদেষ্টা" : "সাধারণ সদস্য",
+                nameBn: document.getElementById('f_name_bn').value,
+                nameEn: document.getElementById('f_name_en').value,
+                fatherBn: document.getElementById('f_father_bn').value,
+                fatherEn: document.getElementById('f_father_en').value,
+                motherBn: document.getElementById('f_mother_bn').value,
+                motherEn: document.getElementById('f_mother_en').value,
+                dobBn: document.getElementById('f_dob_bn').value,
+                dobEn: document.getElementById('f_dob_en').value,
+                nidBn: document.getElementById('f_nid_bn').value,
+                nidEn: document.getElementById('f_nid_en').value,
+                blood: document.getElementById('f_blood').value,
+                job: document.getElementById('f_job').value,
+                address: document.getElementById('f_address').value,
+                phone: document.getElementById('f_phone').value,
+                dateBn: document.getElementById('f_date_bn').value,
+                dateEn: document.getElementById('f_date_en').value,
+                photo: document.getElementById('photo_data').value,
+                sigMember: document.getElementById('sig_member_data').value,
+                status: "Pending" // Lands into Admin Queue for Review
+            };
+
+            appData.registry.unshift(newRecord);
+            localStorage.setItem('svyo_v4_config', JSON.stringify(appData));
+            renderAppInterface();
+            alert("আপনার আবেদনপত্রটি সফলভাবে সাবমিট হয়েছে এবং অনুমোদনের জন্য অ্যাডমিন প্যানেলে পাঠানো হয়েছে!");
+            document.getElementById('membershipForm').reset();
+        }
+
+        function generateIdCardLive(index) {
+            let member = appData.registry[index];
+            document.getElementById('id_card_name').innerText = member.nameBn;
+            document.getElementById('id_card_role').innerText = member.role || "সদস্য";
+            document.getElementById('id_card_id').innerText = member.idNo || "N/A";
+            document.getElementById('id_card_blood').innerText = member.blood;
+            document.getElementById('id_card_phone').innerText = member.phone;
+            document.getElementById('id_card_address').innerText = member.address;
+            document.getElementById('id_card_nid').innerText = member.nidBn;
+            if(member.photo) {
+                document.getElementById('id_card_img').src = member.photo;
+            }
+            document.getElementById('live-id-card-generator-zone').style.display = "block";
+            window.scrollTo(0,0);
+        }
+
+        function approveMember(index) {
+            appData.registry[index].status = "Approved";
+            localStorage.setItem('svyo_v4_config', JSON.stringify(appData));
+            renderAppInterface();
+            alert("আবেদনটি সফলভাবে অনুমোদন করা হয়েছে এবং পাবলিক তালিকায় যুক্ত হয়েছে।");
+        }
+
+        function deleteRegistryRecord(index) {
+            if(confirm("আপনি কি নিশ্চিতভাবে এই রেকর্ডটি ডিলিট করতে চান?")) {
+                appData.registry.splice(index, 1);
+                localStorage.setItem('svyo_v4_config', JSON.stringify(appData));
+                renderAppInterface();
+            }
+        }
+
+        function verifyAdmin() {
+            let pin = document.getElementById('adminPin').value;
+            if(pin === "1234") {
+                document.getElementById('admin-login-area').style.display = "none";
+                document.getElementById('admin-dashboard').style.display = "block";
+                populateAdminForm();
+            } else { alert("ভুল পিন নম্বর! আবার চেষ্টা করুন।"); }
+        }
+
+        function populateAdminForm() {
+            document.getElementById('edit-app-name').value = appData.appName;
+            document.getElementById('edit-eng-name').value = appData.engName;
+            document.getElementById('edit-slogan').value = appData.slogan;
+            document.getElementById('edit-reg-no').value = appData.regNo;
+            document.getElementById('edit-logo-url').value = appData.logoUrl;
+            document.getElementById('edit-phone').value = appData.phone;
+            document.getElementById('edit-email').value = appData.email;
+            document.getElementById('edit-address').value = appData.address;
+            document.getElementById('edit-about-short').value = appData.aboutShort;
+            document.getElementById('edit-history-full').value = appData.historyFull;
+            document.getElementById('edit-stat-blood').value = appData.statBlood;
+            document.getElementById('edit-stat-members').value = appData.statMembers;
+            document.getElementById('edit-stat-projects').value = appData.statProjects;
+            document.getElementById('sig_founder_global').value = appData.sigFounder || "";
+            document.getElementById('sig_president_global').value = appData.sigPresident || "";
+            document.getElementById('sig_gs_global').value = appData.sigGS || "";
+        }
+
+        function saveGlobalSettings() {
+            appData.appName = document.getElementById('edit-app-name').value;
+            appData.engName = document.getElementById('edit-eng-name').value;
+            appData.slogan = document.getElementById('edit-slogan').value;
+            appData.regNo = document.getElementById('edit-reg-no').value;
+            appData.logoUrl = document.getElementById('edit-logo-url').value;
+            appData.phone = document.getElementById('edit-phone').value;
+            appData.email = document.getElementById('edit-email').value;
+            appData.address = document.getElementById('edit-address').value;
+            appData.aboutShort = document.getElementById('edit-about-short').value;
+            appData.historyFull = document.getElementById('edit-history-full').value;
+            appData.statBlood = document.getElementById('edit-stat-blood').value;
+            appData.statMembers = document.getElementById('edit-stat-members').value;
+            appData.statProjects = document.getElementById('edit-stat-projects').value;
+            appData.sigFounder = document.getElementById('sig_founder_global').value;
+            appData.sigPresident = document.getElementById('sig_president_global').value;
+            appData.sigGS = document.getElementById('sig_gs_global').value;
+
+            localStorage.setItem('svyo_v4_config', JSON.stringify(appData));
+            renderAppInterface();
+            alert("সব গ্লোবাল ডাটা এবং অফিশিয়াল স্বাক্ষর আপডেট করা হয়েছে!");
         }
 
         function switchTab(screenId, element) {
             document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            
             document.getElementById('screen-' + screenId).classList.add('active');
             if(element) element.classList.add('active');
             window.scrollTo(0,0);
-
-            if(screenId === 'register') { runBloodSearch(); }
         }
 
         function goToTab(screenId) {
-            const indices = { home:0, about:1, projects:2, gallery:3, committee:4, register:5, contact:6 };
+            const indices = { home:0, about:1, register:2, contact:3, admin:4 };
             const target = document.querySelectorAll('.nav-item')[indices[screenId]];
             switchTab(screenId, target);
         }
@@ -479,65 +629,21 @@
             const grp = document.getElementById('bloodSearch').value;
             const container = document.getElementById('donorResults');
             container.innerHTML = "";
-
-            let filtered = grp === "ALL" ? bloodDonors : bloodDonors.filter(d => d.group === grp);
-
-            if(filtered.length === 0) {
-                container.innerHTML = "<p style='color:#718096; font-size:12px; text-align:center; padding:10px;'>এই রক্তের গ্রুপের কোনো ডোনার এখনো নিবন্ধিত হয়নি।</p>";
-                return;
-            }
-
-            filtered.forEach(d => {
+            let filtered = grp === "ALL" ? appData.registry : appData.registry.filter(d => d.blood === grp);
+            
+            filtered.forEach((d) => {
                 container.innerHTML += `
-                    <div class="member-card" style="justify-content: space-between; border-left: 3px solid var(--danger);">
-                        <div>
-                            <h4>${d.name}</h4>
-                            <span style="font-size:11px;">রক্তের গ্রুপ: <strong style="color:var(--danger)">${d.group}</strong></span>
+                    <div class="card member-card" style="border-left: 4px solid var(--danger); margin-bottom:10px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <h4 style="color:var(--secondary)">${d.nameBn}</h4>
+                                <span style="font-size:12px;">রক্তের গ্রুপ: <strong style="color:var(--danger)">${d.blood}</strong></span>
+                            </div>
+                            <a href="tel:${d.phone}" class="btn btn-danger" style="padding:6px 12px; font-size:12px;"><i class="fas fa-phone-alt"></i> কল করুন</a>
                         </div>
-                        <a href="tel:${d.phone}" class="btn btn-primary" style="padding:5px 10px; font-size:11px; background:var(--danger); border-radius:5px;"><i class="fas fa-phone-alt"></i> কল করুন</a>
-                    </div>
-                `;
+                    </div>`;
             });
-        }
-
-        function handleRegistration(e) {
-            e.preventDefault();
-            const type = document.getElementById('formType').value;
-            const name = document.getElementById('formName').value;
-            const blood = document.getElementById('formBlood').value;
-            const phone = document.getElementById('formPhone').value;
-
-            if(type === "রক্তদাতা") {
-                bloodDonors.unshift({ name: name, group: blood, phone: phone });
-                runBloodSearch();
-            } else {
-                committeeMembers.push({ name: name, role: "সাধারণ সদস্য (আবেদনকারী)", type: "general" });
-                filterCommittee();
-            }
-
-            alert(`সফল হয়েছে! আপনার ${type} নিবন্ধন ডেটা সাময়িকভাবে সিস্টেমে সাবমিট হয়েছে।`);
-            document.getElementById('formName').value = "";
-            document.getElementById('formPhone').value = "";
-        }
-
-        function filterGallery(category, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                if(category === 'all' || item.classList.contains('cat-' + category)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        function openLightbox(url) {
-            document.getElementById('lightboxImg').src = url;
-            document.getElementById('customLightbox').style.display = 'flex';
-        }
-        function closeLightbox() {
-            document.getElementById('customLightbox').style.display = 'none';
+            if(filtered.length === 0) { container.innerHTML = "<p style='font-size:13px; color:#718096; text-align:center;'>এই গ্রুপের কোনো রক্তদাতা খুঁজে পাওয়া যায়নি।</p>"; }
         }
     </script>
 </body>
