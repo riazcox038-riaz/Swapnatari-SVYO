@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="app-title-tag">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</title>
+    <title id="app-title-tag">icon</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1a365d">
@@ -21,6 +21,7 @@
             --danger: #e74c3c;
             --warning: #f39c12;
             --info: #2980b9;
+            --fb-color: #1877f2;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
         body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; }
@@ -69,8 +70,12 @@
         .btn-secondary { background: var(--secondary); color: white; }
         .btn-danger { background: #e74c3c; color: white; }
         .btn-warning { background: var(--warning); color: white; }
+        .btn-fb { background: var(--fb-color); color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; flex: 1; text-align: center; justify-content: center; box-shadow: 0 4px 6px rgba(24, 119, 242, 0.15); }
         .btn-block { width: 100%; justify-content: center; margin-top: 5px; }
         
+        /* Social Grid Layout */
+        .social-flex-group { display: flex; gap: 12px; margin-top: 8px; width: 100%; }
+
         /* Stats System */
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; text-align: center; }
         .stat-box { background: white; padding: 12px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); border-bottom: 3px solid var(--primary); }
@@ -143,7 +148,7 @@
 
             <!-- সংক্ষিপ্ত পরিচিতি -->
             <h2><i class="fas fa-info-circle"></i> সংক্ষিপ্ত পরিচিতি</h2>
-            <div class="card"><p id="display-intro">লোড হচ্ছে...</p></div>
+            <div class="card"><p id="display-intro">로드 হচ্ছে...</p></div>
 
             <!-- ডেইলি পোস্ট ফিড -->
             <h2><i class="fas fa-edit"></i> ডেইলি পোস্ট / ডায়েরি</h2>
@@ -152,6 +157,16 @@
             <!-- কার্যক্রম মডিউল -->
             <h2><i class="fas fa-tasks"></i> আমাদের কার্যক্রম (Activities)</h2>
             <div id="activities-container"><p style="color:#718096; font-size:13px;">কোনো কার্যক্রম রেকর্ড নেই।</p></div>
+
+            <!-- যোগাযোগ ও সোশ্যাল মিডিয়া সেকশন (নিউ যুক্ত করা হয়েছে) -->
+            <h2><i class="fas fa-share-alt"></i> যোগাযোগ ও সোশ্যাল মিডিয়া</h2>
+            <div class="card">
+                <p style="font-size:13px; margin-bottom:10px; color:#4a5568;"><i class="fas fa-hashtag"></i> আমাদের ফেসবুক পেজ এবং অ্যাডমিন আইডির সাথে সংযুক্ত থাকুন:</p>
+                <div class="social-flex-group">
+                    <a href="https://www.facebook.com/humanresourcedevelopmentfoundation/" target="_blank" class="btn btn-fb" id="link-fb-page"><i class="fab fa-facebook"></i> ফেসবুক পেজ</a>
+                    <a href="https://www.facebook.com/mohammad.riaz.99/" target="_blank" class="btn btn-fb" id="link-fb-admin" style="background:#2c3e50;"><i class="fas fa-user-shield"></i> অ্যাডমিন আইডি</a>
+                </div>
+            </div>
         </div>
 
         <!-- ২. সদস্য তালিকা স্ক্রিন -->
@@ -234,18 +249,18 @@
                         <input type="text" id="act-title" class="form-control" required placeholder="ফ্রি মেডিকেল ক্যাম্প / শীতবস্ত্র বিতরণ">
                     </div>
                     <div class="form-group">
-                        <label>কার্যক্রমের বিবরণ</label>
+                        <label>কার্যक्रमের বিবরণ</label>
                         <textarea id="act-desc" class="form-control" required placeholder="সংগঠনের এই কার্যক্রমের সংক্ষিপ্ত বিবরণ দিন..."></textarea>
                     </div>
                     <div class="form-group">
-                        <label>কার্যক্রমের প্রজেক্ট ইমেজ লিঙ্ক</label>
+                        <label>কার্যक्रमের প্রজেক্ট ইমেজ লিঙ্ক</label>
                         <input type="text" id="act-img" class="form-control" placeholder="ইভেন্টের ছবির অনলাইন ইউআরএল লিঙ্ক">
                     </div>
                     <button type="submit" class="btn btn-secondary btn-block"><i class="fas fa-save"></i> অ্যাক্টিভিটি হিস্টোরিতে যুক্ত করুন</button>
                 </form>
             </div>
 
-            <!-- ঙ) গলোবাল অ্যাপ সেটিংস ও সংখ্যা পরিবর্তন -->
+            <!-- ঙ) গলোবাল অ্যাপ সেটিংস ও সোশ্যাল লিঙ্ক কন্ট্রোল -->
             <div class="card">
                 <h3><i class="fas fa-cogs"></i> সংগঠনের মেইন গ্লোবাল সেটিংস</h3>
                 <form onsubmit="handleGlobalSettingsSubmit(event)">
@@ -254,7 +269,12 @@
                     <div class="form-group"><label>স্লোগান</label><input type="text" id="g-slogan" class="form-control" required></div>
                     <div class="form-group"><label>নিবন্ধন নম্বর</label><input type="text" id="g-reg" class="form-control" required></div>
                     <div class="form-group"><label>লোগো ফাইল নেম / লিঙ্ক</label><input type="text" id="g-logo" class="form-control"></div>
-                    <div class="form-group"><label>সংক্ষিপ্ত পরিচিতি টেক্সট</label><textarea id="g-intro" class="form-control" required></textarea></div>
+                    
+                    <!-- সোশ্যাল মিডিয়া লিঙ্ক ইনপুট ফিল্ডস (নিউ যুক্ত) -->
+                    <div class="form-group"><label>ফেসবুক পেজ লিঙ্ক</label><input type="text" id="g-fb-page" class="form-control"></div>
+                    <div class="form-group"><label>অ্যাডমিন আইডি লিঙ্ক</label><input type="text" id="g-fb-admin" class="form-control"></div>
+                    
+                    <div class="form-group"><label>সংक्षिप्त পরিচিতি টেক্সট</label><textarea id="g-intro" class="form-control" required></textarea></div>
                     <div class="form-group inline-inputs">
                         <div><label>সদস্য সংখ্যা</label><input type="text" id="g-s1" class="form-control" required></div>
                         <div><label>রক্তদান সেশন</label><input type="text" id="g-s2" class="form-control" required></div>
@@ -316,6 +336,10 @@
                         document.getElementById("display-stat2").innerText = d.stat2 || "০";
                         document.getElementById("display-stat3").innerText = d.stat3 || "০";
 
+                        // ডায়নামিক সোশ্যাল লিঙ্ক বাইন্ডিং
+                        if(d.fb_page_url) document.getElementById("link-fb-page").href = d.fb_page_url;
+                        if(d.fb_admin_url) document.getElementById("link-fb-admin").href = d.fb_admin_url;
+
                         if(d.icon_src && !d.icon_src.includes("imgur.com") && d.icon_src.trim() !== "") {
                             document.getElementById("app-logo").src = d.icon_src;
                             document.getElementById("hero-logo-img").src = d.icon_src;
@@ -327,12 +351,19 @@
                         document.getElementById("g-slogan").value = d.org_slogan;
                         document.getElementById("g-reg").value = d.org_reg_no;
                         document.getElementById("g-logo").value = d.icon_src || "";
+                        document.getElementById("g-fb-page").value = d.fb_page_url || "https://www.facebook.com/humanresourcedevelopmentfoundation/";
+                        document.getElementById("g-fb-admin").value = d.fb_admin_url || "https://www.facebook.com/mohammad.riaz.99/";
                         document.getElementById("g-intro").value = d.intro_text || "";
                         document.getElementById("g-s1").value = d.stat1 || "";
                         document.getElementById("g-s2").value = d.stat2 || "";
                         document.getElementById("g-s3").value = d.stat3 || "";
                     }
-                }).catch(e => console.log("সেটিংস ফেচিং অফলাইন।"));
+                }).catch(e => {
+                    // অফলাইন ব্যাকআপ লিঙ্ক প্রোটেকশন
+                    document.getElementById("link-fb-page").href = "https://www.facebook.com/humanresourcedevelopmentfoundation/";
+                    document.getElementById("link-fb-admin").href = "https://www.facebook.com/mohammad.riaz.99/";
+                    console.log("সেটিংস ফেচিং অফলাইন।");
+                });
 
             // ২. সদস্য ডাটাবেজ ফেচিং
             fetch(API_LINK + "?type=members")
@@ -356,11 +387,10 @@
                     });
                 }).catch(e => console.log("সদস্য ডাটা ফেচিং ট্রাবল।"));
 
-            // ৩. নোটিশ বোর্ড, ডেইলি পোস্ট ও এক্টিভিটি লোড
+            // ৩. ফিড লোড প্রোটোকল
             fetch(API_LINK + "?type=feeds")
                 .then(res => res.json())
                 .then(data => {
-                    // নোটিশ রেন্ডারিং
                     const noticeBox = document.getElementById("notice-board-container");
                     noticeBox.innerHTML = "";
                     if(data.notices && data.notices.length > 0) {
@@ -375,7 +405,6 @@
                         });
                     } else { noticeBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো চলমান নোটিশ নেই।</p>`; }
 
-                    // ডেইলি পোস্ট রেন্ডারিং
                     const postBox = document.getElementById("daily-posts-container");
                     postBox.innerHTML = "";
                     if(data.posts && data.posts.length > 0) {
@@ -390,7 +419,6 @@
                         });
                     } else { postBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো পোস্ট পাওয়া যায়নি।</p>`; }
 
-                    // একটিভিটি রেন্ডারিং
                     const actBox = document.getElementById("activities-container");
                     actBox.innerHTML = "";
                     if(data.activities && data.activities.length > 0) {
@@ -408,7 +436,6 @@
                 }).catch(e => console.log("ফিড লোড ট্রাবল।"));
         }
 
-        // এপিআই কল ফাংশন প্রোটোকল
         function executePostAction(payload, successMessage) {
             fetch(API_LINK, { method: "POST", body: JSON.stringify(payload) })
             .then(res => res.json())
@@ -421,7 +448,6 @@
             }).catch(e => alert("কানেকশন এরর বা পোস্ট রিকোয়েস্ট ফেইল্ড!"));
         }
 
-        // সদস্য সাবমিট প্রসেসর (Add & Update)
         function handleMemberSubmit(e) {
             e.preventDefault();
             const payload = {
@@ -435,7 +461,6 @@
             document.getElementById("member-crud-form").reset();
         }
 
-        // সদস্য রিমুভ প্রসেসর (Remove)
         function deleteMemberAction() {
             const id = document.getElementById("crud-mem-id").value;
             if(!id) { alert("দয়া করে যে সদস্যকে মুছতে চান তার আইডি টাইপ করুন।"); return; }
@@ -446,7 +471,6 @@
             }
         }
 
-        // নোটিশ সাবমিট
         function handleNoticeSubmit(e) {
             e.preventDefault();
             const payload = {
@@ -458,7 +482,6 @@
             e.target.reset();
         }
 
-        // ডেইলি পোস্ট সাবমিট
         function handleDailyPostSubmit(e) {
             e.preventDefault();
             const payload = {
@@ -470,7 +493,6 @@
             e.target.reset();
         }
 
-        // একটিভিটি সাবমিট
         function handleActivitySubmit(e) {
             e.preventDefault();
             const payload = {
@@ -483,7 +505,6 @@
             e.target.reset();
         }
 
-        // গ্লোবাল সেটিংস সাবমিট
         function handleGlobalSettingsSubmit(e) {
             e.preventDefault();
             const payload = {
@@ -493,6 +514,8 @@
                 org_slogan: document.getElementById("g-slogan").value,
                 org_reg_no: document.getElementById("g-reg").value,
                 icon_src: document.getElementById("g-logo").value,
+                fb_page_url: document.getElementById("g-fb-page").value,
+                fb_admin_url: document.getElementById("g-fb-admin").value,
                 intro_text: document.getElementById("g-intro").value,
                 stat1: document.getElementById("g-s1").value,
                 stat2: document.getElementById("g-s2").value,
