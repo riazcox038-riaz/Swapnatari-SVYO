@@ -316,9 +316,24 @@
         // আপনার index.html ফাইলের নিচের দিকের স্ক্রিপ্ট অংশ:
 
 function loadApplicationEngine() {
-    // 🔴 এই যে এখানে! পুরনো ইমেজের নাম বদলে আপনার নতুন লোগোর নাম বসিয়ে দিন:
-    document.getElementById("app-logo").src = "Logo-01.jpg";
-    document.getElementById("hero-logo-img").src = "Logo-01.jpg";
+    // ১. লোগো ইমেজ পাথ ফিক্স (কোনো ব্রোকেন আইকন আসবে না)
+    document.getElementById("app-logo").src = "logo.jpg";
+    document.getElementById("hero-logo-img").src = "logo.jpg";
+    
+    // ২. গুগল শিটের ডাটা আসার আগেই টাইটেল সেট করা হলো যাতে লোডিং টাইম না নেয়
+    document.getElementById("app-title-bn").innerText = "স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন";
+    document.getElementById("app-title-en").innerText = "SWAPNATARI VOLUNTARY YOUTH ORGANIZATION";
+
+    // ৩. গুগল শিট থেকে বাকি কনটেন্ট ও সেটিংস ফেচ করা
+    fetch(API_LINK + "?type=settings")
+        .then(res => res.json())
+        .then(d => {
+            console.log("Settings synced successfully.");
+        })
+        .catch(err => {
+            console.error("Error fetching sheet data:", err);
+        });
+}
 
     // ১. সেটিংস ও গ্লোবাল কনটেন্ট ফেচ (এর পরের কোডগুলো আগের মতোই থাকবে)
     fetch(API_LINK + "?type=settings")
