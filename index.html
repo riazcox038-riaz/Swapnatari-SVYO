@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swapnatari</title>
+    <title>Swapnatari SVYO</title>
     
     <meta name="theme-color" content="#1a365d">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,7 +24,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
         body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; }
         
-        /* App Header Layout */
+        /* Header style based on image_a4c3e9.jpg */
         .app-header { background: var(--secondary); color: white; padding: 12px 15px; text-align: center; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .app-header .header-logo { width: 45px; height: 45px; border-radius: 50%; background: white; padding: 2px; object-fit: contain; }
         .app-header .header-text-group { text-align: left; }
@@ -33,8 +33,6 @@
         .app-header p { font-size: 11px; color: #58fa9b; font-weight: bold; margin-top: 1px; }
         
         .app-container { padding: 15px; max-width: 600px; margin: 0 auto; }
-        
-        /* Navigation Screen Controllers */
         .app-screen { display: none; }
         .app-screen.active { display: block; }
         
@@ -45,81 +43,69 @@
         .card { background: var(--card-bg); padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
         .card p { font-size: 14px; line-height: 1.7; text-align: justify; white-space: pre-line; }
         
-        /* Hero Dynamic UI */
         .hero { background: linear-gradient(135deg, rgba(26,54,93,0.95), rgba(39,174,96,0.9)); color: white; padding: 25px 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
         .hero .hero-logo { width: 85px; height: 85px; border-radius: 50%; background: white; padding: 4px; object-fit: contain; margin-bottom: 10px; }
         .hero h2 { color: white; border: none; padding: 0; font-size: 21px; margin-bottom: 2px; text-align: center; }
         .hero .eng-sub { font-size: 11px; opacity: 0.8; margin-bottom: 8px; }
         .hero .badge { background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 20px; font-size: 11px; display: inline-block; margin-bottom: 12px; }
         
-        /* Organization Meta Tags */
         .info-tag-container { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px; font-size: 12px; text-align: left; }
         .info-tag-container span { display: flex; align-items: center; gap: 8px; }
 
-        /* Actions Global Buttons */
         .btn-group { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
         .btn { padding: 10px 18px; border-radius: 25px; border: none; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; transition: 0.2s; text-decoration: none; }
         .btn:active { transform: scale(0.95); }
         .btn-primary { background: #2ecc71; color: white; }
         .btn-secondary { background: var(--secondary); color: white; }
         .btn-danger { background: #e74c3c; color: white; }
-        .btn-warning { background: var(--warning); color: white; }
         .btn-info { background: var(--info); color: white; }
-        .btn-fb { background: var(--fb-color); color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; flex: 1; text-align: center; justify-content: center; }
         .btn-block { width: 100%; justify-content: center; margin-top: 5px; }
-        
-        .social-flex-group { display: flex; gap: 12px; margin-top: 8px; width: 100%; }
 
-        /* Grid Lists Data Cards */
         .members-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
         .member-card { background: white; border-radius: 12px; padding: 12px; text-align: center; border-top: 3px solid var(--info); position: relative; }
         .member-id-tag { position: absolute; top: 5px; left: 8px; font-size: 10px; color: #a0aec0; font-weight: bold; }
         .member-avatar { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; margin: 5px auto; background: #f0f0f0; border: 2px solid #fff; }
-        .member-name { font-size: 13px; font-weight: bold; color: var(--secondary); }
-        .member-role { font-size: 11px; color: #718096; background: #f0f4f8; padding: 2px 6px; border-radius: 10px; display: inline-block; margin-top: 3px; }
-
+        
         .notice-card { border-left: 4px solid var(--danger); background: #fff5f5; }
 
-        /* Pure English Form System Inputs */
         .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; color: var(--secondary); font-family: sans-serif; }
-        .form-control { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0; font-size: 13px; font-family: sans-serif; }
+        .form-group label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; color: var(--secondary); }
+        .form-control { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0; font-size: 13px; }
         .form-control:focus { border-color: var(--primary); outline: none; }
-        textarea.form-control { resize: vertical; min-height: 70px; }
         .pin-lock-field { border: 2px solid var(--danger) !important; background: #fff5f5; font-weight: bold; text-align: center; letter-spacing: 5px; }
 
-        /* Bottom Fixed Navigation Bar (Identical to image_a4c3e9.jpg) */
+        /* Navigation Style matching image_a4c3e9.jpg */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; height: 60px; display: flex; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 1000; }
-        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #a0aec0; cursor: pointer; font-size: 11px; font-weight: 600; }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #a0aec0; cursor: pointer; font-size: 11px; font-weight: 600; text-decoration: none; }
         .nav-item i { font-size: 18px; margin-bottom: 2px; }
         .nav-item.active { color: var(--primary); }
     </style>
 </head>
 <body>
 
-    <!-- অ্যাপ হেডার মডিউল -->
+    <!-- হেডার মডিউল -->
     <header class="app-header">
-        <img src="Logo-01.jpg" alt="Logo" class="header-logo" id="app-logo">
+        <img src="Logo-01.jpg" alt="Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/150'">
         <div class="header-text-group">
-            <h1 id="app-title-bn">প্রতিষ্ঠান লোডিং...</h1>
-            <div class="eng-title" id="app-title-en">LOADING ORG DATA...</div>
-            <p id="app-slogan">"লোডিং..."</p>
+            <h1 id="app-title-bn">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h1>
+            <div class="eng-title" id="app-title-en">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
+            <p id="app-slogan">"সৃষ্টির সেবাই আমাদের স্বপ্নতরী"</p>
         </div>
     </header>
 
     <div class="app-container">
         
-        <!-- ১. হোম স্ক্রিন (Home Screen) -->
+        <!-- ১. হোম স্ক্রিন -->
         <div id="screen-home" class="app-screen active">
             <div class="hero">
-                <div><img src="Logo-01.jpg" alt="Logo" class="hero-logo" id="hero-logo-img"></div>
+                <div><img src="Logo-01.jpg" alt="Logo" class="hero-logo" onerror="this.src='https://via.placeholder.com/150'"></div>
                 <h2 id="hero-title-bn">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h2>
                 <div class="eng-sub" id="hero-title-en">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
-                <span class="badge" id="app-reg-no"><i class="fas fa-award"></i> লোডিং...</span>
+                <span class="badge" id="app-reg-no"><i class="fas fa-award"></i> নিবন্ধন নং: যু/উ/অ/সনদ-০৯৩</span>
                 
                 <div class="info-tag-container">
-                    <span><i class="fas fa-map-marked-alt" style="color:#ffeaa7;"></i> <b>কার্য এলাকা:</b> <span id="display-area">Cox's Bazar (পর্যায়ক্রমে বাংলাদেশ ও Out Country)</span></span>
-                    <span><i class="fas fa-phone-volume" style="color:#55efc4;"></i> <b>হেল্পライン নম্বর:</b> <a href="tel:01839369388" id="display-phone" style="color:white; text-decoration:none;">01839369388</a></span>
+                    <span><i class="fas fa-map-marked-alt" style="color:#ffeaa7;"></i> <b>কার্য এলাকা:</b> <span id="display-area">কক্সবাজার (পর্যায়ক্রমে বাংলাদেশ ও Out Country)</span></span>
+                    <span><i class="fas fa-phone-volume" style="color:#55efc4;"></i> <b>হেল্পলাইন নম্বর:</b> <a href="tel:01839369388" id="display-phone" style="color:white; text-decoration:none;">01839369388</a></span>
                     <span><i class="fas fa-map-marker-alt" style="color:#ff7675;"></i> <b>কার্যালয়:</b> <span id="display-address">SonaAli Building, South Rumaliar Chara, Cox's Bazar</span></span>
                 </div>
                 
@@ -130,36 +116,31 @@
             </div>
 
             <h2><i class="fas fa-bullhorn"></i> নোটিশ বোর্ড</h2>
-            <div id="notice-board-container"><p style="color:#718096; font-size:13px;">চলতি কোনো নোটিশ পাওয়া যায়নি।</p></div>
+            <div id="notice-board-container">
+                <p style="color:#718096; font-size:13px;">নোটিশ লোড হচ্ছে...</p>
+            </div>
         </div>
 
-        <!-- ২. পরিচিতি স্ক্রিন (Poriciti Screen) -->
+        <!-- ২. পরিচিতি স্ক্রিন -->
         <div id="screen-about" class="app-screen">
             <h2><i class="fas fa-info-circle"></i> সংক্ষিপ্ত পরিচিতি</h2>
             <div class="card">
-                <p id="display-intro" style="font-size:14px; text-align:justify; color:#2d3748;">ডাটাবেজ থেকে সংক্ষিপ্ত পরিচিতি লোড হচ্ছে...</p>
+                <p id="display-intro" style="font-size:14px; text-align:justify; color:#2d3748;">
+                স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO) একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২৬ সালে কক্সবাজার পৌরসভার ২নং ওয়ার্ডের দক্ষিণ রুমালিয়ার ছড়া এলাকায় একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়।
+                </p>
             </div>
 
             <h2><i class="fas fa-users"></i> স্বপ্নতরী পরিবার (সদস্য পর্ষদ)</h2>
             <div class="members-grid" id="all-members-render-box">
                 <p style="text-align: center; grid-column: span 2; padding: 10px; color:#718096;">মেম্বার ডাটাবেজ প্রসেস হচ্ছে...</p>
             </div>
-            
-            <h2 style="margin-top:25px;"><i class="fas fa-share-alt"></i> অফিসিয়াল সোশ্যাল নেটওয়ার্ক</h2>
-            <div class="card">
-                <div class="social-flex-group">
-                    <a href="#" target="_blank" class="btn btn-fb" id="link-fb-page"><i class="fab fa-facebook"></i> ফেসবুক পেজ</a>
-                    <a href="#" target="_blank" class="btn btn-fb" id="link-fb-admin" style="background:#2c3e50;"><i class="fas fa-user-shield"></i> অ্যাডমিন আইডি</a>
-                </div>
-            </div>
         </div>
 
-        <!-- ৩. ফরম স্ক্রিন (Form Registration Hub - Pure English) -->
+        <!-- ৩. ফরম স্ক্রিন -->
         <div id="screen-forms" class="app-screen">
             <h2><i class="fas fa-file-signature"></i> Application Registration Hub</h2>
-            
             <div class="card">
-                <h3 style="font-family:sans-serif;"><i class="fas fa-user-plus"></i> 1. Membership Registration</h3>
+                <h3><i class="fas fa-user-plus"></i> 1. Membership Registration</h3>
                 <form onsubmit="handleUserFormSubmit(event, 'public_member')">
                     <div class="form-group"><label>Full Name</label><input type="text" class="form-control" required placeholder="Enter full name"></div>
                     <div class="form-group"><label>Desired Position</label><input type="text" class="form-control" required placeholder="e.g. Volunteer, General Member"></div>
@@ -168,25 +149,13 @@
                     <button type="submit" class="btn btn-primary btn-block">Submit Membership Application</button>
                 </form>
             </div>
-
-            <div class="card">
-                <h3 style="font-family:sans-serif;"><i class="fas fa-user-tie"></i> 2. Advisor Application</h3>
-                <form onsubmit="handleUserFormSubmit(event, 'public_adviser')">
-                    <div class="form-group"><label>Advisor Name</label><input type="text" class="form-control" required placeholder="Enter your complete name"></div>
-                    <div class="form-group"><label>Profession</label><input type="text" class="form-control" required placeholder="e.g. Business, Doctor, Teacher"></div>
-                    <div class="form-group"><label>Phone Number</label><input type="tel" class="form-control" required placeholder="Active contact details"></div>
-                    <div class="form-group"><label>Address details</label><textarea class="form-control" required placeholder="Your business or residential address"></textarea></div>
-                    <button type="submit" class="btn btn-info btn-block">Submit Advisor Proposal</button>
-                </form>
-            </div>
         </div>
 
-        <!-- ৪. রক্তদান স্ক্রিন (Roktodan Blood Hub) -->
+        <!-- ৪. রক্তদান স্ক্রিন -->
         <div id="screen-blood" class="app-screen">
             <h2><i class="fas fa-heartbeat"></i> Blood Donor Network</h2>
-            
             <div class="card">
-                <h3 style="font-family:sans-serif;"><i class="fas fa-hand-holding-water"></i> Become a Registered Blood Donor</h3>
+                <h3><i class="fas fa-hand-holding-water"></i> Become a Registered Blood Donor</h3>
                 <form onsubmit="handleUserFormSubmit(event, 'public_donor')">
                     <div class="form-group"><label>Donor Name</label><input type="text" class="form-control" required placeholder="Full Name"></div>
                     <div class="form-group">
@@ -200,13 +169,13 @@
                         </select>
                     </div>
                     <div class="form-group"><label>Mobile Number</label><input type="tel" class="form-control" required placeholder="Your contact phone"></div>
-                    <div class="form-group"><label>Location / Area</label><input type="text" class="form-control" required placeholder="e.g. South Rumaliar Chara, Cox's Bazar"></div>
+                    <div class="form-group"><label>Location / Area</label><input type="text" class="form-control" required placeholder="e.g. Cox's Bazar"></div>
                     <button type="submit" class="btn btn-danger btn-block">Register As Blood Donor</button>
                 </form>
             </div>
         </div>
 
-        <!-- ৫. সুপ্ত গ্লোবাল অ্যাডমিন কন্ট্রোল রুম (A-Z Content Customizer) -->
+        <!-- ৫. গোপন গ্লোবাল অ্যাডমিন কন্ট্রোল রুম -->
         <div id="screen-admin" class="app-screen">
             <h2><i class="fas fa-user-shield"></i> নিয়ন্ত্রণ কক্ষ (A-Z App Control Room)</h2>
             
@@ -234,55 +203,46 @@
                     <button type="submit" class="btn btn-danger btn-block">Broadcast Notice</button>
                 </form>
             </div>
-
-            <div class="card">
-                <h3><i class="fas fa-sliders-h"></i> ৩. অ্যাপের A-Z অল গ্লোবাল ইনফরমেশন এডিটর</h3>
-                <form onsubmit="handleGlobalSettingsSubmit(event)">
-                    <div class="form-group"><label>Admin Security PIN</label><input type="password" maxlength="7" class="form-control pin-lock-field global-pin" required placeholder="•••••••"></div>
-                    <div class="form-group"><label>Organization Name (BN)</label><input type="text" id="g-name-bn" class="form-control" required></div>
-                    <div class="form-group"><label>Organization Name (EN)</label><input type="text" id="g-name-en" class="form-control" required></div>
-                    <div class="form-group"><label>Slogan Title</label><input type="text" id="g-slogan" class="form-control" required></div>
-                    <div class="form-group"><label>Registration Number</label><input type="text" id="g-reg" class="form-control" required></div>
-                    <div class="form-group"><label>Working Area (কার্য এলাকা)</label><input type="text" id="g-area" class="form-control"></div>
-                    <div class="form-group"><label>Officer Helpline (মোবাইল নম্বর)</label><input type="text" id="g-phone" class="form-control"></div>
-                    <div class="form-group"><label>Office Address (ঠিকানা)</label><input type="text" id="g-address" class="form-control"></div>
-                    <div class="form-group"><label>About Profile Text (সংক্ষিপ্ত পরিচিতি)</label><textarea id="g-intro" class="form-control" required></textarea></div>
-                    <div class="form-group"><label>Dashboard Stat 1 (সদস্য কাউন্টার)</label><input type="text" id="g-s1" class="form-control"></div>
-                    <div class="form-group"><label>Dashboard Stat 2 (রক্তদান কাউন্টার)</label><input type="text" id="g-s2" class="form-control"></div>
-                    <div class="form-group"><label>Dashboard Stat 3 (সামাজিক ইভেন্ট কাউন্টার)</label><input type="text" id="g-s3" class="form-control"></div>
-                    <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-globe"></i> Sync & Save A-Z Info</button>
-                </form>
-            </div>
         </div>
 
     </div>
 
-    <!-- বটম ফিক্সড নেভিগেশন মডিউল (As requested in image_a4c3e9.jpg layout) -->
+    <!-- বটম ফিক্সড নেভিগেশন (আইডেন্টিকাল টু ইমেজ লেআউট) -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="switchScreen('home')"><i class="fas fa-home"></i>হোম</div>
         <div class="nav-item" onclick="switchScreen('about')"><i class="fas fa-info-circle"></i>পরিচিতি</div>
         <div class="nav-item" onclick="switchScreen('forms')"><i class="fas fa-file-alt"></i>ফরম</div>
-        <div class="nav-item" id="secret-blood-node" onclick="handleBloodClick()"><i class="fas fa-heartbeat"></i>রক্তদান</div>
+        <div class="nav-item" id="nav-blood-btn" onclick="handleBloodClick()"><i class="fas fa-heartbeat"></i>রক্তদান</div>
     </nav>
 
-    <!-- জাভাস্ক্রিপ্ট কন্ট্রোল ইঞ্জিন -->
     <script>
+        // আপনার গুগল শিটের এক্সিকিউটেবল ম্যাক্রো লিংক
         const API_LINK = "https://script.google.com/macros/s/AKfycbwgmsn0Jlilw-SplNZZZYhMm9JH3i0_fBP1OIFuv-it5h7t1lbJxJQw6l5UcAaPuYqa/exec";
         const MASTER_PIN = "9388093"; 
         
         let clickCounter = 0;
+        let lastClickTime = 0;
 
-        // গোপন ট্রিগার: "রক্তদান" বাটনে পরপর ৫ বার ফাস্ট ক্লিক করলে অ্যাডমিন মোড অন হবে
+        // দ্রুত ৫ বার ক্লিক ট্র্যাকার লজিক
         function handleBloodClick() {
-            clickCounter++;
-            if(clickCounter >= 5) {
+            const currentTime = new Date().getTime();
+            
+            // যদি ২ সেকেন্ডের বেশি গ্যাপ হয়, কাউন্টার ১ থেকে আবার শুরু হবে
+            if (currentTime - lastClickTime > 2000) {
                 clickCounter = 0;
-                let accessGate = prompt("🔐 Enter Admin Master PIN to Access A-Z Configuration Panel:");
+            }
+            
+            clickCounter++;
+            lastClickTime = currentTime;
+
+            if(clickCounter >= 5) {
+                clickCounter = 0; // কাউন্টার রিসেট
+                let accessGate = prompt("🔐 গ্লোবাল অ্যাডমিন প্যানেল অ্যাক্সেস পিন কোডটি দিন:");
                 if(accessGate === MASTER_PIN) {
                     switchScreen('admin');
                     return;
                 } else if(accessGate !== null) {
-                    alert("❌ Invalid Pin! Access Denied.");
+                    alert("❌ ভুল পিন কোড! অ্যাক্সেস দেওয়া সম্ভব নয়।");
                 }
             }
             switchScreen('blood');
@@ -290,19 +250,21 @@
 
         function verifyAdminPin(enteredPin) {
             if(enteredPin !== MASTER_PIN) {
-                alert("❌ Verification Failed! Incorrect Master Pin.");
+                alert("❌ পিন ভেরিফিকেশন ব্যর্থ হয়েছে!");
                 return false;
             }
             return true;
         }
 
         function switchScreen(id) {
-            clickCounter = 0; // Reset counter on other screen navigation
+            clickCounter = 0; // স্ক্রিন চেঞ্জ করলে কাউন্টার জিরো হবে
             document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
             const targetScreen = document.getElementById('screen-' + id);
             if (targetScreen) targetScreen.classList.add('active');
             
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            const items = document.querySelectorAll('.nav-nav .nav-item, nav .nav-item');
+            
             const steps = document.querySelectorAll('.nav-item');
             if(id === 'home' && steps[0]) steps[0].classList.add('active');
             if(id === 'about' && steps[1]) steps[1].classList.add('active');
@@ -311,41 +273,26 @@
             window.scrollTo(0, 0);
         }
 
+        // এসিঙ্ক্রোনাস ডাটা লোডার (যাতে অ্যাপ ওপেন হতে এক সেকেন্ডও লেট না হয়)
         function loadApplicationEngine() {
-            fetch(API_LINK + "?type=settings")
+            // নোটিশ বোর্ড লোড
+            fetch(API_LINK + "?type=feeds")
                 .then(res => res.json())
-                .then(d => {
-                    if(d.org_name_bn) {
-                        document.getElementById("app-title-bn").innerText = d.org_name_bn;
-                        document.getElementById("app-title-en").innerText = d.org_name_en;
-                        document.getElementById("app-slogan").innerText = d.org_slogan;
-                        document.getElementById("app-reg-no").innerHTML = `<i class="fas fa-award"></i> নিবন্ধন নং: ` + d.org_reg_no;
-                        document.getElementById("hero-title-bn").innerText = d.org_name_bn;
-                        document.getElementById("hero-title-en").innerText = d.org_name_en;
-                        document.getElementById("display-intro").innerText = d.intro_text || "";
-                        
-                        if(d.work_area) document.getElementById("display-area").innerText = d.work_area;
-                        if(d.officer_phone) {
-                            document.getElementById("display-phone").innerText = d.officer_phone;
-                            document.getElementById("display-phone").href = "tel:" + d.officer_phone;
-                        }
-                        if(d.office_address) document.getElementById("display-address").innerText = d.office_address;
-
-                        // Auto populate Admin Panel Input Data Fields for quick edits
-                        document.getElementById("g-name-bn").value = d.org_name_bn;
-                        document.getElementById("g-name-en").value = d.org_name_en;
-                        document.getElementById("g-slogan").value = d.org_slogan;
-                        document.getElementById("g-reg").value = d.org_reg_no;
-                        document.getElementById("g-area").value = d.work_area || "";
-                        document.getElementById("g-phone").value = d.officer_phone || "";
-                        document.getElementById("g-address").value = d.office_address || "";
-                        document.getElementById("g-intro").value = d.intro_text || "";
-                        document.getElementById("g-s1").value = d.stat1 || "0";
-                        document.getElementById("g-s2").value = d.stat2 || "0";
-                        document.getElementById("g-s3").value = d.stat3 || "0";
+                .then(data => {
+                    const noticeBox = document.getElementById("notice-board-container");
+                    if(noticeBox) {
+                        if(data.notices && data.notices.length > 0) {
+                            noticeBox.innerHTML = "";
+                            data.notices.reverse().forEach(n => {
+                                noticeBox.innerHTML += `<div class="card notice-card"><h3>⚠️ ${n.title}</h3><p>${n.desc}</p></div>`;
+                            });
+                        } else { noticeBox.innerHTML = `<p style="color:#718096; font-size:13px;">চলতি কোনো নোটিশ নেই।</p>`; }
                     }
+                }).catch(e => {
+                    document.getElementById("notice-board-container").innerHTML = `<p style="color:#718096; font-size:13px;">চলতি কোনো নোটিশ পাওয়া যায়নি।</p>`;
                 });
 
+            // মেম্বার লিস্ট লোড
             fetch(API_LINK + "?type=members")
                 .then(res => res.json())
                 .then(members => {
@@ -353,7 +300,7 @@
                     if(box) {
                         box.innerHTML = "";
                         if(!members || members.length === 0){
-                            box.innerHTML = `<p style="grid-column:span 2;text-align:center;color:#a0aec0;">No registered member data available.</p>`;
+                            box.innerHTML = `<p style="grid-column:span 2;text-align:center;color:#a0aec0;">কোনো মেম্বার ডাটা পাওয়া যায়নি।</p>`;
                             return;
                         }
                         members.forEach(m => {
@@ -361,26 +308,14 @@
                                 <div class="member-card">
                                     <span class="member-id-tag">ID: ${m.id}</span>
                                     <img src="${m.image_url}" class="member-avatar" onerror="this.src='Logo-01.jpg'">
-                                    <div class="member-name">${m.name}</div>
-                                    <div class="member-role">${m.designation}</div>
+                                    <div style="font-size: 13px; font-weight: bold; color: var(--secondary); margin-top:5px;">${m.name}</div>
+                                    <div style="font-size: 11px; color: #718096; background: #f0f4f8; padding: 2px 6px; border-radius: 10px; display: inline-block; margin-top: 3px;">${m.designation}</div>
                                 </div>
                             `;
                         });
                     }
-                });
-
-            fetch(API_LINK + "?type=feeds")
-                .then(res => res.json())
-                .then(data => {
-                    const noticeBox = document.getElementById("notice-board-container");
-                    if(noticeBox) {
-                        noticeBox.innerHTML = "";
-                        if(data.notices && data.notices.length > 0) {
-                            data.notices.reverse().forEach(n => {
-                                noticeBox.innerHTML += `<div class="card notice-card"><h3>⚠️ ${n.title}</h3><p>${n.desc}</p></div>`;
-                            });
-                        } else { noticeBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো নোটিশ নেই।</p>`; }
-                    }
+                }).catch(e => {
+                    document.getElementById("all-members-render-box").innerHTML = `<p style="grid-column:span 2;text-align:center;color:#a0aec0;">ডাটাবেজ অফলাইন বা কানেকশনে সমস্যা রয়েছে।</p>`;
                 });
         }
 
@@ -393,11 +328,10 @@
                     document.querySelectorAll('.pin-lock-field').forEach(p => p.value = "");
                     loadApplicationEngine();
                     switchScreen('home');
-                } else { alert("Cloud submission returned error state."); }
-            }).catch(e => alert("Network communication error. Check endpoints."));
+                } else { alert("সার্ভার থেকে ইরর রেসপন্স এসেছে।"); }
+            }).catch(e => alert("নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।"));
         }
 
-        // Public User Forms Pipeline Handler (Pushes to Sheets DB)
         function handleUserFormSubmit(e, formActionType) {
             e.preventDefault();
             const inputs = e.target.querySelectorAll('input, select, textarea');
@@ -408,7 +342,7 @@
                 field3: inputs[2] ? inputs[2].value : "",
                 field4: inputs[3] ? inputs[3].value : ""
             };
-            executePostAction(payload, "Form submitted successfully! Admin will review the information.");
+            executePostAction(payload, "আবেদনটি সফলভাবে জমা হয়েছে!");
             e.target.reset();
         }
 
@@ -423,7 +357,7 @@
                 name: document.getElementById("crud-mem-name").value,
                 designation: document.getElementById("crud-mem-role").value,
                 image_url: document.getElementById("crud-mem-img").value
-            }, "Database Member sync complete!");
+            }, "সদস্য ডাটাবেজ সফলভাবে আপডেট হয়েছে!");
             document.getElementById("member-crud-form").reset();
         }
 
@@ -433,10 +367,10 @@
             if(!verifyAdminPin(pin)) return;
 
             const id = document.getElementById("crud-mem-id").value;
-            if(!id) return alert("Please specify a Target ID.");
+            if(!id) return alert("দয়া করে মেম্বার আইডি লিখুন।");
             
-            if(confirm("Confirm deletion of ID: " + id + "?")) {
-                executePostAction({ action: "delete_member", id: id }, "Member successfully dropped from sheet.");
+            if(confirm("আপনি কি নিশ্চিতভাবে " + id + " আইডিটি ডিলিট করতে চান?")) {
+                executePostAction({ action: "delete_member", id: id }, "মেম্বার সফলভাবে রিমুভ করা হয়েছে।");
                 form.reset();
             }
         }
@@ -450,32 +384,14 @@
                 action: "add_notice",
                 title: document.getElementById("notice-title").value,
                 desc: document.getElementById("notice-desc").value
-            }, "Notice deployed!");
+            }, "নতুন নোটিশ সফলভাবে জারি করা হয়েছে!");
             e.target.reset();
         }
 
-        function handleGlobalSettingsSubmit(e) {
-            e.preventDefault();
-            const pin = e.target.querySelector('.global-pin').value;
-            if(!verifyAdminPin(pin)) return;
-
-            executePostAction({
-                action: "update_global",
-                org_name_bn: document.getElementById("g-name-bn").value,
-                org_name_en: document.getElementById("g-name-en").value,
-                org_slogan: document.getElementById("g-slogan").value,
-                org_reg_no: document.getElementById("g-reg").value,
-                work_area: document.getElementById("g-area").value,
-                officer_phone: document.getElementById("g-phone").value,
-                office_address: document.getElementById("g-address").value,
-                intro_text: document.getElementById("g-intro").value,
-                stat1: document.getElementById("g-s1").value,
-                stat2: document.getElementById("g-s2").value,
-                stat3: document.getElementById("g-s3").value
-            }, "All App Meta configurations synchronized with the sheet!");
-        }
-
-        window.addEventListener("DOMContentLoaded", loadApplicationEngine);
+        // পেজ লোড হওয়ার সাথে সাথে রেন্ডার শুরু হবে
+        window.addEventListener("DOMContentLoaded", () => {
+            loadApplicationEngine();
+        });
     </script>
 </body>
 </html>
