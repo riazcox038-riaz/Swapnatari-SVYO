@@ -313,13 +313,17 @@
             window.scrollTo(0, 0);
         }
 
-        function loadApplicationEngine() {
-            document.getElementById("app-logo").src = "20260304_112626.jpg";
-            document.getElementById("hero-logo-img").src = "20260304_112626.jpg";
+        // আপনার index.html ফাইলের নিচের দিকের স্ক্রিপ্ট অংশ:
 
-            // ১. সেটিংস ও গ্লোবাল কনটেন্ট ফেচ
-            fetch(API_LINK + "?type=settings")
-                .then(res => res.json())
+function loadApplicationEngine() {
+    // 🔴 এই যে এখানে! পুরনো ইমেজের নাম বদলে আপনার নতুন লোগোর নাম বসিয়ে দিন:
+    document.getElementById("app-logo").src = "Logo-01.jpg";
+    document.getElementById("hero-logo-img").src = "Logo-01.jpg";
+
+    // ১. সেটিংস ও গ্লোবাল কনটেন্ট ফেচ (এর পরের কোডগুলো আগের মতোই থাকবে)
+    fetch(API_LINK + "?type=settings")
+        .then(res => res.json())
+        // ... বাকি কোড ...
                 .then(d => {
                     if(d.org_name_bn) {
                         document.getElementById("app-title-bn").innerText = d.org_name_bn;
