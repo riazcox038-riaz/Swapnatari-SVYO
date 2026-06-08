@@ -1,309 +1,834 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swapnatari SVYO - Master System Pro</title>
+    <title>Swapnatari SVYO - Global Enterprise Matrix</title>
     
-    <meta name="theme-color" content="#0a192f">
+    <meta name="theme-color" content="#070b19">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #00f2fe;
-            --primary-glow: rgba(0, 242, 254, 0.2);
-            --secondary: #4facfe;
-            --bg: #0a192f;
-            --card-bg: rgba(255, 255, 255, 0.04);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --text: #e2e8f0;
+            --primary: #00ff87;
+            --primary-glow: rgba(0, 255, 135, 0.25);
+            --secondary: #60efff;
+            --bg: #070b19;
+            --card-bg: rgba(28, 37, 65, 0.6);
+            --card-border: rgba(58, 80, 107, 0.5);
+            --text: #f8fafc;
             --text-muted: #94a3b8;
             --danger: #ff4757;
-            --success: #2ed573;
+            --success: #00ff87;
             --warning: #ffa500;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg); color: var(--text); padding-bottom: 110px; overflow-x: hidden; position: relative; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding-bottom: 110px; overflow-x: hidden; background: radial-gradient(circle at 50% 0%, #1c2541 0%, #070b19 70%); background-attachment: fixed; }
 
-        body::before {
-            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, #1e3a8a 0%, #0a192f 100%); z-index: -2;
-        }
-        .bg-stars {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;
-            background-image: radial-gradient(white 1px, transparent 0); background-size: 40px 40px; opacity: 0.12;
-        }
-
-        /* Splash Screen Panel */
+        /* Premium Splash Screen */
         #splash-screen {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0a192f;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 99999;
-            transition: opacity 0.6s ease-out, visibility 0.6s;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #070b19;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 999999;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
         }
         #splash-screen.hidden { opacity: 0; visibility: hidden; }
         .splash-logo-container { position: relative; animation: pulseGlow 2s infinite ease-in-out; }
-        .splash-logo { width: 130px; height: 130px; border-radius: 50%; border: 3px solid var(--primary); padding: 5px; background: #071324; object-fit: contain; }
-        .splash-title { margin-top: 20px; font-size: 24px; font-weight: 700; color: #fff; text-shadow: 0 0 15px var(--primary-glow); }
-        .spinner { margin-top: 30px; width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-left-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        .splash-logo { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--primary); padding: 5px; background: #fff; box-shadow: 0 0 25px var(--primary-glow); object-fit: contain; }
+        .splash-title { margin-top: 20px; font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 1px; text-shadow: 0 0 15px var(--primary-glow); }
+        .spinner { margin-top: 25px; width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.05); border-left-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes pulseGlow { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(0,242,254,0.2)); } 50% { transform: scale(1.04); filter: drop-shadow(0 0 25px rgba(0,242,254,0.6)); } }
+        @keyframes pulseGlow { 0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(0,255,135,0.2); } 50% { transform: scale(1.05); box-shadow: 0 0 35px rgba(0,255,135,0.5); } }
 
-        /* Notice Ticker Bar */
-        .notice-ticker { background: rgba(255, 71, 87, 0.15); border-bottom: 1px solid rgba(255, 71, 87, 0.3); color: #ff6b81; padding: 6px 10px; font-size: 13px; display: flex; align-items: center; gap: 10px; overflow: hidden; }
-        .notice-ticker span { background: var(--danger); color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 11px; shrink: 0; }
+        /* Glassmorphism Ticker */
+        .notice-ticker { background: rgba(11, 19, 43, 0.7); backdrop-filter: blur(12px); border-bottom: 1px solid var(--card-border); color: #60efff; padding: 12px 16px; font-size: 13px; display: flex; align-items: center; gap: 10px; overflow: hidden; position: sticky; top: 0; z-index: 1000; }
+        .notice-ticker span { background: linear-gradient(135deg, var(--danger) 0%, #ff6b81 100%); color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 11px; shrink: 0; box-shadow: 0 0 10px rgba(255,71,87,0.3); }
 
-        /* Top Panel Mode Controller Bar */
+        /* Navigation Top Bar */
         .top-panel-bar {
-            background: rgba(13, 27, 42, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            padding: 12px 24px; border-bottom: 1px solid var(--card-border); display: flex;
-            justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1001;
+            background: rgba(7, 11, 25, 0.8); backdrop-filter: blur(10px); padding: 15px 20px; display: flex;
+            justify-content: space-between; align-items: center; z-index: 999; color: white; border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .panel-brand { font-size: 14px; font-weight: bold; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
-        .panel-brand i { color: var(--primary); }
+        .panel-brand { display: flex; align-items: center; gap: 12px; }
+        .panel-brand img { width: 42px; height: 42px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px rgba(0,255,135,0.2); }
         .panel-select {
-            background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3);
-            color: var(--primary); padding: 6px 16px; border-radius: 20px; font-size: 13px; outline: none; cursor: pointer;
+            background: #1c2541; border: 1px solid var(--card-border);
+            color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 12px; outline: none; cursor: pointer; transition: 0.3s; font-weight: 600;
         }
-        .admin-identity-tag { font-size: 12px; color: #fff; font-weight: bold; background: rgba(255, 71, 87, 0.15); border: 1px solid rgba(255, 71, 87, 0.3); padding: 5px 12px; border-radius: 8px; display: none; align-items: center; gap: 6px; }
-        .admin-identity-tag.active { display: inline-flex; }
+        .panel-select:hover { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
+        .admin-identity-tag { font-size: 11px; color: #fff; font-weight: bold; background: rgba(255, 71, 87, 0.15); border: 1px solid var(--danger); padding: 6px 14px; border-radius: 20px; display: none; align-items: center; gap: 6px; }
+        .admin-identity-tag.active { display: inline-flex; animation: pulseGlow 2s infinite; }
 
-        /* Container Layout Styles */
-        .app-header { background: rgba(10, 25, 47, 0.4); backdrop-filter: blur(5px); color: white; padding: 20px 15px; text-align: center; border-bottom: 1px solid var(--card-border); }
-        .app-container { padding: 20px 15px; max-width: 1000px; margin: 0 auto; min-height: 60vh; }
-        .app-screen { display: none; animation: fadeIn 0.3s ease-in-out; }
+        /* Hero Engine */
+        .hero-banner {
+            background: linear-gradient(rgba(7, 11, 25, 0.85), rgba(7, 11, 25, 0.98)), url('Logo-01.jpg');
+            background-size: cover; background-position: center; color: white; padding: 40px 20px; text-align: center;
+            border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .hero-banner h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; color: #fff; }
+        .hero-banner p { font-size: 13px; color: var(--primary); font-weight: 500; letter-spacing: 0.5px; }
+        .reg-badge { display: inline-block; background: rgba(0, 255, 135, 0.08); font-size: 11px; padding: 6px 16px; border-radius: 20px; margin-top: 15px; border: 1px solid var(--primary); color: var(--primary); }
+
+        /* Container Layout */
+        .app-container { padding: 0 15px; max-width: 800px; margin: 0 auto; }
+        .app-screen { display: none; animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .app-screen.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        
-        h2 { font-size: 18px; color: #fff; margin: 25px 0 15px 0; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; }
-        h2 i { color: var(--primary); }
-        h3 { font-size: 16px; color: #fff; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;}
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Cards, Forms & Input Systems */
-        .card { background: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 20px; border-radius: 16px; margin-bottom: 25px; border: 1px solid var(--card-border); }
-        .hero { background: linear-gradient(135deg, rgba(30, 58, 138, 0.5), rgba(10, 25, 47, 0.8)); border: 1px solid rgba(0, 242, 254, 0.15); padding: 30px 20px; border-radius: 20px; text-align: center; margin-bottom: 25px; }
-        .form-group { margin-bottom: 14px; }
-        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #94a3b8; }
-        .form-control { width: 100%; padding: 11px 14px; border-radius: 8px; background: rgba(5, 11, 22, 0.5); border: 1px solid var(--card-border); color: white; font-size: 14px; outline: none; }
-        .form-control:focus { border-color: var(--primary); }
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+        /* Card Elements */
+        .section-title { font-size: 15px; font-weight: 700; color: #fff; margin: 30px 0 15px 0; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--primary); padding-left: 12px; }
+        .card { background: var(--card-bg); backdrop-filter: blur(10px); padding: 20px; border-radius: 16px; margin-bottom: 20px; border: 1px solid var(--card-border); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+
+        /* Stats Component */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 12px 8px; text-align: center; }
+        .stat-card i { font-size: 20px; margin-bottom: 6px; }
+        .stat-card .num { font-size: 16px; font-weight: 700; color: #fff; }
+        .stat-card .label { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+
+        /* UI Forms */
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--text-muted); }
+        .form-control { width: 100%; padding: 12px 14px; border-radius: 10px; background: rgba(7, 11, 25, 0.6); border: 1px solid var(--card-border); color: #fff; font-size: 13px; outline: none; transition: 0.3s; }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
         
-        .btn { padding: 10px 20px; border-radius: 30px; border: none; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; justify-content: center; transition: 0.2s; }
-        .btn-primary { background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); color: #0a192f; }
+        .btn { padding: 12px 20px; border-radius: 25px; border: none; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 12px; justify-content: center; transition: 0.3s; }
+        .btn-primary { background: linear-gradient(135deg, #00ff87 0%, #60efff 100%); color: #070b19; box-shadow: 0 4px 12px rgba(0,255,135,0.2); }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 15px rgba(0,255,135,0.3); }
         .btn-danger { background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%); color: white; }
-        .btn-success { background: linear-gradient(135deg, #2ed573 0%, #7bed9f 100%); color: #0a192f; }
-        .btn-warning { background: linear-gradient(135deg, #ffa500 0%, #ffb732 100%); color: #0a192f; }
+        .btn-success { background: linear-gradient(135deg, #00ff87 0%, #00b359 100%); color: #070b19; }
+        .btn-warning { background: linear-gradient(135deg, #ffa500 0%, #ff7f00 100%); color: white; }
         .btn-block { width: 100%; }
-        .btn:hover { transform: translateY(-1px); }
 
-        /* Timeline Activity Feed Styles */
-        .activity-card { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 12px; padding: 15px; margin-bottom: 15px; }
-        .activity-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 8px; margin-top: 10px; border: 1px solid var(--card-border); }
+        /* Lists and Badges */
+        .info-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        .info-item { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.04); }
+        .info-item i { color: var(--secondary); font-size: 15px; width: 20px; text-align: center; }
+        .info-item div { font-size: 13px; color: var(--text); line-height: 1.4; }
 
-        /* Committee Structure Matrix Elements */
-        .members-section-title { font-size: 15px; color: var(--primary); margin: 25px 0 12px 0; font-weight: 600; display: flex; align-items: center; gap: 8px; border-left: 3px solid var(--primary); padding-left: 10px; }
-        .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin-bottom: 15px; }
-        .member-card { background: var(--card-bg); border-radius: 16px; padding: 15px; text-align: center; border: 1px solid var(--card-border); }
-        .member-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 2px solid rgba(0, 242, 254, 0.2); background: #071324; }
+        /* Dynamic Profiles */
+        .roster-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; }
+        .roster-avatar { width: 75px; height: 75px; border-radius: 50%; border: 2.5px solid var(--primary); padding: 2px; object-fit: cover; background: #070b19; margin-bottom: 10px; }
+        .roster-name { font-size: 14px; font-weight: 700; color: #fff; }
+        .roster-designation { font-size: 11px; background: rgba(96, 239, 255, 0.08); color: var(--secondary); padding: 3px 10px; border-radius: 20px; margin-top: 5px; font-weight: 600; border: 1px solid rgba(96, 239, 255, 0.15); }
 
-        /* Emergency Blood Donor Directories */
-        .donor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
-        .donor-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; display: flex; gap: 14px; align-items: center; position: relative; }
-        .donor-blood-tag { position: absolute; top: 10px; right: 10px; background: rgba(255, 71, 87, 0.15); border: 1px solid var(--danger); color: #ff4757; font-weight: bold; padding: 2px 8px; border-radius: 4px; font-size: 12px; }
-        .donor-avatar { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; background: #071324; }
+        /* Data Tables */
+        .table-container { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; overflow: hidden; }
+        .member-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+        .member-table th { background: rgba(7, 11, 25, 0.8); color: var(--secondary); padding: 12px; font-weight: 600; border-bottom: 1px solid var(--card-border); }
+        .member-table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text); }
+        .table-avatar { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--primary); background: #070b19; }
+        
+        .badge-table { padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; display: inline-block; }
+        .badge-founder { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.25); }
+        .badge-advisor { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.25); }
+        .badge-executive { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.25); }
+        .badge-general { background: rgba(148, 163, 184, 0.15); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.25); }
 
-        /* Elevated Floating Bottom Navigation Bar Overcoming Invisible Windows Watermarks */
+        .donor-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 15px; display: flex; gap: 12px; align-items: center; position: relative; }
+        .donor-blood-tag { position: absolute; top: 12px; right: 12px; background: rgba(255, 71, 87, 0.12); border: 1px solid var(--danger); color: var(--danger); font-weight: bold; padding: 2px 8px; border-radius: 20px; font-size: 10px; }
+
+        /* Floating Modern Navigation Bar */
         .bottom-nav { 
-            position: fixed; 
-            bottom: 15px; 
-            left: 10px; 
-            right: 10px; 
-            background: rgba(10, 25, 47, 0.95); 
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
-            height: 70px; 
-            display: flex; 
-            border: 1px solid var(--card-border); 
-            border-radius: 16px;
-            z-index: 99999; 
+            position: fixed; bottom: 15px; left: 15px; right: 15px; 
+            background: rgba(20, 28, 52, 0.85); backdrop-filter: blur(15px); height: 70px; display: flex; 
+            border: 1px solid rgba(255,255,255,0.06); border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5); z-index: 99999; overflow: hidden;
         }
-        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; font-size: 12px; font-weight: 600; }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; font-size: 11px; font-weight: 600; transition: 0.3s; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; }
         .nav-item.active { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+        .nav-item.active i { transform: translateY(-1px); color: var(--primary); }
     </style>
 </head>
 <body>
 
+    <!-- Splash Screen Panel Loader -->
     <div id="splash-screen">
         <div class="splash-logo-container">
             <img src="Logo-01.jpg" class="splash-logo" onerror="this.src='https://via.placeholder.com/150'">
         </div>
-        <div class="splash-title">SWAPNATARI SYSTEM PRO</div>
+        <div class="splash-title">SWAPNATARI SVYO</div>
         <div class="spinner"></div>
     </div>
 
+    <!-- Live Ticker Bar -->
     <div class="notice-ticker">
-        <span>NOTICE</span>
-        <marquee id="live-marquee-notice" behavior="scroll" direction="left">Welcome to Swapnatari Voluntary Youth Organization Digital Control Core.</marquee>
+        <span>নোটিশ</span>
+        <marquee id="live-marquee-notice" behavior="scroll" direction="left">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন গ্লোবাল নেটওয়ার্কিং পোর্টালে আপনাকে স্বাগতম।</marquee>
     </div>
 
-    <div class="bg-stars"></div>
-
+    <!-- Security Top Control Panel -->
     <div class="top-panel-bar">
-        <div class="panel-brand"><i class="fas fa-shield-alt"></i> <span>SVYO CORE OS</span></div>
-        <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="panel-brand">
+            <img src="Logo-01.jpg" onerror="this.src='https://via.placeholder.com/150'">
+            <div>
+                <div style="font-size:14px; font-weight:700; color:#fff;">স্বপ্নতরী কন্ট্রোল সিস্টেম</div>
+                <div style="font-size:9px; color:var(--text-muted); letter-spacing:0.3px;">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
             <div id="admin-id-tag" class="admin-identity-tag"><i class="fas fa-user-shield"></i> ROOT ADMIN</div>
             <select class="panel-select" id="panel-mode-selector" onchange="handlePanelSwitch(this.value)">
-                <option value="user">User Mode</option>
-                <option value="admin">Admin Control</option>
+                <option value="user">ইউজার মোড</option>
+                <option value="admin">অ্যাডমিন প্যানেল</option>
             </select>
         </div>
     </div>
 
-    <header class="app-header">
-        <h1>ORGANIZATION MANAGEMENT SYSTEM</h1>
-    </header>
+    <!-- Brand Header Banner -->
+    <div class="hero-banner">
+        <h1>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h1>
+        <p>"সৃষ্টির সেবাই আমাদের স্বপ্নতরী"</p>
+        <div class="reg-badge"><i class="fas fa-id-card"></i> নিবন্ধন নং: যু/উ/অ/সদর-০৯৩</div>
+    </div>
 
     <div class="app-container">
         
+        <!-- SCREEN 1: HOME -->
         <div id="screen-home" class="app-screen active">
-            <div class="hero">
-                <h2 style="justify-content: center; margin-top:0; font-size:20px; border:none;">Swapnatari Voluntary Youth Organization</h2>
-                <div class="grid-2" style="margin-top:20px; max-width:450px; margin-left:auto; margin-right:auto;">
-                    <button class="btn btn-primary" onclick="switchScreen('forms')"><i class="fas fa-edit"></i> Join As Member</button>
-                    <button class="btn btn-danger" onclick="switchScreen('blood')"><i class="fas fa-heartbeat"></i> Blood Bank</button>
+            <div class="section-title"><i class="fas fa-info-circle"></i> আমাদের পরিচিতি ও মূল ভিত্তি</div>
+            <div class="card" style="line-height: 1.7; font-size: 13px; text-align: justify; color: #cbd5e1;">
+                স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO) একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২১ সালের ৪ই জুন কক্সবাজারে একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে আত্মমানবতার সেবার শ্লোগান নিয়ে এটি প্রতিষ্ঠিত হয়। সমাজ সংস্কার, রক্তদান এবং যুবকদের দক্ষ করে গড়ে তোলাই আমাদের মূল লক্ষ্য।
+            </div>
+
+            <div class="section-title"><i class="fas fa-map-marked-alt"></i> সাংগঠনিক কাঠামো ও যোগাযোগের ঠিকানা</div>
+            <div class="card">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-globe"></i>
+                        <div><b>কার্য এলাকা:</b> কক্সবাজার জেলার সকল উপজেলা। পর্যায়ক্রমে দেশ ও বিদেশে কাজ করার সম্ভাবনা ও পরিকল্পনা রয়েছে।</div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-building"></i>
+                        <div><b>প্রধান কার্যালয়:</b> সোনাআলী ভবন, দক্ষিণ রুমালিয়ার ছড়া, পৌরসভা কক্সবাজার।</div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-hotel"></i>
+                        <div><b>অস্থায়ী ঠিকানা:</b>  সাওতুল কুরআন ইন্টারন্যাশনাল হিফয মাদরাসা কক্সবাজার।</div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div><b>জরুরী যোগাযোগ নম্বর:</b> <a href="tel:01839369388" style="color:var(--primary); text-decoration:none; font-weight:600;">01839-369388</a></div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div><b>অফিসিয়াল ইমেইল:</b> <a href="mailto:swapnataricoxbd@gmail.com" style="color:var(--secondary); text-decoration:none;">swapnataricoxbd@gmail.com</a></div>
+                    </div>
                 </div>
             </div>
 
-            <h2><i class="fas fa-bullhorn"></i> Live Notice Board</h2>
-            <div class="card" id="notice-board-feed" style="border-left: 4px solid var(--danger);">
+            <div class="section-title"><i class="fas fa-chart-bar"></i> আমাদের রিয়েল-টাইম ইমপ্যাক্ট</div>
+            <div class="stats-grid">
+                <div class="stat-card" style="border-bottom: 3px solid #ff4757;">
+                    <i class="fas fa-tint" style="color:#ff4757;"></i>
+                    <div class="num" id="stat-blood">০</div>
+                    <div class="label">রক্তদাতা সক্রিয়</div>
                 </div>
+                <div class="stat-card" style="border-bottom: 3px solid var(--primary);">
+                    <i class="fas fa-users" style="color:var(--primary);"></i>
+                    <div class="num" id="stat-members">০</div>
+                    <div class="label">মোট সদস্য</div>
+                </div>
+                <div class="stat-card" style="border-bottom: 3px solid var(--secondary);">
+                    <i class="fas fa-project-diagram" style="color:var(--secondary);"></i>
+                    <div class="num" id="stat-projects">২৫+</div>
+                    <div class="label">সফল প্রজেক্ট</div>
+                </div>
+            </div>
 
-            <h2><i class="fas fa-images"></i> Organization Activities & Feed Updates</h2>
-            <div id="activity-posts-feed">
-                </div>
+            <div class="section-title"><i class="fas fa-bullhorn"></i> লাইভ নোটিশ বোর্ড</div>
+            <div class="card" id="notice-board-feed" style="border-left: 4px solid var(--danger); font-size:13px; background: rgba(255,71,87,0.03);">
+            </div>
+
+            <div class="section-title"><i class="fas fa-newspaper"></i> সাম্প্রতিক কার্যক্রম ফিড</div>
+            <div id="activity-posts-feed"></div>
         </div>
 
+        <!-- SCREEN 2: COMMITTEES -->
         <div id="screen-about" class="app-screen">
-            <h2><i class="fas fa-users"></i> Organization Committees</h2>
-            
-            <div class="members-section-title"><i class="fas fa-crown"></i> Founder Council</div>
-            <div class="members-grid" id="founder-render-box"></div>
+            <div class="section-title"><i class="fas fa-crown"></i> ১. সম্মানিত প্রতিষ্ঠাতা পরিষদ (Founder's Council)</div>
+            <div class="grid-2" id="founder-render-box" style="margin-bottom:20px;"></div>
 
-            <div class="members-section-title"><i class="fas fa-star"></i> Executive Board</div>
-            <div class="members-grid" id="executive-render-box"></div>
+            <div class="section-title"><i class="fas fa-user-tie"></i> ২. উপদেষ্টা পরিষদ (Advisory Council)</div>
+            <div class="grid-2" id="advisory-render-box" style="margin-bottom:20px;"></div>
 
-            <div class="members-section-title"><i class="fas fa-user-tie"></i> Advisory Body</div>
-            <div class="members-grid" id="advisory-render-box"></div>
+            <div class="section-title"><i class="fas fa-shield-alt"></i> ৩. কার্যকরী পরিষদ (Executive Committee)</div>
+            <div class="grid-2" id="executive-render-box" style="margin-bottom:20px;"></div>
 
-            <div class="members-section-title"><i class="fas fa-user"></i> General Body</div>
-            <div class="members-grid" id="general-render-box"></div>
+            <div class="section-title"><i class="fas fa-users"></i> ৪. সাধারণ সদস্য ও ভলান্টিয়ার্স পর্ষদ</div>
+            <div class="grid-2" id="general-render-box" style="margin-bottom:20px;"></div>
+
+            <div class="section-title"><i class="fas fa-id-badge"></i> ৫. ডিজিটাল ডিরেক্টরি মাস্টার টেবিল (একত্রে সকল ডাটা)</div>
+            <div class="table-container">
+                <table class="member-table">
+                    <thead>
+                        <tr>
+                            <th>ছবি</th>
+                            <th>নাম</th>
+                            <th>পদবী</th>
+                            <th>পরিষদ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="general-table-body"></tbody>
+                </table>
+            </div>
         </div>
 
+        <!-- SCREEN 3: REGISTRATION FORMS -->
         <div id="screen-forms" class="app-screen">
-            <h2><i class="fas fa-file-signature"></i> Membership Application Form</h2>
+            <div class="section-title"><i class="fas fa-user-plus"></i> গ্লোবাল সদস্যপদ আবেদন ফরম (বিশ্বের যেকোনো প্রান্ত থেকে)</div>
             <div class="card">
                 <form id="main-member-form" onsubmit="handlePublicRegistration(event)">
                     <input type="hidden" id="form-member-id">
-                    <div class="form-group"><label>Full Name</label><input type="text" id="reg-name" class="form-control" required></div>
+                    <div class="form-group"><label>আবেদনকারীর পূর্ণ নাম</label><input type="text" id="reg-name" class="form-control" required></div>
                     <div class="grid-2">
-                        <div class="form-group"><label>Father's Name</label><input type="text" id="reg-father" class="form-control" required></div>
-                        <div class="form-group"><label>Mother's Name</label><input type="text" id="reg-mother" class="form-control" required></div>
+                        <div class="form-group"><label>পিতার নাম</label><input type="text" id="reg-father" class="form-control" required></div>
+                        <div class="form-group"><label>মাতার নাম</label><input type="text" id="reg-mother" class="form-control" required></div>
                     </div>
-                    <div class="grid-3">
-                        <div class="form-group"><label>Blood Group</label>
+                    <div class="grid-2">
+                        <div class="form-group"><label>রক্তের গ্রুপ</label>
                             <select id="reg-blood" class="form-control" required>
                                 <option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option>
                                 <option value="A-">A-</option><option value="B-">B-</option><option value="O-">O-</option><option value="AB-">AB-</option>
                             </select>
                         </div>
-                        <div class="form-group"><label>NID / Certificate No</label><input type="number" id="reg-nid" class="form-control" required></div>
-                        <div class="form-group"><label>Designation / Role</label><input type="text" id="reg-role" class="form-control" required></div>
+                        <div class="form-group"><label>এনআইডি / জন্ম নিবন্ধন নম্বর</label><input type="number" id="reg-nid" class="form-control" required></div>
                     </div>
                     <div class="grid-2">
-                        <div class="form-group"><label>Mobile Number</label><input type="tel" id="reg-phone" class="form-control" required></div>
-                        <div class="form-group"><label>Desired Council Category</label>
+                        <div class="form-group"><label>মোবাইল নম্বর (হোয়াটসঅ্যাপ সহ)</label><input type="tel" id="reg-phone" class="form-control" placeholder="যেমন: +88018..." required></div>
+                        <div class="form-group"><label>টার্গেট পর্ষদ ক্যাটাগরি</label>
                             <select id="reg-panel" class="form-control" required>
-                                <option value="Founder">Founder Council</option>
-                                <option value="Executive">Executive Board</option>
-                                <option value="Advisory">Advisory Body</option>
-                                <option value="General">General Body</option>
+                                <option value="Founder">প্রতিষ্ঠাতা পরিষদ</option>
+                                <option value="Advisory">উপদেষ্টা পরিষদ</option>
+                                <option value="Executive">কার্যকরী পরিষদ</option>
+                                <option value="General">সাধারণ সদস্য / ভলান্টিয়ার</option>
                             </select>
                         </div>
                     </div>
-                    <div class="form-group"><label>Image URL</label><input type="url" id="reg-img" class="form-control" placeholder="https://example.com/photo.jpg" required></div>
-                    <button type="submit" id="submit-member-btn" class="btn btn-primary btn-block">Submit Application</button>
+                    <div class="form-group"><label>আকাঙ্ক্ষিত পদবী</label><input type="text" id="reg-role" class="form-control" placeholder="যেমন: কার্যকরী সদস্য, ভলান্টিয়ার ইত্যাদি" required></div>
+                    <div class="form-group"><label>প্রোফাইল ছবির ক্লাউড লিংক (Image Link)</label><input type="url" id="reg-img" class="form-control" placeholder="https://example.com/your-photo.jpg" required></div>
+                    <button type="submit" id="submit-member-btn" class="btn btn-primary btn-block">আবেদনপত্র সাবমিট করুন</button>
                 </form>
             </div>
         </div>
 
+        <!-- SCREEN 4: BLOOD BANK -->
         <div id="screen-blood" class="app-screen">
-            <h2><i class="fas fa-heartbeat"></i> Blood Donor Search Engine</h2>
-            <div class="grid-2" style="margin-bottom: 20px; max-width: 400px;">
-                <button class="btn btn-primary" onclick="toggleDonorForm(true)"><i class="fas fa-plus"></i> Register Donor</button>
-                <button class="btn btn-danger" onclick="toggleDonorForm(false)"><i class="fas fa-search"></i> Find Donor</button>
+            <div class="section-title"><i class="fas fa-heartbeat"></i> লাইভ ইমার্জেন্সি ব্লাড ব্যাংক ডাটাবেজ</div>
+            <div class="grid-2" style="margin-bottom: 20px;">
+                <button class="btn btn-primary" onclick="toggleDonorForm(true)"><i class="fas fa-plus-circle"></i> রক্তদাতা হিসেবে নাম রেজিস্টার করুন</button>
+                <button class="btn btn-danger" onclick="toggleDonorForm(false)"><i class="fas fa-search"></i> রক্তদাতার সন্ধান করুন</button>
             </div>
             
             <div id="donor-register-zone" class="card" style="display:none;">
                 <form id="main-donor-form" onsubmit="handleDonorRegistration(event)">
-                    <input type="hidden" id="form-donor-id">
-                    <div class="form-group"><label>Donor Name</label><input type="text" id="don-name" class="form-control" required></div>
+                    <div class="form-group"><label>রক্তদাতার পূর্ণ নাম</label><input type="text" id="don-name" class="form-control" required></div>
                     <div class="grid-2">
-                        <div class="form-group"><label>Blood Group</label>
+                        <div class="form-group"><label>রক্তের গ্রুপ</label>
                             <select id="don-blood" class="form-control" required>
                                 <option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option>
                                 <option value="A-">A-</option><option value="B-">B-</option><option value="O-">O-</option><option value="AB-">AB-</option>
                             </select>
                         </div>
-                        <div class="form-group"><label>Contact Number</label><input type="tel" id="don-phone" class="form-control" required></div>
+                        <div class="form-group"><label>মোবাইল নাম্বার</label><input type="tel" id="don-phone" class="form-control" required></div>
                     </div>
                     <div class="grid-2">
-                        <input type="text" id="don-dist" class="form-control form-group" placeholder="District / Location" required>
-                        <input type="url" id="don-img" class="form-control form-group" placeholder="Avatar Image URL" required>
+                        <div class="form-group"><label>ঠিকানা / উপজেলা / দেশ</label><input type="text" id="don-dist" class="form-control" placeholder="যেমন: কক্সবাজার সদর / ঢাকা / ওমান" required></div>
+                        <div class="form-group"><label>ছবির লিংক</label><input type="url" id="don-img" class="form-control" placeholder="https://example.com/donor.jpg" required></div>
                     </div>
-                    <button type="submit" id="submit-donor-btn" class="btn btn-success btn-block">Register As Blood Donor</button>
+                    <button type="submit" class="btn btn-success btn-block">রক্তদাতা তালিকায় যুক্ত হওয়ার আবেদন দাখিল করুন</button>
                 </form>
             </div>
             
             <div id="donor-search-zone">
                 <div class="card">
-                    <div class="grid-3">
-                        <select id="search-blood" class="form-control">
-                            <option value="">All Groups</option><option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option>
+                    <div class="grid-2">
+                        <select id="search-blood" class="form-control form-group">
+                            <option value="">সকল গ্রুপের রক্ত</option><option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option>
                             <option value="A-">A-</option><option value="B-">B-</option><option value="O-">O-</option><option value="AB-">AB-</option>
                         </select>
-                        <input type="text" id="search-district" class="form-control" placeholder="District Location">
-                        <button class="btn btn-danger" onclick="searchGlobalDonors()">Search Directory</button>
+                        <input type="text" id="search-district" class="form-control form-group" placeholder="উপজেলা বা এলাকা সার্চ করুন...">
                     </div>
+                    <button class="btn btn-danger btn-block" onclick="searchGlobalDonors()">সার্চ করুন</button>
                 </div>
-                <div class="donor-grid" id="global-donors-results"></div>
+                <div class="grid-2" id="global-donors-results"></div>
             </div>
         </div>
 
+        <!-- SCREEN 5: CENTRAL ADMIN PANEL -->
         <div id="screen-admin" class="app-screen">
-            <h2><i class="fas fa-user-shield"></i> Master Control Room (Elections, Operations & Updates)</h2>
+            <div class="section-title"><i class="fas fa-unlock-alt"></i> মাস্টার কন্ট্রোল অ্যাডমিন ড্যাশবোর্ড</div>
             
             <div class="card">
-                <h3><i class="fas fa-plus-circle"></i> Direct Entry Injector</h3>
-                <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Add members directly into any Council (Founder/Executive/Advisory/General) immediately skipping approval queues.</p>
-                <button class="btn btn-primary" onclick="openDirectMemberForm()"><i class="fas fa-user-plus"></i> Launch Direct Entry Form</button>
+                <h3><i class="fas fa-terminal"></i> ডিরেক্ট মেম্বার ইনজেকশন মোড</h3>
+                <p style="font-size:11px; color:var(--text-muted); margin-bottom:12px;">কোনো অনুমোদন ছাড়া অ্যাডমিন সরাসরি ডাটাবেজে মেম্বার পুশ করতে ফর্ম ওপেন করুন।</p>
+                <button class="btn btn-primary" onclick="openDirectMemberForm()"><i class="fas fa-plus"></i> সরাসরি মেম্বার অ্যাড করুন</button>
             </div>
 
             <div class="card">
-                <h3><i class="fas fa-bullhorn"></i> Broadcast Emergency Notice</h3>
+                <h3><i class="fas fa-bolt"></i> গ্লোবাল নোটিশ ব্রডকাস্ট ম্যানেজার</h3>
                 <div class="form-group" style="margin-top:10px;">
-                    <textarea id="admin-notice-input" class="form-control" placeholder="Write global floating notice alert message here..." rows="3"></textarea>
+                    <textarea id="admin-notice-input" class="form-control" placeholder="চলমান স্ক্রোল নোটিশ পরিবর্তন করুন..." rows="2"></textarea>
                 </div>
-                <button class="btn btn-danger" onclick="publishNotice()">Publish & Broadcast Notice</button>
+                <button class="btn btn-danger" onclick="publishNotice()">নোটিশ লাইভ করুন</button>
             </div>
 
             <div class="card">
-                <h3><i class="fas fa-upload"></i> Post Organization Work Update</h3>
+                <h3><i class="fas fa-cloud-upload-alt"></i> নতুন কার্যক্রম আপডেট পাবলিশার</h3>
                 <div class="form-group" style="margin-top:10px;">
-                    <input type="text" id="post-title" class="form-control form-group" placeholder="Activity Update Title">
-                    <textarea id="post-body" class="form-control form-group" placeholder="Write operational details, execution brief..." rows="3"></textarea>
-                    <input type="url" id="post-img" class="form-control form-group" placeholder="Event Realtime Image Link (URL)">
+                    <input type="text" id="post-title" class="form-control form-group" placeholder="শিরোনাম">
+                    <textarea id="post-body" class="form-control form-group" placeholder="বিস্তারিত বিবরণ..." rows="3"></textarea>
+                    <input type="url" id="post-img" class="form-control form-group" placeholder="ছবির ইউআরএল লিংক">
                 </div>
-                <button class="btn btn-success" onclick="publishActivityPost()">Publish Activity Feed</button>
+                <button class="btn btn-success" onclick="publishActivityPost()">ফিডে পাবলিশ করুন</button>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-hourglass-half"></i> সদস্যপদের পেন্ডিং আবেদন কিউ (<span id="count-pending-members">০</span>)</h3>
+                <div id="admin-pending-list" style="margin-top:10px;"></div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-tint"></i> রক্তদাতার পেন্ডিং আবেদন কিউ (<span id="count-pending-donors">০</span>)</h3>
+                <div id="admin-pending-donors-list" style="margin-top:10px;"></div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-user-cog"></i> গ্লোবাল মডারেশন (লাইভ মেম্বার অ্যাড, এডিট, রিমুভ)</h3>
+                <div id="admin-live-members-list" style="margin-top:10px; display:flex; flex-direction:column; gap:10px;"></div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-tint-slash"></i> গ্লোবাল মডারেশন (লাইভ রক্তদাতা এডিট ও রিমুভ)</h3>
+                <div id="admin-live-donors-list" style="margin-top:10px; display:flex; flex-direction:column; gap:10px;"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Floating Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="switchScreen('home')"><i class="fas fa-home"></i>হোম</div>
+        <div class="nav-item" onclick="switchScreen('about')"><i class="fas fa-sitemap"></i>পর্ষদসমূহ</div>
+        <div class="nav-item" onclick="switchScreen('forms')"><i class="fas fa-file-alt"></i>আবেদন ফরম</div>
+        <div class="nav-item" onclick="switchScreen('blood')"><i class="fas fa-tint"></i>রক্তদান</div>
+    </nav>
+
+    <script>
+        // All original historical static data fully preserved
+        const defaultAppMembers = [
+            { id: 'svyo_m_1', name: "Md. Riaz Uddin", designation: "Founder", panel: "Founder", image_url: "https://via.placeholder.com/150" },
+            { id: 'svyo_m_2', name: "Md Mainuddin", designation: "Founding Member", panel: "Founder", image_url: "https://via.placeholder.com/150" },
+            { id: 'svyo_m_3', name: "Humaira Khanum", designation: "Founding Member", panel: "Founder", image_url: "https://via.placeholder.com/150" },
+            { id: 'svyo_m_4', name: "Nadia Sultana", designation: "Founding Member", panel: "Founder", image_url: "https://via.placeholder.com/150" },
+            { id: 'svyo_m_5', name: "Nazim Uddin", designation: "Team Marketing", panel: "Founder", image_url: "https://via.placeholder.com/150" },
+            { id: 'svyo_m_8', name: "জনাব এক্স", designation: "প্রধান উপদেষ্টা", panel: "Advisory", image_url: "https://via.placeholder.com/150" },
+            { id: 'svyo_m_11', name: "Mohammad Riaz", designation: "Founder & President", panel: "Executive", image_url: "https://via.placeholder.com/150" },
+            { id: 'svyo_m_12', name: "Md. Nazim Uddin", designation: "General Secretary", panel: "Executive", image_url: "https://via.placeholder.com/150" }
+        ];
+
+        let db_members = JSON.parse(localStorage.getItem('svyo_live_members')) || defaultAppMembers;
+        let db_donors = JSON.parse(localStorage.getItem('svyo_donors')) || [];
+        let db_pending = JSON.parse(localStorage.getItem('svyo_pending_members')) || [];
+        let db_pending_donors = JSON.parse(localStorage.getItem('svyo_pending_donors')) || [];
+        let db_posts = JSON.parse(localStorage.getItem('svyo_posts')) || [];
+        let system_notice = localStorage.getItem('svyo_notice') || "স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO) গ্লোবাল নেটওয়ার্কিং পোর্টালে আপনাকে স্বাগতম।";
+        let isAdminAuthenticated = false;
+
+        window.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => { document.getElementById('splash-screen').classList.add('hidden'); }, 1500);
+            saveToLocalStorage();
+            loadLiveDatabase();
+            searchGlobalDonors();
+            renderFeeds();
+        });
+
+        function saveToLocalStorage() {
+            localStorage.setItem('svyo_live_members', JSON.stringify(db_members));
+            localStorage.setItem('svyo_pending_members', JSON.stringify(db_pending));
+            localStorage.setItem('svyo_pending_donors', JSON.stringify(db_pending_donors));
+            localStorage.setItem('svyo_donors', JSON.stringify(db_donors));
+            localStorage.setItem('svyo_posts', JSON.stringify(db_posts));
+            localStorage.setItem('svyo_notice', system_notice);
+            
+            // Sync Live Statistics Counter
+            document.getElementById('stat-members').innerText = db_members.length;
+            document.getElementById('stat-blood').innerText = db_donors.length;
+        }
+
+        function switchScreen(screenId) {
+            if (screenId === 'admin' && !isAdminAuthenticated) {
+                document.getElementById('panel-mode-selector').value = 'user';
+                handlePanelSwitch('admin');
+                return;
+            }
+            document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen-' + screenId).classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            const idxMap = { 'home': 0, 'about': 1, 'forms': 2, 'blood': 3 };
+            if (idxMap[screenId] !== undefined) document.querySelectorAll('.nav-item')[idxMap[screenId]].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function handlePanelSwitch(selectedMode) {
+            if (selectedMode === 'admin') {
+                if (isAdminAuthenticated) {
+                    switchScreen('admin');
+                    renderAdminDashboard();
+                } else {
+                    let secretPass = prompt("🔐 মাস্টার অ্যাডমিন সিকিউরিটি কোড দিন:");
+                    if (secretPass === null) { document.getElementById('panel-mode-selector').value = 'user'; return; }
+                    let enteredPass = secretPass.trim();
+
+                    if (enteredPass === "9388093" || enteredPass === "SVYO@093") {
+                        isAdminAuthenticated = true;
+                        document.getElementById('admin-id-tag').classList.add('active');
+                        switchScreen('admin');
+                        renderAdminDashboard();
+                    } else {
+                        alert("❌ ভুল কোড! আপনি সঠিক অ্যাডমিন নন।");
+                        document.getElementById('panel-mode-selector').value = 'user';
+                    }
+                }
+            } else {
+                isAdminAuthenticated = false;
+                document.getElementById('admin-id-tag').classList.remove('active');
+                switchScreen('home');
+            }
+        }
+
+        function publishNotice() {
+            let txt = document.getElementById('admin-notice-input').value.trim();
+            if(!txt) return alert("নোটিশ ফাঁকা রাখা যাবে না!");
+            system_notice = txt;
+            saveToLocalStorage();
+            renderFeeds();
+            alert("📣 গ্লোবাল নোটিশ সিস্টেম সফলভাবে আপডেট করা হয়েছে!");
+            document.getElementById('admin-notice-input').value = '';
+        }
+
+        function publishActivityPost() {
+            let title = document.getElementById('post-title').value.trim();
+            let body = document.getElementById('post-body').value.trim();
+            let img = document.getElementById('post-img').value.trim();
+            if(!title || !body) return alert("শিরোনাম এবং বিবরণ আবশ্যক!");
+
+            let newPost = { id: Date.now(), title, body, img: img || '', date: new Date().toLocaleDateString('bn-BD') };
+            db_posts.unshift(newPost);
+            saveToLocalStorage();
+            renderFeeds();
+            alert("✅ নতুন কার্যক্রম ফিডে পাবলিশ হয়েছে!");
+            document.getElementById('post-title').value = '';
+            document.getElementById('post-body').value = '';
+            document.getElementById('post-img').value = '';
+        }
+
+        function renderFeeds() {
+            document.getElementById('live-marquee-notice').innerText = system_notice;
+            document.getElementById('notice-board-feed').innerHTML = `<p><i class="fas fa-rss-square" style="color:var(--danger)"></i> ${system_notice}</p>`;
+            
+            const feed = document.getElementById('activity-posts-feed');
+            feed.innerHTML = db_posts.length === 0 ? '<p style="color:var(--text-muted); font-size:12px;">বর্তমানে কোনো আপডেট পোস্ট রেকর্ড নেই।</p>' : '';
+            
+            db_posts.forEach(p => {
+                let imgHtml = p.img ? `<img src="${p.img}" style="width:100%; border-radius:12px; margin-top:10px; border:1px solid var(--card-border);" onerror="this.style.display='none'">` : '';
+                feed.innerHTML += `
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                            <h4 style="color:#fff; font-size:14px;">${p.title}</h4>
+                            <span style="font-size:10px; color:var(--text-muted);"><i class="fas fa-clock"></i> ${p.date}</span>
+                        </div>
+                        <p style="color:var(--text-muted); font-size:12px; line-height:1.6;">${p.body}</p>
+                        ${imgHtml}
+                    </div>`;
+            });
+        }
+
+        function openDirectMemberForm() {
+            switchScreen('forms');
+            document.getElementById('form-member-id').value = '';
+            document.getElementById('submit-member-btn').innerText = "অ্যাডমিন মডিউলে সরাসরি ইনজেক্ট করুন";
+        }
+
+        function handlePublicRegistration(e) {
+            e.preventDefault();
+            const editId = document.getElementById('form-member-id').value;
+
+            const memberData = {
+                name: document.getElementById('reg-name').value,
+                designation: document.getElementById('reg-role').value,
+                panel: document.getElementById('reg-panel').value,
+                image_url: document.getElementById('reg-img').value
+            };
+
+            if(editId) {
+                const index = db_members.findIndex(m => m.id == editId);
+                if(index > -1) {
+                    memberData.id = editId;
+                    db_members[index] = memberData;
+                    alert("✅ মেম্বার ডাটা মডিফিকেশন সফল!");
+                }
+            } else {
+                if(isAdminAuthenticated) {
+                    memberData.id = 'svyo_m_' + Date.now();
+                    db_members.push(memberData);
+                    alert("🚀 কোর ডাটাবেজে মেম্বার সফলভাবে যুক্ত হয়েছে!");
+                } else {
+                    memberData.tempId = Date.now();
+                    db_pending.push(memberData);
+                    alert("✅ গ্লোবাল মেম্বারশিপ রিকোয়েস্ট সফল! এডমিন প্যানেলের অ্যাপ্রুভালের পর আপনার নাম পর্ষদে প্রকাশ করা হবে।");
+                }
+            }
+            
+            saveToLocalStorage();
+            e.target.reset();
+            document.getElementById('form-member-id').value = '';
+            document.getElementById('submit-member-btn').innerText = "আবেদনপত্র সাবমিট করুন";
+            loadLiveDatabase();
+            if(isAdminAuthenticated) { switchScreen('admin'); renderAdminDashboard(); } else { switchScreen('home'); }
+        }
+
+        function loadLiveDatabase() {
+            const boxes = { 
+                Founder: document.getElementById('founder-render-box'),
+                Executive: document.getElementById('executive-render-box'), 
+                Advisory: document.getElementById('advisory-render-box'),
+                General: document.getElementById('general-render-box')
+            };
+            Object.keys(boxes).forEach(k => { if(boxes[k]) boxes[k].innerHTML = ''; });
+            
+            const tableBody = document.getElementById('general-table-body');
+            tableBody.innerHTML = '';
+
+            db_members.forEach(m => {
+                let targetBox = boxes[m.panel];
+                if(targetBox) {
+                    targetBox.innerHTML += `
+                        <div class="roster-card">
+                            <img src="${m.image_url}" class="roster-avatar" onerror="this.src='https://via.placeholder.com/150'">
+                            <div class="roster-name">${m.name}</div>
+                            <div class="roster-designation">${m.designation}</div>
+                        </div>`;
+                }
+
+                let badgeClass = m.panel === 'Founder' ? 'badge-founder' : m.panel === 'Advisory' ? 'badge-advisor' : m.panel === 'Executive' ? 'badge-executive' : 'badge-general';
+                let panelText = m.panel === 'Founder' ? 'প্রতিষ্ঠাতা' : m.panel === 'Advisory' ? 'উপদেষ্টা' : m.panel === 'Executive' ? 'কার্যকরী' : 'সাধারণ';
+                
+                tableBody.innerHTML += `
+                    <tr>
+                        <td><img src="${m.image_url}" class="table-avatar" onerror="this.src='https://via.placeholder.com/150'"></td>
+                        <td style="font-weight:600; color:#fff;">${m.name}</td>
+                        <td style="color:var(--text-muted);">${m.designation}</td>
+                        <td><span class="badge-table ${badgeClass}">${panelText}</span></td>
+                    </tr>`;
+            });
+        }
+
+        function renderAdminDashboard() {
+            // Member Pending Queue
+            document.getElementById('count-pending-members').innerText = db_pending.length;
+            const pendingContainer = document.getElementById('admin-pending-list');
+            pendingContainer.innerHTML = db_pending.length === 0 ? '<p style="color:var(--text-muted); font-size:12px;">কোনো সদস্য পদের রিকোয়েস্ট পেন্ডিং নেই।</p>' : '';
+            db_pending.forEach(p => {
+                pendingContainer.innerHTML += `
+                    <div style="background:rgba(7,11,25,0.5); border:1px solid var(--card-border); padding:12px; border-radius:10px; margin-bottom:8px;">
+                        <div><b style="color:#fff;">${p.name}</b> (${p.designation})</div>
+                        <div style="font-size:10px; color:var(--warning); margin-top:3px;">পর্ষদ ক্যাটাগরি: ${p.panel}</div>
+                        <div style="margin-top:8px; display:flex; gap:6px;">
+                            <button class="btn btn-success" style="padding:4px 10px; font-size:10px; border-radius:4px;" onclick="approveMember(${p.tempId})"><i class="fas fa-check"></i> অনুমোদন দিন</button>
+                            <button class="btn btn-danger" style="padding:4px 10px; font-size:10px; border-radius:4px;" onclick="deletePending(${p.tempId})"><i class="fas fa-trash-alt"></i> ডিলিট</button>
+                        </div>
+                    </div>`;
+            });
+
+            // Donor Pending Queue
+            document.getElementById('count-pending-donors').innerText = db_pending_donors.length;
+            const pendingDonorsContainer = document.getElementById('admin-pending-donors-list');
+            pendingDonorsContainer.innerHTML = db_pending_donors.length === 0 ? '<p style="color:var(--text-muted); font-size:12px;">কোনো রক্তদাতার রিকোয়েস্ট পেন্ডিং নেই।</p>' : '';
+            db_pending_donors.forEach(pd => {
+                pendingDonorsContainer.innerHTML += `
+                    <div style="background:rgba(7,11,25,0.5); border:1px solid var(--card-border); padding:12px; border-radius:10px; margin-bottom:8px;">
+                        <div><b style="color:#fff;">${pd.name}</b> [গ্রুপ: ${pd.blood}]</div>
+                        <div style="font-size:10px; color:var(--secondary); margin-top:3px;">ঠিকানা: ${pd.district}</div>
+                        <div style="margin-top:8px; display:flex; gap:6px;">
+                            <button class="btn btn-success" style="padding:4px 10px; font-size:10px; border-radius:4px;" onclick="approveDonor(${pd.tempId})"><i class="fas fa-check"></i> অনুমোদন দিন</button>
+                            <button class="btn btn-danger" style="padding:4px 10px; font-size:10px; border-radius:4px;" onclick="deletePendingDonor(${pd.tempId})"><i class="fas fa-trash-alt"></i> ডিলিট</button>
+                        </div>
+                    </div>`;
+            });
+
+            // Live Member Moderation Box
+            const liveMembersContainer = document.getElementById('admin-live-members-list');
+            liveMembersContainer.innerHTML = '';
+            db_members.forEach(m => {
+                liveMembersContainer.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(7,11,25,0.5); padding:10px; border-radius:10px; border:1px solid var(--card-border);">
+                        <div>
+                            <span style="font-weight:600; font-size:13px; color:#fff;">${m.name}</span>
+                            <span style="font-size:9px; background:var(--card-border); color:var(--secondary); padding:2px 6px; border-radius:8px; margin-left:6px;">${m.panel}</span>
+                        </div>
+                        <div style="display:flex; gap:6px;">
+                            <button class="btn btn-warning" style="padding:4px 8px; font-size:10px; border-radius:4px;" onclick="editMember('${m.id}')"><i class="fas fa-edit"></i> এডিট</button>
+                            <button class="btn btn-danger" style="padding:4px 8px; font-size:10px; border-radius:4px;" onclick="deleteMember('${m.id}')"><i class="fas fa-user-times"></i> রিমুভ</button>
+                        </div>
+                    </div>`;
+            });
+
+            // Live Donor Moderation Box
+            const liveDonorsContainer = document.getElementById('admin-live-donors-list');
+            liveDonorsContainer.innerHTML = '';
+            if(db_donors.length === 0) liveDonorsContainer.innerHTML = '<p style="color:var(--text-muted); font-size:12px;">কোনো লাইভ রক্তদাতা ডাটাবেজে নেই।</p>';
+            db_donors.forEach(d => {
+                liveDonorsContainer.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(7,11,25,0.5); padding:10px; border-radius:10px; border:1px solid var(--card-border);">
+                        <div>
+                            <span style="font-weight:600; font-size:13px; color:#fff;">${d.name}</span>
+                            <span style="font-size:9px; background:rgba(255,71,87,0.2); color:var(--danger); padding:2px 6px; border-radius:8px; margin-left:6px; font-weight:bold;">${d.blood}</span>
+                        </div>
+                        <div style="display:flex; gap:6px;">
+                            <button class="btn btn-danger" style="padding:4px 8px; font-size:10px; border-radius:4px;" onclick="deleteDonor('${d.id}')"><i class="fas fa-trash"></i> রিমুভ</button>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function approveMember(tempId) {
+            const idx = db_pending.findIndex(x => x.tempId === tempId);
+            if(idx > -1) {
+                const target = db_pending[idx];
+                target.id = 'svyo_m_' + Date.now();
+                delete target.tempId;
+                db_members.push(target);
+                db_pending.splice(idx, 1);
+                saveToLocalStorage();
+                renderAdminDashboard();
+                loadLiveDatabase();
+                alert("🎉 নতুন সদস্য অনুমোদন সম্পন্ন হয়েছে!");
+            }
+        }
+
+        function deletePending(tempId) {
+            db_pending = db_pending.filter(x => x.tempId !== tempId);
+            saveToLocalStorage();
+            renderAdminDashboard();
+        }
+
+        function approveDonor(tempId) {
+            const idx = db_pending_donors.findIndex(x => x.tempId === tempId);
+            if(idx > -1) {
+                const target = db_pending_donors[idx];
+                target.id = 'svyo_d_' + Date.now();
+                delete target.tempId;
+                db_donors.push(target);
+                db_pending_donors.splice(idx, 1);
+                saveToLocalStorage();
+                renderAdminDashboard();
+                searchGlobalDonors();
+                alert("🎉 নতুন রক্তদাতা অনুমোদন সম্পন্ন হয়েছে!");
+            }
+        }
+
+        function deletePendingDonor(tempId) {
+            db_pending_donors = db_pending_donors.filter(x => x.tempId !== tempId);
+            saveToLocalStorage();
+            renderAdminDashboard();
+        }
+
+        function deleteMember(id) {
+            if(confirm("আপনি কি নিশ্চিতভাবে এই মেম্বারকে তালিকা থেকে রিমুভ করতে চান?")) {
+                db_members = db_members.filter(m => m.id !== id);
+                saveToLocalStorage();
+                renderAdminDashboard();
+                loadLiveDatabase();
+            }
+        }
+
+        function deleteDonor(id) {
+            if(confirm("আপনি কি নিশ্চিতভাবে এই রক্তদাতাকে ব্লাড ব্যাংক থেকে রিমুভ করতে চান?")) {
+                db_donors = db_donors.filter(d => d.id != id);
+                saveToLocalStorage();
+                renderAdminDashboard();
+                searchGlobalDonors();
+            }
+        }
+
+        function editMember(id) {
+            const m = db_members.find(x => x.id === id);
+            if(m) {
+                switchScreen('forms');
+                document.getElementById('form-member-id').value = m.id;
+                document.getElementById('reg-name').value = m.name;
+                document.getElementById('reg-role').value = m.designation;
+                document.getElementById('reg-panel').value = m.panel;
+                document.getElementById('reg-img').value = m.image_url;
+                document.getElementById('submit-member-btn').innerText = "সদস্য তথ্য আপডেট নিশ্চিত করুন";
+            }
+        }
+
+        function toggleDonorForm(showForm) {
+            document.getElementById('donor-register-zone').style.display = showForm ? 'block' : 'none';
+            document.getElementById('donor-search-zone').style.display = showForm ? 'none' : 'block';
+        }
+
+        function handleDonorRegistration(e) {
+            e.preventDefault();
+            const donorData = {
+                name: document.getElementById('don-name').value,
+                blood: document.getElementById('don-blood').value,
+                phone: document.getElementById('don-phone').value,
+                district: document.getElementById('don-dist').value,
+                image_url: document.getElementById('don-img').value
+            };
+
+            if(isAdminAuthenticated) {
+                donorData.id = 'svyo_d_' + Date.now();
+                db_donors.push(donorData);
+                alert("🚀 অ্যাডমিন মোড: সরাসরি ব্লাড ব্যাংকে ডাটা ইনজেক্ট করা হয়েছে!");
+            } else {
+                donorData.tempId = Date.now();
+                db_pending_donors.push(donorData);
+                alert("🩸 ব্লাড ডোনার আবেদনটি পেন্ডিং কিউতে জমা হয়েছে। অ্যাডমিন প্যানেলের অনুমোদনের পর এটি লাইভ হবে।");
+            }
+
+            saveToLocalStorage();
+            e.target.reset();
+            toggleDonorForm(false);
+            searchGlobalDonors();
+            if(isAdminAuthenticated) { renderAdminDashboard(); }
+        }
+
+        function searchGlobalDonors() {
+            const bloodFilter = document.getElementById('search-blood').value;
+            const distFilter = document.getElementById('search-district').value.trim().toLowerCase();
+            const container = document.getElementById('global-donors-results');
+            container.innerHTML = '';
+
+            let filtered = db_donors.filter(d => {
+                return (bloodFilter ? d.blood === bloodFilter : true) && (distFilter ? d.district.toLowerCase().includes(distFilter) : true);
+            });
+
+            if(filtered.length === 0) { 
+                container.innerHTML = '<p style="color:var(--text-muted); text-align:center; grid-column:1/-1; font-size:12px; padding:20px;">কোনো রক্তদাতার ডেটা ম্যাচ করেনি।</p>'; 
+                return; 
+            }
+
+            filtered.forEach(d => {
+                container.innerHTML += `
+                    <div class="donor-card">
+                        <span class="donor-blood-tag">${d.blood}</span>
+                        <img src="${d.image_url}" class="table-avatar" style="width:48px; height:48px;" onerror="this.src='https://via.placeholder.com/150'">
+                        <div>
+                            <div style="font-weight:bold; color:#fff; font-size:13px;">${d.name}</div>
+                            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;"><i class="fas fa-map-marker-alt"></i> ${d.district}</div>
+                            <a href="tel:${d.phone}" class="btn btn-success" style="padding:4px 8px; font-size:10px; margin-top:6px; border-radius:4px; font-weight:bold;"><i class="fas fa-phone-alt"></i> কল করুন</a>
+                        </div>
+                    </div>`;
+            });
+        }
+    </script>
+</body>
+</html>
