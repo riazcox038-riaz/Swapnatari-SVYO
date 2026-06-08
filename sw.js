@@ -2,7 +2,7 @@ const CACHE_NAME = 'svyo-cache-v1';
 const urlsToCache = [
   'index.html',
   'manifest.json',
-  '20260304_112626.jpg'
+  'Logo-01.jpg'
 ];
 
 self.addEventListener('install', event => {
