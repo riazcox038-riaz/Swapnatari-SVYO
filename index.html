@@ -324,27 +324,23 @@ function loadApplicationEngine() {
     document.getElementById("app-title-bn").innerText = "স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন";
     document.getElementById("app-title-en").innerText = "SWAPNATARI VOLUNTARY YOUTH ORGANIZATION";
 
-    // ৩. গুগল শিট থেকে বাকি কনটেন্ট ও সেটিংস ফেচ করা
-    fetch(API_LINK + "?type=settings")
-        .then(res => res.json())
-        .then(d => {
-            console.log("Settings synced successfully.");
-        })
-        .catch(err => {
-            console.error("Error fetching sheet data:", err);
-        });
-}
-
-    // ১. সেটিংস ও গ্লোবাল কনটেন্ট ফেচ (এর পরের কোডগুলো আগের মতোই থাকবে)
-    fetch(API_LINK + "?type=settings")
-        .then(res => res.json())
-        // ... বাকি কোড ...
+        // ৩. অ্যাপ্লিকেশন কনফিগারেশন এবং ডাটা ইঞ্জিন
+        function loadApplicationEngine() {
+            // লোগো ইমেজ পাথ ফিক্স
+            document.getElementById("app-logo").src = "logo.jpg";
+            document.getElementById("hero-logo-img").src = "logo.jpg";
+            
+            // গুগল শিট থেকে সকল ডাটা একসাথে ফেচ করা (একবার কল)
+            fetch(API_LINK + "?type=settings")
+                .then(res => res.json())
                 .then(d => {
                     if(d.org_name_bn) {
+                        // সেটিংস ও গ্লোবাল কনটেন্ট আপডেট
                         document.getElementById("app-title-bn").innerText = d.org_name_bn;
                         document.getElementById("app-title-en").innerText = d.org_name_en;
                         document.getElementById("app-slogan").innerText = d.org_slogan;
                         document.getElementById("app-reg-no").innerHTML = `<i class="fas fa-award"></i> নিবন্ধন নং: ` + d.org_reg_no;
+                        
                         document.getElementById("hero-title-bn").innerText = d.org_name_bn;
                         document.getElementById("hero-title-en").innerText = d.org_name_en;
                         document.getElementById("hero-short-desc").innerText = d.short_desc || "মানবকল্যাণে নিয়োজিত স্বেচ্ছাসেবী প্ল্যাটফর্ম।";
@@ -357,11 +353,12 @@ function loadApplicationEngine() {
                         if(d.fb_page_url) document.getElementById("link-fb-page").href = d.fb_page_url;
                         if(d.fb_admin_url) document.getElementById("link-fb-admin").href = d.fb_admin_url;
 
-                        if(d.icon_src && !d.icon_src.includes("imgur.com") && d.icon_src.trim() !== "") {
+                        if(d.icon_src && d.icon_src.trim() !== "") {
                             document.getElementById("app-logo").src = d.icon_src;
                             document.getElementById("hero-logo-img").src = d.icon_src;
                         }
 
+                        // অ্যাডমিন প্যানেল ইনপুট ফিল্ড আপডেট
                         document.getElementById("g-name-bn").value = d.org_name_bn;
                         document.getElementById("g-name-en").value = d.org_name_en;
                         document.getElementById("g-slogan").value = d.org_slogan;
@@ -374,13 +371,9 @@ function loadApplicationEngine() {
                         document.getElementById("g-s2").value = d.stat2 || "";
                         document.getElementById("g-s3").value = d.stat3 || "";
                     }
-                }).catch(e => {
-                    document.getElementById("link-fb-page").href = "https://www.facebook.com/humanresourcedevelopmentfoundation/";
-                    document.getElementById("link-fb-admin").href = "https://www.facebook.com/mohammad.riaz.99/";
-                    console.log("সেটিংস ফেচিং অফলাইন।");
-                });
+                }).catch(e => console.log("সেটিংস ফেচিং সমস্যা:", e));
 
-            // ২. সদস্য ডাটাবেজ ফেচিং
+            // সদস্য ডাটাবেজ ফেচিং
             fetch(API_LINK + "?type=members")
                 .then(res => res.json())
                 .then(members => {
@@ -394,63 +387,45 @@ function loadApplicationEngine() {
                         box.innerHTML += `
                             <div class="member-card">
                                 <span class="member-id-tag">ID: ${m.id}</span>
-                                <img src="${m.image_url}" class="member-avatar" onerror="this.src='20260304_112626.jpg'">
+                                <img src="${m.image_url}" class="member-avatar" onerror="this.src='logo.jpg'">
                                 <div class="member-name">${m.name}</div>
                                 <div class="member-role">${m.designation}</div>
                             </div>
                         `;
                     });
-                }).catch(e => console.log("সদস্য ডাটা ফেচিং ট্রাবল।"));
+                }).catch(e => console.log("সদস্য ডাটা লোডিং সমস্যা।"));
 
-            // ৩. ফিড লোড প্রোটোকল
+            // ফিড ও নোটিশ বোর্ড লোড
             fetch(API_LINK + "?type=feeds")
                 .then(res => res.json())
                 .then(data => {
                     const noticeBox = document.getElementById("notice-board-container");
-                    noticeBox.innerHTML = "";
-                    if(data.notices && data.notices.length > 0) {
-                        data.notices.reverse().forEach(n => {
-                            noticeBox.innerHTML += `
-                                <div class="card notice-card">
-                                    <span class="post-time"><i class="far fa-clock"></i> ${n.date || 'আজ'}</span>
-                                    <h3><i class="fas fa-exclamation-circle" style="color:var(--danger)"></i> ${n.title}</h3>
-                                    <p>${n.desc}</p>
-                                </div>
-                            `;
-                        });
-                    } else { noticeBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো চলমান নোটিশ নেই।</p>`; }
+                    noticeBox.innerHTML = data.notices?.length ? data.notices.reverse().map(n => `
+                        <div class="card notice-card">
+                            <span class="post-time"><i class="far fa-clock"></i> ${n.date || 'আজ'}</span>
+                            <h3><i class="fas fa-exclamation-circle" style="color:var(--danger)"></i> ${n.title}</h3>
+                            <p>${n.desc}</p>
+                        </div>`).join('') : '<p>কোনো নোটিশ নেই।</p>';
 
                     const postBox = document.getElementById("daily-posts-container");
-                    postBox.innerHTML = "";
-                    if(data.posts && data.posts.length > 0) {
-                        data.posts.reverse().forEach(p => {
-                            postBox.innerHTML += `
-                                <div class="card">
-                                    <span class="post-time"><i class="far fa-calendar-alt"></i> ${p.date || 'সম্প্রতি'}</span>
-                                    <h3><i class="fas fa-feather-alt" style="color:var(--warning)"></i> ${p.title}</h3>
-                                    <p>${p.content}</p>
-                                </div>
-                            `;
-                        });
-                    } else { postBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো পোস্ট পাওয়া যায়নি।</p>`; }
+                    postBox.innerHTML = data.posts?.length ? data.posts.reverse().map(p => `
+                        <div class="card">
+                            <span class="post-time"><i class="far fa-calendar-alt"></i> ${p.date || 'সম্প্রতি'}</span>
+                            <h3><i class="fas fa-feather-alt" style="color:var(--warning)"></i> ${p.title}</h3>
+                            <p>${p.content}</p>
+                        </div>`).join('') : '<p>কোনো পোস্ট নেই।</p>';
 
                     const actBox = document.getElementById("activities-container");
-                    actBox.innerHTML = "";
-                    if(data.activities && data.activities.length > 0) {
-                        data.activities.reverse().forEach(a => {
-                            let imgTag = a.img ? `<img src="${a.img}" class="activity-img" onerror="this.style.display='none'">` : '';
-                            actBox.innerHTML += `
-                                <div class="card">
-                                    <h3><i class="fas fa-star" style="color:var(--primary)"></i> ${a.title}</h3>
-                                    <p>${a.desc}</p>
-                                    ${imgTag}
-                                </div>
-                            `;
-                        });
-                    } else { actBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো কার্যক্রম হিস্টোরি নেই।</p>`; }
-                }).catch(e => console.log("ফিড লোড ট্রাবল।"));
+                    actBox.innerHTML = data.activities?.length ? data.activities.reverse().map(a => `
+                        <div class="card">
+                            <h3><i class="fas fa-star" style="color:var(--primary)"></i> ${a.title}</h3>
+                            <p>${a.desc}</p>
+                            ${a.img ? `<img src="${a.img}" class="activity-img" onerror="this.style.display='none'">` : ''}
+                        </div>`).join('') : '<p>কোনো কার্যক্রম নেই।</p>';
+                }).catch(e => console.log("ফিড লোড সমস্যা।"));
         }
 
+        // পোস্ট অ্যাকশন ফাংশন
         function executePostAction(payload, successMessage) {
             fetch(API_LINK, { method: "POST", body: JSON.stringify(payload) })
             .then(res => res.json())
@@ -459,97 +434,17 @@ function loadApplicationEngine() {
                     alert(successMessage);
                     loadApplicationEngine();
                     switchScreen('home');
-                } else { alert("সার্ভার রেসপন্স এরর হয়েছে।"); }
-            }).catch(e => alert("কানেকশন এরর বা পোস্ট রিকোয়েস্ট ফেইল্ড!"));
+                } else { alert("সার্ভার রেসপন্স এরর!"); }
+            }).catch(e => alert("কানেকশন ফেইল্ড!"));
         }
 
-        function handleMemberSubmit(e) {
-            e.preventDefault();
-            const payload = {
-                action: "upsert_member",
-                id: document.getElementById("crud-mem-id").value,
-                name: document.getElementById("crud-mem-name").value,
-                designation: document.getElementById("crud-mem-role").value,
-                image_url: document.getElementById("crud-mem-img").value
-            };
-            executePostAction(payload, "সদস্য তথ্য সফলভাবে ডাটাবেজে যুক্ত/আপডেট করা হয়েছে!");
-            document.getElementById("member-crud-form").reset();
-        }
+        // ফর্ম সাবমিট ফাংশনসমূহ (সদস্য, নোটিশ, পোস্ট, অ্যাক্টিভিটি)
+        function handleMemberSubmit(e) { e.preventDefault(); const p = { action: "upsert_member", id: document.getElementById("crud-mem-id").value, name: document.getElementById("crud-mem-name").value, designation: document.getElementById("crud-mem-role").value, image_url: document.getElementById("crud-mem-img").value }; executePostAction(p, "সদস্য তথ্য সেভ হয়েছে!"); document.getElementById("member-crud-form").reset(); }
+        function deleteMemberAction() { const id = document.getElementById("crud-mem-id").value; if(confirm("মুছে ফেলবেন?")) executePostAction({ action: "delete_member", id: id }, "সদস্য রিমুভ হয়েছে!"); }
+        function handleNoticeSubmit(e) { e.preventDefault(); executePostAction({ action: "add_notice", title: document.getElementById("notice-title").value, desc: document.getElementById("notice-desc").value }, "নোটিশ জারি হয়েছে!"); e.target.reset(); }
+        function handleDailyPostSubmit(e) { e.preventDefault(); executePostAction({ action: "add_post", title: document.getElementById("daily-title").value, content: document.getElementById("daily-content").value }, "পোস্ট পাবলিশ হয়েছে!"); e.target.reset(); }
+        function handleActivitySubmit(e) { e.preventDefault(); executePostAction({ action: "add_activity", title: document.getElementById("act-title").value, desc: document.getElementById("act-desc").value, img: document.getElementById("act-img").value }, "কার্যক্রম যুক্ত হয়েছে!"); e.target.reset(); }
+        function handleGlobalSettingsSubmit(e) { e.preventDefault(); executePostAction({ action: "update_global", org_name_bn: document.getElementById("g-name-bn").value, org_name_en: document.getElementById("g-name-en").value, org_slogan: document.getElementById("g-slogan").value, org_reg_no: document.getElementById("g-reg").value, icon_src: document.getElementById("g-logo").value, fb_page_url: document.getElementById("g-fb-page").value, fb_admin_url: document.getElementById("g-fb-admin").value, intro_text: document.getElementById("g-intro").value, stat1: document.getElementById("g-s1").value, stat2: document.getElementById("g-s2").value, stat3: document.getElementById("g-s3").value }, "সেটিংস আপডেট হয়েছে!"); }
 
-        function deleteMemberAction() {
-            const id = document.getElementById("crud-mem-id").value;
-            if(!id) { alert("দয়া করে যে সদস্যকে মুছতে চান তার আইডি টাইপ করুন।"); return; }
-            if(confirm("আপনি কি নিশ্চিত যে আইডি " + id + " সম্পন্ন সদস্যকে ডাটাবেজ থেকে সম্পূর্ণ মুছে ফেলবেন?")) {
-                const payload = { action: "delete_member", id: id };
-                executePostAction(payload, "সদস্যকে সফলভাবে ডাটাবেজ থেকে রিমুভ করা হয়েছে!");
-                document.getElementById("member-crud-form").reset();
-            }
-        }
-
-        function handleNoticeSubmit(e) {
-            e.preventDefault();
-            const payload = {
-                action: "add_notice",
-                title: document.getElementById("notice-title").value,
-                desc: document.getElementById("notice-desc").value
-            };
-            executePostAction(payload, "নতুন নোটিশ সফলভাবে লাইভ বোর্ডে জারি হয়েছে!");
-            e.target.reset();
-        }
-
-        function handleDailyPostSubmit(e) {
-            e.preventDefault();
-            const payload = {
-                action: "add_post",
-                title: document.getElementById("daily-title").value,
-                content: document.getElementById("daily-content").value
-            };
-            executePostAction(payload, "আজকের ডেইলি ডায়রি বা পোস্ট সফলভাবে পাবলিশ হয়েছে!");
-            e.target.reset();
-        }
-
-        function handleActivitySubmit(e) {
-            e.preventDefault();
-            const payload = {
-                action: "add_activity",
-                title: document.getElementById("act-title").value,
-                desc: document.getElementById("act-desc").value,
-                img: document.getElementById("act-img").value
-            };
-            executePostAction(payload, "সংগঠনের নতুন একটিভিটি রেকর্ড সফলভাবে যুক্ত হয়েছে!");
-            e.target.reset();
-        }
-
-        function handleGlobalSettingsSubmit(e) {
-            e.preventDefault();
-            const payload = {
-                action: "update_global",
-                org_name_bn: document.getElementById("g-name-bn").value,
-                org_name_en: document.getElementById("g-name-en").value,
-                org_slogan: document.getElementById("g-slogan").value,
-                org_reg_no: document.getElementById("g-reg").value,
-                icon_src: document.getElementById("g-logo").value,
-                fb_page_url: document.getElementById("g-fb-page").value,
-                fb_admin_url: document.getElementById("g-fb-admin").value,
-                intro_text: document.getElementById("g-intro").value,
-                stat1: document.getElementById("g-s1").value,
-                stat2: document.getElementById("g-s2").value,
-                stat3: document.getElementById("g-s3").value
-            };
-            executePostAction(payload, "মেইন গ্লোবাল সেটিংস সফলভাবে আপডেট করা হয়েছে!");
-        }
-
-        // রানিং অন স্টার্টআপ
         window.addEventListener('load', loadApplicationEngine);
-
-        // সার্ভিস ওয়ার্কার রেজিস্টার (সফটওয়্যার ইঞ্জিন সচল করার কোড)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('সফটওয়্যার ইঞ্জিন সচল হয়েছে!', reg))
-                    .catch(err => console.log('রেজিস্ট্রেশন ব্যর্থ:', err));
-            });
-        }
-    </script>
-</body>
-</html>
+        if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js')); }
