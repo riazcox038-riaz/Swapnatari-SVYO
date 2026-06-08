@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="app-title-tag">icon</title>
+    <title id="app-title-tag">Swapnatari</title>
     
+    <!-- PWA Manifest Link -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1a365d">
     
@@ -148,18 +149,18 @@
 
             <!-- সংক্ষিপ্ত পরিচিতি -->
             <h2><i class="fas fa-info-circle"></i> সংক্ষিপ্ত পরিচিতি</h2>
-            <div class="card"><p id="display-intro">로드 হচ্ছে...</p></div>
+            <div class="card"><p id="display-intro">লোডিং...</p></div>
 
             <!-- ডেইলি পোস্ট ফিড -->
-            <h2><i class="fas fa-edit"></i> ডেইলি পোস্ট / ডায়েরি</h2>
-            <div id="daily-posts-container"><p style="color:#718096; font-size:13px;">কোনো ডেইলি পোস্ট পাওয়া যায়নি।</p></div>
+            <h2><i class="fas fa-edit"></i> ডেইলি পোস্ট / ডায়েরি</h2>
+            <div id="daily-posts-container"><p style="color:#718096; font-size:13px;">কোনো ডেইলি পোস্ট পাওয়া যায়নি।</p></div>
 
             <!-- কার্যক্রম মডিউল -->
             <h2><i class="fas fa-tasks"></i> আমাদের কার্যক্রম (Activities)</h2>
             <div id="activities-container"><p style="color:#718096; font-size:13px;">কোনো কার্যক্রম রেকর্ড নেই।</p></div>
 
-            <!-- যোগাযোগ ও সোশ্যাল মিডিয়া সেকশন (নিউ যুক্ত করা হয়েছে) -->
-            <h2><i class="fas fa-share-alt"></i> যোগাযোগ ও সোশ্যাল মিডিয়া</h2>
+            <!-- যোগাযোগ ও সোশ্যাল মিডিয়া সেকশন -->
+            <h2><i class="fas fa-share-alt"></i> যোগাযোগ ও সোশ্যাল মিডিয়া</h2>
             <div class="card">
                 <p style="font-size:13px; margin-bottom:10px; color:#4a5568;"><i class="fas fa-hashtag"></i> আমাদের ফেসবুক পেজ এবং অ্যাডমিন আইডির সাথে সংযুক্ত থাকুন:</p>
                 <div class="social-flex-group">
@@ -179,7 +180,7 @@
 
         <!-- ৩. অ্যাডমিন কন্ট্রোল রুম -->
         <div id="screen-admin" class="app-screen">
-            <h2><i class="fas fa-user-shield"></i> নিয়ন্ত্রণ কক্ষ (অ্যাডমিন প্যানেল)</h2>
+            <h2><i class="fas fa-user-shield"></i> নিয়ন্ত্রণ কক্ষ (অ্যাডমিন প্যানেল)</h2>
             
             <!-- ক) সদস্য ক্রুড অপারেশন (Add/Update/Delete) -->
             <div class="card">
@@ -202,8 +203,8 @@
                         <input type="text" id="crud-mem-img" class="form-control" placeholder="ছবির অনলাইন ইউআরএল বা গিটহাব ফাইলের নাম">
                     </div>
                     <div class="btn-group" style="margin-top: 10px;">
-                        <button type="submit" class="btn btn-primary" onclick="document.getElementById('member-crud-form').dataset.action='save'"><i class="fas fa-check"></i> সদস্য যোগ/আপডেট করুন</button>
-                        <button type="button" class="btn btn-danger" onclick="deleteMemberAction()"><i class="fas fa-trash-alt"></i> আইডি দিয়ে মুছুন (Remove)</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> সদস্য যোগ/আপডেট করুন</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteMemberAction()"><i class="fas fa-trash-alt"></i> আইডি দিয়ে মুছুন (Remove)</button>
                     </div>
                 </form>
             </div>
@@ -226,11 +227,11 @@
 
             <!-- গ) ডেইলি পোস্ট আপলোডার -->
             <div class="card">
-                <h3><i class="fas fa-pen-fancy"></i> ডেইলি পোস্ট / ডায়েরি আপডেট</h3>
+                <h3><i class="fas fa-pen-fancy"></i> ডেইলি পোস্ট / ডায়েরি আপডেট</h3>
                 <form onsubmit="handleDailyPostSubmit(event)">
                     <div class="form-group">
-                        <label>আজকের পোস্টের বিষয়</label>
-                        <input type="text" id="daily-title" class="form-control" required placeholder="আজকের কার্যক্রমের ডায়রি">
+                        <label>আজকের পোস্টের বিষয়</label>
+                        <input type="text" id="daily-title" class="form-control" required placeholder="আজকের কার্যক্রমের ডায়রি">
                     </div>
                     <div class="form-group">
                         <label>পোস্ট কনটেন্ট</label>
@@ -249,18 +250,18 @@
                         <input type="text" id="act-title" class="form-control" required placeholder="ফ্রি মেডিকেল ক্যাম্প / শীতবস্ত্র বিতরণ">
                     </div>
                     <div class="form-group">
-                        <label>কার্যक्रमের বিবরণ</label>
+                        <label>কার্যক্রমের বিবরণ</label>
                         <textarea id="act-desc" class="form-control" required placeholder="সংগঠনের এই কার্যক্রমের সংক্ষিপ্ত বিবরণ দিন..."></textarea>
                     </div>
                     <div class="form-group">
-                        <label>কার্যक्रमের প্রজেক্ট ইমেজ লিঙ্ক</label>
+                        <label>কার্যক্রমের প্রজেক্ট ইমেজ লিঙ্ক</label>
                         <input type="text" id="act-img" class="form-control" placeholder="ইভেন্টের ছবির অনলাইন ইউআরএল লিঙ্ক">
                     </div>
                     <button type="submit" class="btn btn-secondary btn-block"><i class="fas fa-save"></i> অ্যাক্টিভিটি হিস্টোরিতে যুক্ত করুন</button>
                 </form>
             </div>
 
-            <!-- ঙ) গলোবাল অ্যাপ সেটিংস ও সোশ্যাল লিঙ্ক কন্ট্রোল -->
+            <!-- ঙ) গ্লোবাল অ্যাপ সেটিংস ও সোশ্যাল লিঙ্ক কন্ট্রোল -->
             <div class="card">
                 <h3><i class="fas fa-cogs"></i> সংগঠনের মেইন গ্লোবাল সেটিংস</h3>
                 <form onsubmit="handleGlobalSettingsSubmit(event)">
@@ -270,7 +271,6 @@
                     <div class="form-group"><label>নিবন্ধন নম্বর</label><input type="text" id="g-reg" class="form-control" required></div>
                     <div class="form-group"><label>লোগো ফাইল নেম / লিঙ্ক</label><input type="text" id="g-logo" class="form-control"></div>
                     
-                    <!-- সোশ্যাল মিডিয়া লিঙ্ক ইনপুট ফিল্ডস (নিউ যুক্ত) -->
                     <div class="form-group"><label>ফেসবুক পেজ লিঙ্ক</label><input type="text" id="g-fb-page" class="form-control"></div>
                     <div class="form-group"><label>অ্যাডমিন আইডি লিঙ্ক</label><input type="text" id="g-fb-admin" class="form-control"></div>
                     
@@ -294,7 +294,7 @@
         <div class="nav-item" onclick="switchScreen('admin')"><i class="fas fa-user-shield"></i>অ্যাডমিন</div>
     </nav>
 
-    <!-- পূর্ণাঙ্গ ডায়নামিক স্ক্রিপ্ট ইঞ্জিন -->
+    <!-- পূর্ণাঙ্গ ডায়নামিক স্ক্রিপ্ট ইঞ্জিন -->
     <script>
         const API_LINK = "https://script.google.com/macros/s/AKfycbwgmsn0Jlilw-SplNZZZYhMm9JH3i0_fBP1OIFuv-it5h7t1lbJxJQw6l5UcAaPuYqa/exec";
 
@@ -314,7 +314,6 @@
         }
 
         function loadApplicationEngine() {
-            // সেফটি প্রোটেকশন লোগো ফিক্স
             document.getElementById("app-logo").src = "20260304_112626.jpg";
             document.getElementById("hero-logo-img").src = "20260304_112626.jpg";
 
@@ -329,14 +328,13 @@
                         document.getElementById("app-reg-no").innerHTML = `<i class="fas fa-award"></i> নিবন্ধন নং: ` + d.org_reg_no;
                         document.getElementById("hero-title-bn").innerText = d.org_name_bn;
                         document.getElementById("hero-title-en").innerText = d.org_name_en;
-                        document.getElementById("hero-short-desc").innerText = d.short_desc || "মানবকল্যাণে নিয়োজিত স্বেচ্ছাসেবী প্ল্যাটফর্ম।";
+                        document.getElementById("hero-short-desc").innerText = d.short_desc || "মানবকল্যাণে নিয়োজিত স্বেচ্ছাসেবী প্ল্যাটফর্ম।";
                         document.getElementById("display-intro").innerText = d.intro_text || "";
                         
                         document.getElementById("display-stat1").innerText = d.stat1 || "০";
                         document.getElementById("display-stat2").innerText = d.stat2 || "০";
                         document.getElementById("display-stat3").innerText = d.stat3 || "০";
 
-                        // ডায়নামিক সোশ্যাল লিঙ্ক বাইন্ডিং
                         if(d.fb_page_url) document.getElementById("link-fb-page").href = d.fb_page_url;
                         if(d.fb_admin_url) document.getElementById("link-fb-admin").href = d.fb_admin_url;
 
@@ -345,21 +343,19 @@
                             document.getElementById("hero-logo-img").src = d.icon_src;
                         }
 
-                        // অ্যাডমিন ইনপুট ফিল্ড বাইন্ডিং
                         document.getElementById("g-name-bn").value = d.org_name_bn;
                         document.getElementById("g-name-en").value = d.org_name_en;
                         document.getElementById("g-slogan").value = d.org_slogan;
                         document.getElementById("g-reg").value = d.org_reg_no;
                         document.getElementById("g-logo").value = d.icon_src || "";
-                        document.getElementById("g-fb-page").value = d.fb_page_url || "https://www.facebook.com/humanresourcedevelopmentfoundation/";
-                        document.getElementById("g-fb-admin").value = d.fb_admin_url || "https://www.facebook.com/mohammad.riaz.99/";
+                        document.getElementById("g-fb-page").value = d.fb_page_url || "";
+                        document.getElementById("g-fb-admin").value = d.fb_admin_url || "";
                         document.getElementById("g-intro").value = d.intro_text || "";
                         document.getElementById("g-s1").value = d.stat1 || "";
                         document.getElementById("g-s2").value = d.stat2 || "";
                         document.getElementById("g-s3").value = d.stat3 || "";
                     }
                 }).catch(e => {
-                    // অফলাইন ব্যাকআপ লিঙ্ক প্রোটেকশন
                     document.getElementById("link-fb-page").href = "https://www.facebook.com/humanresourcedevelopmentfoundation/";
                     document.getElementById("link-fb-admin").href = "https://www.facebook.com/mohammad.riaz.99/";
                     console.log("সেটিংস ফেচিং অফলাইন।");
@@ -372,7 +368,7 @@
                     const box = document.getElementById("all-members-render-box");
                     box.innerHTML = "";
                     if(!members || members.length === 0){
-                        box.innerHTML = `<p style="grid-column:span 2;text-align:center;">কোনো সদস্য ডাটা পাওয়া যায়নি।</p>`;
+                        box.innerHTML = `<p style="grid-column:span 2;text-align:center;">কোনো সদস্য ডাটা পাওয়া যায়নি।</p>`;
                         return;
                     }
                     members.forEach(m => {
@@ -417,7 +413,7 @@
                                 </div>
                             `;
                         });
-                    } else { postBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো পোস্ট পাওয়া যায়নি।</p>`; }
+                    } else { postBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো পোস্ট পাওয়া যায়নি।</p>`; }
 
                     const actBox = document.getElementById("activities-container");
                     actBox.innerHTML = "";
@@ -444,8 +440,8 @@
                     alert(successMessage);
                     loadApplicationEngine();
                     switchScreen('home');
-                } else { alert("সার্ভার রেসপন্স এরর হয়েছে।"); }
-            }).catch(e => alert("কানেকশন এরর বা পোস্ট রিকোয়েস্ট ফেইল্ড!"));
+                } else { alert("সার্ভার রেসপন্স এরর হয়েছে।"); }
+            }).catch(e => alert("কানেকশন এরর বা পোস্ট রিকোয়েস্ট ফেইল্ড!"));
         }
 
         function handleMemberSubmit(e) {
@@ -457,16 +453,16 @@
                 designation: document.getElementById("crud-mem-role").value,
                 image_url: document.getElementById("crud-mem-img").value
             };
-            executePostAction(payload, "সদস্য তথ্য সফলভাবে ডাটাবেজে যুক্ত/আপডেট করা হয়েছে!");
+            executePostAction(payload, "সদস্য তথ্য সফলভাবে ডাটাবেজে যুক্ত/আপডেট করা হয়েছে!");
             document.getElementById("member-crud-form").reset();
         }
 
         function deleteMemberAction() {
             const id = document.getElementById("crud-mem-id").value;
-            if(!id) { alert("দয়া করে যে সদস্যকে মুছতে চান তার আইডি টাইপ করুন।"); return; }
+            if(!id) { alert("দয়া করে যে সদস্যকে মুছতে চান তার আইডি টাইপ করুন।"); return; }
             if(confirm("আপনি কি নিশ্চিত যে আইডি " + id + " সম্পন্ন সদস্যকে ডাটাবেজ থেকে সম্পূর্ণ মুছে ফেলবেন?")) {
                 const payload = { action: "delete_member", id: id };
-                executePostAction(payload, "সদস্যকে সফলভাবে ডাটাবেজ থেকে রিমুভ করা হয়েছে!");
+                executePostAction(payload, "সদস্যকে সফলভাবে ডাটাবেজ থেকে রিমুভ করা হয়েছে!");
                 document.getElementById("member-crud-form").reset();
             }
         }
@@ -478,7 +474,7 @@
                 title: document.getElementById("notice-title").value,
                 desc: document.getElementById("notice-desc").value
             };
-            executePostAction(payload, "নতুন নোটিশ সফলভাবে লাইভ বোর্ডে জারি হয়েছে!");
+            executePostAction(payload, "নতুন নোটিশ সফলভাবে লাইভ বোর্ডে জারি হয়েছে!");
             e.target.reset();
         }
 
@@ -489,7 +485,7 @@
                 title: document.getElementById("daily-title").value,
                 content: document.getElementById("daily-content").value
             };
-            executePostAction(payload, "আজকের ডেইলি ডায়রি বা পোস্ট সফলভাবে পাবলিশ হয়েছে!");
+            executePostAction(payload, "আজকের ডেইলি ডায়রি বা পোস্ট সফলভাবে পাবলিশ হয়েছে!");
             e.target.reset();
         }
 
@@ -501,7 +497,7 @@
                 desc: document.getElementById("act-desc").value,
                 img: document.getElementById("act-img").value
             };
-            executePostAction(payload, "সংগঠনের নতুন একটিভিটি রেকর্ড সফলভাবে যুক্ত হয়েছে!");
+            executePostAction(payload, "সংগঠনের নতুন একটিভিটি রেকর্ড সফলভাবে যুক্ত হয়েছে!");
             e.target.reset();
         }
 
@@ -521,10 +517,20 @@
                 stat2: document.getElementById("g-s2").value,
                 stat3: document.getElementById("g-s3").value
             };
-            executePostAction(payload, "অ্যাপের সমস্ত মেইন সেটিংস ও তথ্য লাইভ ডাটাবেজে আপডেট হয়েছে!");
+            executePostAction(payload, "মেইন গ্লোবাল সেটিংস সফলভাবে আপডেট করা হয়েছে!");
         }
 
-        window.addEventListener('DOMContentLoaded', loadApplicationEngine);
+        // রানিং অন স্টার্টআপ
+        window.addEventListener('load', loadApplicationEngine);
+
+        // সার্ভিস ওয়ার্কার রেজিস্টার (সফটওয়্যার ইঞ্জিন সচল করার কোড)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('সফটওয়্যার ইঞ্জিন সচল হয়েছে!', reg))
+                    .catch(err => console.log('রেজিস্ট্রেশন ব্যর্থ:', err));
+            });
+        }
     </script>
 </body>
 </html>
