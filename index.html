@@ -160,7 +160,7 @@
 <body>
 
     <header class="app-header">
-        <img id="render-header-logo" src="20260304_112626.jpg" alt="SVYO Logo" class="header-logo">
+        <img id="render-header-logo" src="https://i.imgur.com/Kz87O7H.jpeg" alt="SVYO Logo" class="header-logo">
         <div class="header-text-group">
             <h1 id="render-app-name">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h1>
             <div id="render-eng-name" class="eng-title">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
@@ -173,12 +173,12 @@
         <div id="screen-home" class="app-screen active">
             <div class="hero">
                 <div class="logo-img-container">
-                    <img id="render-hero-logo" src="20260304_112626.jpg" alt="SVYO Logo" class="hero-logo">
+                    <img id="render-hero-logo" src="https://i.imgur.com/Kz87O7H.jpeg" alt="SVYO Logo" class="hero-logo">
                 </div>
                 <h2 id="render-hero-title">স্বপ্নতরী (SVYO)</h2>
                 <div id="render-hero-eng" class="eng-sub">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
                 <span class="badge"><i class="fas fa-award"></i> <span id="render-reg-no">নিবন্ধন নং: যু/উ/অ/সদর-০৯৩</span></span>
-                <p id="render-home-desc">২০২১ সাল থেকে কক্সবাজারে মানবকল্যাণ, জরুরি রক্ত সরবরাহ, সামাজিক সচেতনতা বৃদ্ধি এবং যুব উন্নয়নে নিয়োজিত একটি নির্ভরযোগ্য সমাজসেবামূলক স্বেচ্ছাসেবী প্ল্যাটফর্ম।</p>
+                <p id="render-home-desc">২০২১ সাল থেকে কক্সবাজারে মানবকল্যাণ, জরুরি রক্ত সরবরাহ, সামাজিক সচেতনতা বৃদ্ধি এবং যুবদর্শনে নিয়োজিত একটি নির্ভরযোগ্য সমাজсеবামূলক স্বেচ্ছাসেবী প্ল্যাটফর্ম।</p>
                 <div class="btn-group">
                     <button class="btn btn-primary" onclick="goToTab('register')"><i class="fas fa-user-plus"></i> ফরম ও মেম্বারশিপ</button>
                     <button class="btn btn-danger" onclick="goToTab('contact')"><i class="fas fa-search"></i> রক্তদাতা খুঁজুন</button>
@@ -246,7 +246,7 @@
 
         <div id="screen-register" class="app-screen">
             <div class="form-toggle-buttons">
-                <button id="toggle-btn-member" class="toggle-tab-btn active" onclick="switchFormType('member')"><i class="fas fa-user-shield"></i> সদস্য/উপদেষ্টা ফরম</button>
+                <button id="toggle-btn-member" class="toggle-tab-btn active" onclick="switchFormType('member')"><i class="fas fa-user-shield"></i> সদস্য/উপدهষ্টা ফরম</button>
                 <button id="toggle-btn-donor" class="toggle-tab-btn" onclick="switchFormType('donor')"><i class="fas fa-tint" style="color:var(--danger)"></i> শুধু রক্তদাতা ফরম</button>
             </div>
 
@@ -294,7 +294,7 @@
 
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>রক্তের গ্রুপ (Blood Group):</label>
+                                <label>রکتের গ্রুপ (Blood Group):</label>
                                 <select id="f_blood">
                                     <option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option>
                                     <option value="A-">A-</option><option value="B-">B-</option><option value="O-">O-</option><option value="AB-">AB-</option>
@@ -418,7 +418,7 @@
                     <div class="id-card-wrapper">
                         <div class="id-card" id="printable-id-card">
                             <div class="id-card-top">
-                                <h3 id="id_card_org_name">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h3>
+                                <h3 id="id_card_org_name"> can স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h3>
                                 <p id="id_card_org_eng">SWAPNATARI VOLUNTARY YOUTH ORG.</p>
                             </div>
                             <div class="id-card-body">
@@ -438,7 +438,7 @@
 
                                 <div class="id-card-sig-section">
                                     <div class="id-card-sig-box">
-                                        <img id="id_card_director_sig" src="20260310_054144.png" alt="Founder Signature">
+                                        <img id="id_card_director_sig" src="https://i.imgur.com/vH97Z9P.png" alt="Founder Signature">
                                         <div class="id-card-sig-text">প্রতিষ্ঠাতা পরিচালক</div>
                                     </div>
                                 </div>
@@ -491,11 +491,11 @@
     </nav>
 
     <script>
-        const AUTO_OFFICIAL_SIGNATURE = "20260310_054144.png";
+        const AUTO_OFFICIAL_SIGNATURE = "https://i.imgur.com/vH97Z9P.png";
         const STARTING_SERIAL_ID = 230002;
         const ADMIN_SECRET_PIN = "9388093";
 
-        // Fixed Internal Council Datasets fetched from your uploaded image files
+        // Fixed Internal Council Datasets
         const FOUNDER_COUNCIL_DATA = [
             { name: "Md. Riaz Uddin", role: "Founder", photo: "#" },
             { name: "Md Mainuddin", role: "Founding Member", photo: "#" },
@@ -530,12 +530,12 @@
             { name: "Shahid Ullah", role: "Office Secretary", photo: "#" }
         ];
 
-        let appData = JSON.parse(localStorage.getItem('svyo_v5_config')) || {
+        let appData = JSON.parse(localStorage.getItem('svyo_v6_config')) || {
             appName: "স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন",
             engName: "SWAPNATARI VOLUNTARY YOUTH ORGANIZATION",
             slogan: "“সৃষ্টির সেবাই আমাদের স্বপ্নতরী”",
             regNo: "নিবন্ধন নং: যু/উ/অ/সদর-০৯৩",
-            logoUrl: "20260304_112626.jpg",
+            logoUrl: "https://i.imgur.com/Kz87O7H.jpeg",
             phone: "01839369388",
             email: "swapnataricoxbd@gmail.com",
             address: "সোনাআলী ভবন, দক্ষিণ রুমালিয়ার ছরা, ৭নং ওয়ার্ড, পৌরসভা, কক্সবাজার",
@@ -552,7 +552,7 @@
                     nidBn: "XXXXXXXXXX", nidEn: "XXXXXXXXXX",
                     blood: "O+", job: "গ্রাফিক ডিজাইনার", address: "দক্ষিণ রুমালিয়ার ছরা, কক্সবাজার",
                     phone: "01839369388", dateBn: "০১লা জানুয়ারি ২০২৬", dateEn: "2026-01-01",
-                    photo: "20260304_112626.jpg", sigMember: "", status: "Approved"
+                    photo: "https://i.imgur.com/Kz87O7H.jpeg", sigMember: "", status: "Approved"
                 }
             ],
             donors: []
@@ -626,19 +626,16 @@
             const unifiedTableBody = document.getElementById('render-unified-table-body');
             unifiedTableBody.innerHTML = "";
             
-            // Push founders to unified list table
             FOUNDER_COUNCIL_DATA.forEach(f => {
                 let tImg = f.photo !== "#" ? `<img src="${f.photo}" class="table-img">` : `<i class="fas fa-user-circle fa-2x" style="color:#cbd5e0;"></i>`;
                 unifiedTableBody.innerHTML += `<tr><td>${tImg}</td><td>${f.name}</td><td>${f.role}</td><td><span class="type-badge" style="background:var(--founder-color)">প্রতিষ্ঠাতা</span></td></tr>`;
             });
 
-            // Push advisors to unified list table
             ADVISOR_COUNCIL_DATA.forEach(a => {
                 let tImg = a.photo !== "#" ? `<img src="${a.photo}" class="table-img">` : `<i class="fas fa-user-circle fa-2x" style="color:#cbd5e0;"></i>`;
                 unifiedTableBody.innerHTML += `<tr><td>${tImg}</td><td>${a.name}</td><td>${a.role}</td><td><span class="type-badge" style="background:var(--advisor-color)">উপদেষ্টা</span></td></tr>`;
             });
 
-            // Push executives to unified list table
             EXECUTIVE_COUNCIL_DATA.forEach(e => {
                 let tImg = e.photo !== "#" ? `<img src="${e.photo}" class="table-img">` : `<i class="fas fa-user-circle fa-2x" style="color:#cbd5e0;"></i>`;
                 unifiedTableBody.innerHTML += `<tr><td>${tImg}</td><td>${e.name}</td><td>${e.role}</td><td><span class="type-badge" style="background:var(--executive-color)">কার্যকরী</span></td></tr>`;
@@ -741,7 +738,7 @@
             };
 
             appData.registry.unshift(newRecord);
-            localStorage.setItem('svyo_v5_config', JSON.stringify(appData));
+            localStorage.setItem('svyo_v6_config', JSON.stringify(appData));
             renderAppInterface();
             alert("আবেদনপত্রটি জমা হয়েছে। আইডি কোড: " + generatedIdStr + " (অ্যাডমিন অনুমোদনের পর সচল হবে)");
             document.getElementById('membershipForm').reset();
@@ -762,7 +759,7 @@
 
             if(!appData.donors) { appData.donors = []; }
             appData.donors.unshift(newDonor);
-            localStorage.setItem('svyo_v5_config', JSON.stringify(appData));
+            localStorage.setItem('svyo_v6_config', JSON.stringify(appData));
             
             alert("রক্তদাতা তালিকায় নাম অন্তর্ভুক্ত হয়েছে। ধন্যবাদ!");
             document.getElementById('donorForm').reset();
@@ -791,7 +788,7 @@
 
         function approveMember(index) {
             appData.registry[index].status = "Approved";
-            localStorage.setItem('svyo_v5_config', JSON.stringify(appData));
+            localStorage.setItem('svyo_v6_config', JSON.stringify(appData));
             renderAppInterface();
             alert("আবেদনটি সফলভাবে অনুমোদন করা হয়েছে।");
         }
@@ -799,7 +796,7 @@
         function deleteRegistryRecord(index) {
             if(confirm("আপনি কি নিশ্চিতভাবে এই রেকর্ডটি ডিলিট করতে চান?")) {
                 appData.registry.splice(index, 1);
-                localStorage.setItem('svyo_v5_config', JSON.stringify(appData));
+                localStorage.setItem('svyo_v6_config', JSON.stringify(appData));
                 renderAppInterface();
             }
         }
@@ -844,7 +841,7 @@
             appData.statMembers = document.getElementById('edit-stat-members').value;
             appData.statProjects = document.getElementById('edit-stat-projects').value;
 
-            localStorage.setItem('svyo_v5_config', JSON.stringify(appData));
+            localStorage.setItem('svyo_v6_config', JSON.stringify(appData));
             renderAppInterface();
             alert("সব গ্লোবাল ডাটা সফলভাবে আপডেট করা হয়েছে!");
         }
@@ -912,4 +909,8 @@
                         </div>
                     </div>`;
             });
-            if(filtered.length === 0) { container.innerHTML = "<p style='font-size:
+            if(filtered.length === 0) { container.innerHTML = "<p style='font-size:13px; color:#718096; text-align:center;'>এই গ্রুপের কোনো রক্তদাতা খুঁজে পাওয়া যায়নি।</p>"; }
+        }
+    </script>
+</body>
+</html>
