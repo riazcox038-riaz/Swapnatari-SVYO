@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWAPNATARI VOLUNTARY YOUTH ORGANIZATION (SVYO)</title>
-    <!-- Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -17,6 +16,9 @@
             --text: #2d3748;
             --danger: #e74c3c;
             --warning: #f39c12;
+            --founder-color: #8e44ad;
+            --executive-color: #2980b9;
+            --advisor-color: #d35400;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
@@ -78,12 +80,13 @@
         .toggle-tab-btn { flex: 1; padding: 8px; text-align: center; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; border: none; background: transparent; color: #4a5568; transition: 0.2s; }
         .toggle-tab-btn.active { background: white; color: var(--secondary); box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
 
-        /* Founders View Matrix Grid */
-        .founders-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; }
-        .founder-profile-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; text-align: center; }
-        .founder-avatar { width: 75px; height: 75px; border-radius: 50%; border: 3px solid var(--secondary); object-fit: cover; margin: 0 auto 8px auto; background: #edf2f7; display: flex; align-items: center; justify-content: center; }
-        .founder-profile-card h4 { font-size: 14px; color: var(--secondary); margin-bottom: 2px; }
-        .founder-profile-card p { font-size: 11px; color: var(--primary); font-weight: bold; }
+        /* Council Grid System */
+        .council-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 5px; }
+        @media(max-width: 400px) { .council-grid { grid-template-columns: 1fr; } }
+        .council-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .council-avatar { width: 70px; height: 70px; border-radius: 50%; border: 2.5px solid var(--primary); object-fit: cover; margin: 0 auto 8px auto; background: #edf2f7; display: flex; align-items: center; justify-content: center; }
+        .council-card h4 { font-size: 13.5px; color: var(--secondary); margin-bottom: 2px; font-weight: 700; }
+        .council-card p { font-size: 11px; color: #4a5568; font-weight: 600; background: #edf2f7; padding: 2px 6px; border-radius: 12px; display: inline-block; }
 
         /* Forms Architecture */
         .form-group { margin-bottom: 12px; }
@@ -107,6 +110,15 @@
         .member-nav-id { font-size: 11px; color: #4a5568; }
         .member-meta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; font-size: 11.5px; margin-top: 12px; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #edf2f7; }
         .member-meta-grid div { line-height: 1.4; color: #4a5568; }
+
+        /* Unified Member Table */
+        .table-responsive { overflow-x: auto; background: white; border-radius: 10px; border: 1px solid #e2e8f0; margin-top: 8px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12.5px; }
+        th, td { padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: center; }
+        th { background-color: var(--secondary); color: white; font-weight: bold; }
+        tr:hover { background-color: #f8fafc; }
+        .table-img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--primary); }
+        .type-badge { padding: 3px 6px; border-radius: 4px; font-size: 10px; color: white; font-weight: bold; display: inline-block; }
 
         /* Signature Display Architecture */
         .signature-display-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; text-align: center; padding-top: 10px; border-top: 1px solid #edf2f7; }
@@ -135,7 +147,6 @@
         .id-card-sig-box { text-align: center; width: 110px; }
         .id-card-sig-box img { width: 100%; height: 28px; object-fit: contain; }
         .id-card-sig-text { font-size: 8px; font-weight: bold; color: var(--secondary); border-top: 1px solid #cbd5e0; margin-top: 2px; }
-
         .id-card-footer { background: var(--secondary); color: white; text-align: center; padding: 6px; font-size: 9px; font-weight: bold; border-top: 3px solid var(--primary); }
 
         /* Bottom Persistent Navigation Bar */
@@ -148,7 +159,6 @@
 </head>
 <body>
 
-    <!-- Main Header Panel -->
     <header class="app-header">
         <img id="render-header-logo" src="20260304_112626.jpg" alt="SVYO Logo" class="header-logo">
         <div class="header-text-group">
@@ -160,7 +170,6 @@
 
     <div class="app-container">
 
-        <!-- =================== 1. HOME SCREEN =================== -->
         <div id="screen-home" class="app-screen active">
             <div class="hero">
                 <div class="logo-img-container">
@@ -178,7 +187,7 @@
 
             <h2><i class="fas fa-bars"></i> সংক্ষিপ্ত পরিচিতি</h2>
             <div class="card">
-                <p id="render-about-short" style="font-size: 13px; line-height: 1.6; text-align: justify;"><strong>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO)</strong> একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২১ সালে কক্সবাজার পৌরসভার ৭নং ওয়ার্ডের দক্ষিণ রুমালিয়ার ছরা এলাকায় একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়。 সমাজ থেকে রক্তের অভাব দূরীকরণ, পরিবেশ রক্ষা এবং যুবসমাজকে দক্ষ জনশক্তিতে রূপান্তর করতে সংগঠনটি নিরলস কাজ করে যাচ্ছে।</p>
+                <p id="render-about-short" style="font-size: 13px; line-height: 1.6; text-align: justify;"><strong>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO)</strong> একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২১ সালে কক্সবাজার পৌরসভার ৭নং ওয়ার্ডের দক্ষিণ রুমালিয়ার ছরা এলাকায় একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়। সমাজ থেকে রক্তের অভাব দূরীকরণ, পরিবেশ রক্ষা এবং যুবসমাজকে দক্ষ জনশক্তিতে রূপান্তর করতে সংগঠনটি নিরলস কাজ করে যাচ্ছে।</p>
             </div>
 
             <h2><i class="fas fa-chart-line"></i> আমাদের পরিসংখ্যান</h2>
@@ -189,69 +198,58 @@
             </div>
         </div>
 
-        <!-- =================== 2. COMMITTEES & REGISTRY SCREEN =================== -->
         <div id="screen-about" class="app-screen">
             <h2><i class="fas fa-history"></i> প্রতিষ্ঠার ইতিহাস</h2>
             <div class="card">
-                <p id="render-history-full" style="font-size:13px; line-height: 1.6; text-align: justify;">মানবতার কল্যাণ এবং স্থানীয় যুবসমাজকে সামাজিক উন্নয়নমূলক কাজে সম্পৃক্ত করার মহৎ উদ্দেশ্যে ২০২১ সালে কক্সবাজারের স্থানীয় তরুণ সমাজসেবক ও সংগঠক <strong>মোহাম্মদ রিয়াজ</strong> এর একক উদ্যোগে এবং একঝাঁক উদ্যমী সহযোদ্ধাদের সক্রিয় সহযোগิตায় <strong>"স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন"</strong> প্রতিষ্ঠিত হয়。 প্রতিষ্ঠার পর থেকে সংগঠনটি সফলতার সাথে যুব উন্নয়ন অধিদপ্তরের তালিকাভুক্ত হয়ে কাজ করে আসছে।</p>
+                <p id="render-history-full" style="font-size:13px; line-height: 1.6; text-align: justify;">মানবতার কল্যাণ এবং স্থানীয় যুবসমাজকে সামাজিক উন্নয়নমূলক কাজে সম্পৃক্ত করার মহৎ উদ্দেশ্যে ২০২১ সালে কক্সবাজারের স্থানীয় তরুণ সমাজসেবক ও সংগঠক <strong>মোহাম্মদ রিয়াজ</strong> এর একক উদ্যোগে এবং একঝাঁক উদ্যমী সহযোদ্ধাদের সক্রিয় সহযোগิตায় <strong>"স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন"</strong> প্রতিষ্ঠিত হয়। প্রতিষ্ঠার পর থেকে সংগঠনটি সফলতার সাথে যুব উন্নয়ন অধিদপ্তরের তালিকাভুক্ত হয়ে কাজ করে আসছে।</p>
             </div>
 
-            <h2><i class="fas fa-user-tie"></i> সম্মানিত প্রতিষ্ঠাতা মণ্ডলী</h2>
+            <h2><i class="fas fa-user-tie"></i> ১. সম্মানিত প্রতিষ্ঠাতা পরিষদ</h2>
             <div class="card">
-                <div class="founders-grid">
-                    <!-- Founder Card 1 -->
-                    <div class="founder-profile-card">
-                        <div class="founder-avatar">
-                            <i class="fas fa-user-circle fa-4x" style="color: #cbd5e0;"></i>
-                        </div>
-                        <h4>মোহাম্মদ রিয়াজ</h4>
-                        <p>প্রতিষ্ঠাতা পরিচালক</p>
+                <div class="council-grid" id="render-founder-council">
                     </div>
-                    <!-- Placeholders for other founders (you can add or edit photo URLs later) -->
-                    <div class="founder-profile-card">
-                        <div class="founder-avatar">
-                            <i class="fas fa-user-circle fa-4x" style="color: #cbd5e0;"></i>
-                        </div>
-                        <h4>সহ-প্রতিষ্ঠাতা ১</h4>
-                        <p>সদস্য</p>
+            </div>
+
+            <h2><i class="fas fa-gavel"></i> ২. উপদেষ্টা পরিষদ</h2>
+            <div class="card">
+                <div class="council-grid" id="render-advisor-council">
                     </div>
+            </div>
+
+            <h2><i class="fas fa-users-cog"></i> ৩. কার্যকরী পরিষদ (২০২৬-২০২৭)</h2>
+            <div class="card">
+                <div class="council-grid" id="render-executive-council">
+                    </div>
+            </div>
+
+            <h2><i class="fas fa-id-card-alt"></i> ৪. সাধারণ সদস্য তালিকা (একত্রে সকল পরিষদ)</h2>
+            <div class="card" style="padding: 5px;">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ছবি</th>
+                                <th>নাম</th>
+                                <th>পদবী</th>
+                                <th>পরিষদ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="render-unified-table-body">
+                            </tbody>
+                    </table>
                 </div>
             </div>
 
-            <h2><i class="fas fa-map-marked-alt"></i> কার্য এলাকা</h2>
-            <div class="card">
-                <p style="font-size:13.5px; line-height:1.6;">বর্তমানে সংগঠনের কার্যক্রম <strong>কক্সবাজার জেলা</strong> জুড়ে পরিচালিত হচ্ছে। ভবিষ্যতে পর্যায়ক্রমে দেশের অন্যান্য জেলা এবং আন্তর্জাতিক পর্যায়েও কার্যক্রম সম্প্রসারণের পরিকল্পনা রয়েছে।</p>
-            </div>
-
-            <h2><i class="fas fa-eye"></i> ভিশন (Vision)</h2>
-            <div class="card" style="border-left: 4px solid var(--warning);">
-                <p style="font-size:13.5px; line-height:1.6; font-weight:600; color:var(--secondary);">“মানবতা, স্বেচ্ছাসেবা ও যুবশক্তির সমন্বয়ে একটি সহমর্মী, সচেতন, ন্যায়ভিত্তিক ও উন্নত সমাজ প্রতিষ্ঠা করা।”</p>
-            </div>
-
-            <h2><i class="fas fa-bullseye"></i> মিশন (Mission)</h2>
-            <div class="card">
-                <ul>
-                    <li>অসহায়, দরিদ্র ও বিপদগ্রস্ত মানুষের পাশে দাঁড়ানো।</li>
-                    <li>রক্তদান ও স্বাস্থ্যসেবামূলক উদ্যোগকে উৎসাহিত করা।</li>
-                    <li>শিক্ষা, দক্ষতা ও মানবিক মূল্যবোধের বিকাশে কাজ করা।</li>
-                    <li>পরিবেশ সংরক্ষণ ও সামাজিক সচেতনতা বৃদ্ধি করা।</li>
-                    <li>যুবসমাজকে সংগঠিত করে সমাজ উন্নয়নে সম্পৃক্ত করা।</li>
-                    <li>স্বেচ্ছাসেবার মাধ্যমে টেকসই ও ইতিবাচক সামাজিক পরিবর্তন নিশ্চিত করা।</li>
-                </ul>
-            </div>
-
-            <h2><i class="fas fa-users-cog"></i> আমাদের নিবন্ধিত সদস্য ও উপদেষ্টামণ্ডলী</h2>
+            <h2><i class="fas fa-user-edit"></i> অনলাইনে নিবন্ধিত সাধারণ সদস্যবৃন্দ</h2>
             <div id="render-public-members-list"></div>
         </div>
 
-        <!-- =================== 3. FORMS & REGISTRATION ENGINE =================== -->
         <div id="screen-register" class="app-screen">
             <div class="form-toggle-buttons">
                 <button id="toggle-btn-member" class="toggle-tab-btn active" onclick="switchFormType('member')"><i class="fas fa-user-shield"></i> সদস্য/উপদেষ্টা ফরম</button>
                 <button id="toggle-btn-donor" class="toggle-tab-btn" onclick="switchFormType('donor')"><i class="fas fa-tint" style="color:var(--danger)"></i> শুধু রক্তদাতা ফরম</button>
             </div>
 
-            <!-- TYPE A: MEMBER & ADVISOR APPLICATION FORM -->
             <div id="form-zone-member">
                 <h2><i class="fas fa-file-signature"></i> অনলাইন আবেদন ফরম (সদস্য ও উপদেষ্টা)</h2>
                 <div class="card">
@@ -265,7 +263,7 @@
                         </div>
 
                         <div class="form-grid">
-                            <div class="form-group"><label>আবেদনকৃত পদবি (Designation/Role):</label><input type="text" id="f_role" placeholder="উদা: প্রতিষ্ঠাতা / সাধারণ সদস্য / উপদেষ্টা" required></div>
+                            <div class="form-group"><label>আবেদনকৃত পদবি (Designation/Role):</label><input type="text" id="f_role" placeholder="উদা: সাধারণ সদস্য / উপদেষ্টা" required></div>
                             <div class="form-group"><label>মোবাইল নম্বর / Mobile No:</label><input type="tel" id="f_phone" required></div>
                         </div>
 
@@ -305,7 +303,6 @@
                             <div class="form-group"><label>পেশা / Profession:</label><input type="text" id="f_job" placeholder="পেশা" required></div>
                         </div>
 
-                        <!-- ADVANCED STRUCTURED ADDRESS SYSTEM -->
                         <div class="address-heading"><i class="fas fa-map-marker-alt"></i> বর্তমান ঠিকানা (Present Address)</div>
                         <div class="address-grid">
                             <div class="form-group"><label>গ্রাম/মহল্লা:</label><input type="text" id="f_curr_village" required></div>
@@ -331,7 +328,7 @@
                         </div>
 
                         <div class="form-grid" style="margin-top:15px; border-top: 1px dashed #cbd5e0; padding-top:10px;">
-                            <div class="form-group"><label>আবেদনের তারিখ (বাংলা):</label><input type="text" id="f_date_bn" placeholder="উদা: ২৪শে মার্চ ২০২৬" required></div>
+                            <div class="form-group"><label>আবেদনের তারিখ (বাংলা):</label><input type="text" id="f_date_bn" placeholder="উদা: ২৪শে জুন ২০২৬" required></div>
                             <div class="form-group"><label>Application Date (English):</label><input type="date" id="f_date_en" required></div>
                         </div>
 
@@ -346,7 +343,6 @@
                 </div>
             </div>
 
-            <!-- TYPE B: DEDICATED BLOOD DONOR REGISTRATION FORM -->
             <div id="form-zone-donor" style="display:none;">
                 <h2><i class="fas fa-tint" style="color:var(--danger)"></i> রক্তদাতা নিবন্ধন ফরম (Blood Donor Only)</h2>
                 <div class="card" style="border-top: 4px solid var(--danger);">
@@ -389,7 +385,6 @@
             </div>
         </div>
 
-        <!-- =================== 4. CONTACT & BLOOD DONORS =================== -->
         <div id="screen-contact" class="app-screen">
             <h2><i class="fas fa-search-location"></i> রক্তদাতা অনুসন্ধান অপশন</h2>
             <div class="form-group">
@@ -409,7 +404,6 @@
             </div>
         </div>
 
-        <!-- =================== 5. ADMIN CONTROL PANEL =================== -->
         <div id="screen-admin" class="app-screen">
             <h2><i class="fas fa-lock"></i> অ্যাডমিন সিকিউরিটি গেটওয়ে</h2>
             <div id="admin-login-area" class="card">
@@ -419,7 +413,6 @@
 
             <div id="admin-dashboard" style="display: none;">
                 
-                <!-- ID Card Viewer Workstation Modal/Section -->
                 <div id="live-id-card-generator-zone" style="display:none;" class="card">
                     <h3><i class="fas fa-id-card"></i> লাইভ ডিজিটাল মেম্বার আইডি কার্ড</h3>
                     <div class="id-card-wrapper">
@@ -443,7 +436,6 @@
                                     <tr><td><strong>এনআইডি নং:</strong></td><td id="id_card_nid">XXXXXXXXXXXXX</td></tr>
                                 </table>
 
-                                <!-- Auto Official Signature Implemented on ID Card -->
                                 <div class="id-card-sig-section">
                                     <div class="id-card-sig-box">
                                         <img id="id_card_director_sig" src="20260310_054144.png" alt="Founder Signature">
@@ -490,7 +482,6 @@
 
     </div>
 
-    <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="switchTab('home', this)"><i class="fas fa-home"></i>হোম</div>
         <div class="nav-item" onclick="switchTab('about', this)"><i class="fas fa-users"></i>পরিচিতি</div>
@@ -501,8 +492,43 @@
 
     <script>
         const AUTO_OFFICIAL_SIGNATURE = "20260310_054144.png";
-        const STARTING_SERIAL_ID = 230001;
+        const STARTING_SERIAL_ID = 230002;
         const ADMIN_SECRET_PIN = "9388093";
+
+        // Fixed Internal Council Datasets fetched from your uploaded image files
+        const FOUNDER_COUNCIL_DATA = [
+            { name: "Md. Riaz Uddin", role: "Founder", photo: "#" },
+            { name: "Md Mainuddin", role: "Founding Member", photo: "#" },
+            { name: "Humaira Khanum", role: "Founding Member", photo: "#" },
+            { name: "Nadia Sultana", role: "Founding Member", photo: "#" },
+            { name: "Nazim Uddin", role: "Team Marketing", photo: "#" },
+            { name: "Humaira Akter", role: "Founding Member", photo: "#" },
+            { name: "Hema Barua", role: "Founding Member", photo: "#" }
+        ];
+
+        const ADVISOR_COUNCIL_DATA = [
+            { name: "জনাব এক্স", role: "প্রধান উপদেষ্টা", photo: "#" },
+            { name: "জনাব ওয়াই", role: "উপদেষ্টা", photo: "#" },
+            { name: "জনাব জেড", role: "উপদেষ্টা", photo: "#" }
+        ];
+
+        const EXECUTIVE_COUNCIL_DATA = [
+            { name: "Mohammad Riaz", role: "Founder & President", photo: "#" },
+            { name: "Md. Nazim Uddin", role: "General Secretary", photo: "#" },
+            { name: "Mainuddin Ahme", role: "Senior Vice President", photo: "#" },
+            { name: "Md Jashim Uddin", role: "Vice President", photo: "#" },
+            { name: "Noor Khan Uddin Shakil", role: "Organizational Secretary", photo: "#" },
+            { name: "Mobin Chowdhury", role: "Asst. General Secretary", photo: "#" },
+            { name: "Rabeya Basari", role: "Joint Secretary", photo: "#" },
+            { name: "Rabeya Basari-2", role: "Joint Organizational Sec.", photo: "#" },
+            { name: "HM Sami Uddin", role: "Finance Secretary", photo: "#" },
+            { name: "Rezia Begum", role: "Assit. Finance Secretary", photo: "#" },
+            { name: "Mohibbullah Noury", role: "Sports Secretary", photo: "#" },
+            { name: "Md Usman Goni", role: "Cultural Secretary", photo: "#" },
+            { name: "Jannatul Mawa", role: "Women Affairs Secretary", photo: "#" },
+            { name: "Tahera Akter Bokul", role: "Publicity Secretary", photo: "#" },
+            { name: "Shahid Ullah", role: "Office Secretary", photo: "#" }
+        ];
 
         let appData = JSON.parse(localStorage.getItem('svyo_v5_config')) || {
             appName: "স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন",
@@ -514,12 +540,12 @@
             email: "swapnataricoxbd@gmail.com",
             address: "সোনাআলী ভবন, দক্ষিণ রুমালিয়ার ছরা, ৭নং ওয়ার্ড, পৌরসভা, কক্সবাজার",
             aboutShort: "স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO) একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২১ সালে কক্সবাজার পৌরসভার ৭নং ওয়ার্ডের দক্ষিণ রুমালিয়ার ছরা এলাকায় একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়।",
-            historyFull: "মানবতার কল্যাণ এবং স্থানীয় যুবসমাজকে সামাজিক উন্নয়নমূলক কাজে সম্পৃক্ত করার মহৎ উদ্দেশ্যে ২০২১ সালে কক্সবাজারের স্থানীয় তরুণ সমাজসেবক ও সংগঠক মোহাম্মদ রিয়াজ এর একক উদ্যোগ এবং একঝাঁক উদ্যমী সহযোদ্ধাদের সক্রিয় সহযোগিতায় \"স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন\" প্রতিষ্ঠিত হয়।",
-            statBlood: "১,২০০+", statMembers: "৩ضا০+", statProjects: "২৫+",
+            historyFull: "মানবতার কল্যাণ এবং স্থানীয় যুবসমাজকে সামাজিক উন্নয়নমূলক কাজে সম্পৃক্ত করার মহৎ উদ্দেশ্যে ২০২১ সালে কক্সবাজারের স্থানীয় তরুণ সমাজসেবক ও সংগঠক মোহাম্মদ রিয়াজ এর একক উদ্যোগ এবং একঝাঁক উদ্যমী সহযোদ্ধাদের সক্রিয় সহযোগิตায় \"স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন\" প্রতিষ্ঠিত হয়।",
+            statBlood: "১,২০০+", statMembers: "৩৫০+", statProjects: "২৫+",
             registry: [
                 {
                     type: "সদস্য (Member)", idNo: "SVYO-230001", role: "প্রতিষ্ঠাতা পরিচালক ও সভাপতি",
-                    nameBn: "মোহাম্মদ রিয়াজ", nameEn: "Mohammad Riaz",
+                    nameBn: "মোহাম্মদ রিয়াজ উদ্দিন", nameEn: "Mohammad Riaz Uddin",
                     fatherBn: "মৃত নজির আহমদ", fatherEn: "Late Nozir Ahmad",
                     motherBn: "রওশন আক্তার", motherEn: "Roushan Aktar",
                     dobBn: "১৫ই অক্টোবর ১৯৯৮", dobEn: "1998-10-15",
@@ -529,7 +555,7 @@
                     photo: "20260304_112626.jpg", sigMember: "", status: "Approved"
                 }
             ],
-            donors: [] // Dedicated standalone blood donors collection array
+            donors: []
         };
 
         window.onload = function() { renderAppInterface(); };
@@ -549,7 +575,12 @@
             }
         }
 
+        function buildPlaceholderAvatar(name) {
+            return `<div class="council-avatar"><i class="fas fa-user-circle fa-3x" style="color:#cbd5e0;"></i></div>`;
+        }
+
         function renderAppInterface() {
+            // Render basic text elements
             document.getElementById('render-app-name').innerText = appData.appName;
             document.getElementById('render-eng-name').innerText = appData.engName;
             document.getElementById('render-slogan').innerText = appData.slogan;
@@ -567,19 +598,64 @@
             document.getElementById('render-stat-members').innerText = appData.statMembers;
             document.getElementById('render-stat-projects').innerText = appData.statProjects;
 
+            // 1. Render Founder Council Grid UI
+            const founderContainer = document.getElementById('render-founder-council');
+            founderContainer.innerHTML = "";
+            FOUNDER_COUNCIL_DATA.forEach(f => {
+                let imgBlock = f.photo !== "#" ? `<img src="${f.photo}" class="council-avatar">` : buildPlaceholderAvatar(f.name);
+                founderContainer.innerHTML += `<div class="council-card">${imgBlock}<h4>${f.name}</h4><p>${f.role}</p></div>`;
+            });
+
+            // 2. Render Advisor Council Grid UI
+            const advisorContainer = document.getElementById('render-advisor-council');
+            advisorContainer.innerHTML = "";
+            ADVISOR_COUNCIL_DATA.forEach(a => {
+                let imgBlock = a.photo !== "#" ? `<img src="${a.photo}" class="council-avatar">` : buildPlaceholderAvatar(a.name);
+                advisorContainer.innerHTML += `<div class="council-card">${imgBlock}<h4>${a.name}</h4><p>${a.role}</p></div>`;
+            });
+
+            // 3. Render Executive Council Grid UI
+            const execContainer = document.getElementById('render-executive-council');
+            execContainer.innerHTML = "";
+            EXECUTIVE_COUNCIL_DATA.forEach(e => {
+                let imgBlock = e.photo !== "#" ? `<img src="${e.photo}" class="council-avatar">` : buildPlaceholderAvatar(e.name);
+                execContainer.innerHTML += `<div class="council-card">${imgBlock}<h4>${e.name}</h4><p>${e.role}</p></div>`;
+            });
+
+            // 4. Render All-In-One Unified Matrix Table List 
+            const unifiedTableBody = document.getElementById('render-unified-table-body');
+            unifiedTableBody.innerHTML = "";
+            
+            // Push founders to unified list table
+            FOUNDER_COUNCIL_DATA.forEach(f => {
+                let tImg = f.photo !== "#" ? `<img src="${f.photo}" class="table-img">` : `<i class="fas fa-user-circle fa-2x" style="color:#cbd5e0;"></i>`;
+                unifiedTableBody.innerHTML += `<tr><td>${tImg}</td><td>${f.name}</td><td>${f.role}</td><td><span class="type-badge" style="background:var(--founder-color)">প্রতিষ্ঠাতা</span></td></tr>`;
+            });
+
+            // Push advisors to unified list table
+            ADVISOR_COUNCIL_DATA.forEach(a => {
+                let tImg = a.photo !== "#" ? `<img src="${a.photo}" class="table-img">` : `<i class="fas fa-user-circle fa-2x" style="color:#cbd5e0;"></i>`;
+                unifiedTableBody.innerHTML += `<tr><td>${tImg}</td><td>${a.name}</td><td>${a.role}</td><td><span class="type-badge" style="background:var(--advisor-color)">উপদেষ্টা</span></td></tr>`;
+            });
+
+            // Push executives to unified list table
+            EXECUTIVE_COUNCIL_DATA.forEach(e => {
+                let tImg = e.photo !== "#" ? `<img src="${e.photo}" class="table-img">` : `<i class="fas fa-user-circle fa-2x" style="color:#cbd5e0;"></i>`;
+                unifiedTableBody.innerHTML += `<tr><td>${tImg}</td><td>${e.name}</td><td>${e.role}</td><td><span class="type-badge" style="background:var(--executive-color)">কার্যকরী</span></td></tr>`;
+            });
+
+            // 5. Render Dynamic Online Approved/Pending Public Submissions View 
             const publicContainer = document.getElementById('render-public-members-list');
             publicContainer.innerHTML = "";
-            
             const adminContainer = document.getElementById('render-admin-member-vault');
             adminContainer.innerHTML = "";
 
             appData.registry.forEach((m, index) => {
                 let imgHtml = m.photo ? `<img src="${m.photo}" class="member-img-preview">` : `<div style="width:65px; height:65px; border-radius:8px; background:#edf2f7; display:flex; align-items:center; justify-content:center;"><i class="fas fa-user fa-lg"></i></div>`;
-                
                 let signatureBlockHtml = `
                     <div class="signature-display-row">
-                        <div class="sig-box"><img src="${AUTO_OFFICIAL_SIGNATURE}"><div class="sig-line">সভাপতির স্বাক্ষর (অটো)</div></div>
-                        <div class="sig-box"><img src="${AUTO_OFFICIAL_SIGNATURE}"><div class="sig-line">প্রতিষ্ঠাতা পরিচালকের স্বাক্ষর (অটো)</div></div>
+                        <div class="sig-box"><img src="${AUTO_OFFICIAL_SIGNATURE}"><div class="sig-line">সভাপতির স্বাক্ষর</div></div>
+                        <div class="sig-box"><img src="${AUTO_OFFICIAL_SIGNATURE}"><div class="sig-line">পরিচালকের স্বাক্ষর</div></div>
                         <div class="sig-box">${m.sigMember ? `<img src="${m.sigMember}">` : '<div style="height:32px;"></div>'}<div class="sig-line">সদস্যের স্বাক্ষর</div></div>
                     </div>`;
 
@@ -600,7 +676,7 @@
                             <div><strong>জন্মদিন (বাংলা):</strong> ${m.dobBn}</div><div><strong>DOB (Eng):</strong> ${m.dobEn}</div>
                             <div><strong>এনআইডি/জন্মনিবন্ধন:</strong> ${m.nidBn}</div><div><strong>রক্তের গ্রুপ:</strong> <span style="color:var(--danger);font-weight:bold;">${m.blood}</span></div>
                             <div><strong>পেশা:</strong> ${m.job}</div><div><strong>মোবাইল নম্বর:</strong> ${m.phone}</div>
-                            <div style="grid-column: span 2;"><strong>বর্তমান ঠিকানা:</strong> ${m.address}</div>
+                            <div style="grid-column: span 2;"><strong>ঠিকানা:</strong> ${m.address}</div>
                         </div>
                         ${signatureBlockHtml}
                     </div>`;
@@ -634,16 +710,10 @@
 
         function handleFormSubmission(e) {
             e.preventDefault();
-            
             let nextIdNumber = STARTING_SERIAL_ID + appData.registry.length;
             let generatedIdStr = "SVYO-" + nextIdNumber;
 
-            // Combine sub-fields of structured address to plain text presentation string
-            let combinedAddressText = "গ্রাম: " + document.getElementById('f_curr_village').value + 
-                                      ", উপজেলা: " + document.getElementById('f_curr_thana').value + 
-                                      ", জেলা: " + document.getElementById('f_curr_district').value + 
-                                      ", পোস্ট কোড: " + document.getElementById('f_curr_postcode').value + 
-                                      ", বিভাগ: " + document.getElementById('f_curr_division').value;
+            let combinedAddressText = "বর্তমান: " + document.getElementById('f_curr_village').value + ", " + document.getElementById('f_curr_thana').value + ", " + document.getElementById('f_curr_district').value + "। স্থায়ী: " + document.getElementById('f_perm_village').value + ", " + document.getElementById('f_perm_thana').value + ", " + document.getElementById('f_perm_district').value;
 
             let newRecord = {
                 type: document.getElementById('f_type').value,
@@ -673,13 +743,12 @@
             appData.registry.unshift(newRecord);
             localStorage.setItem('svyo_v5_config', JSON.stringify(appData));
             renderAppInterface();
-            alert("আপনার আবেদনপত্রটি সফলভাবে সাবমিট হয়েছে। আপনার আইডি কোড হবে: " + generatedIdStr + " (অনুমোদনের পর সক্রিয় হবে)।");
+            alert("আবেদনপত্রটি জমা হয়েছে। আইডি কোড: " + generatedIdStr + " (অ্যাডমিন অনুমোদনের পর সচল হবে)");
             document.getElementById('membershipForm').reset();
         }
 
         function handleDonorFormSubmission(e) {
             e.preventDefault();
-            
             let newDonor = {
                 name: document.getElementById('d_name').value,
                 thana: document.getElementById('d_thana').value,
@@ -695,7 +764,7 @@
             appData.donors.unshift(newDonor);
             localStorage.setItem('svyo_v5_config', JSON.stringify(appData));
             
-            alert("রক্তদাতা হিসেবে আপনার নাম ডাটাবেজে সফলভাবে নিবন্ধিত হয়েছে। ধন্যবাদ!");
+            alert("রক্তদাতা তালিকায় নাম অন্তর্ভুক্ত হয়েছে। ধন্যবাদ!");
             document.getElementById('donorForm').reset();
             document.getElementById('donor_photo_data').value = "";
             runBloodSearch();
@@ -724,7 +793,7 @@
             appData.registry[index].status = "Approved";
             localStorage.setItem('svyo_v5_config', JSON.stringify(appData));
             renderAppInterface();
-            alert("আবেদনটি সফলভাবে অনুমোদন করা হয়েছে এবং পাবলিক তালিকায় যুক্ত হয়েছে।");
+            alert("আবেদনটি সফলভাবে অনুমোদন করা হয়েছে।");
         }
 
         function deleteRegistryRecord(index) {
@@ -799,16 +868,14 @@
             const container = document.getElementById('donorResults');
             container.innerHTML = "";
             
-            // Sync/merge data from main approved registry & the dedicated standalone donors pool
             let mergedPool = [];
-            
             appData.registry.forEach(m => {
                 if(m.status === "Approved") {
                     mergedPool.push({
                         name: m.nameBn,
                         blood: m.blood,
                         phone: m.phone,
-                        location: m.address,
+                        location: m.address.substring(0, 40) + "...",
                         lastDonation: "মেম্বার ডাটাবেজ",
                         photo: m.photo
                     });
@@ -832,7 +899,6 @@
             
             filtered.forEach((d) => {
                 let donorImg = d.photo ? `<img src="${d.photo}" style="width:50px; height:50px; border-radius:50%; object-fit:cover; border:2px solid var(--danger); margin-right:10px;">` : `<div style="width:50px; height:50px; border-radius:50%; background:#ffebee; color:var(--danger); display:flex; align-items:center; justify-content:center; margin-right:10px;"><i class="fas fa-tint fa-lg"></i></div>`;
-                
                 container.innerHTML += `
                     <div class="card member-card" style="border-left: 4px solid var(--danger); margin-bottom:10px; padding:12px;">
                         <div style="display:flex; justify-content:between; align-items:center; width:100%;">
@@ -846,8 +912,4 @@
                         </div>
                     </div>`;
             });
-            if(filtered.length === 0) { container.innerHTML = "<p style='font-size:13px; color:#718096; text-align:center;'>এই গ্রুপের কোনো রক্তদাতা খুঁজে পাওয়া যায়নি।</p>"; }
-        }
-    </script>
-</body>
-</html>
+            if(filtered.length === 0) { container.innerHTML = "<p style='font-size:
