@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="app-title-tag">Swapnatari</title>
     
-    <!-- PWA Manifest Link -->
-    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1a365d">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     
@@ -38,9 +35,8 @@
         .app-container { padding: 15px; max-width: 600px; margin: 0 auto; }
         
         /* Screen Navigation Switching */
-        .app-screen { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .app-screen { display: none; }
         .app-screen.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         h2 { font-size: 17px; color: var(--secondary); margin: 20px 0 12px 0; border-left: 4px solid var(--primary); padding-left: 8px; display: flex; align-items: center; gap: 8px; }
         h2:first-of-type { margin-top: 5px; }
@@ -50,7 +46,7 @@
         .card p { font-size: 14px; line-height: 1.7; text-align: justify; white-space: pre-line; }
         
         /* Hero UI */
-        .hero { background: linear-gradient(135deg, rgba(26,54,93,0.95), rgba(39,174,96,0.9)), url('20260304_112626.jpg'); background-size: cover; background-position: center; color: white; padding: 25px 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .hero { background: linear-gradient(135deg, rgba(26,54,93,0.95), rgba(39,174,96,0.9)); background-size: cover; background-position: center; color: white; padding: 25px 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
         .hero .logo-container { margin-bottom: 10px; }
         .hero .hero-logo { width: 85px; height: 85px; border-radius: 50%; background: white; padding: 4px; object-fit: contain; }
         .hero h2 { color: white; border: none; padding: 0; font-size: 21px; margin-bottom: 2px; text-align: center; }
@@ -188,7 +184,7 @@
                 <form id="member-crud-form" onsubmit="handleMemberSubmit(event)">
                     <div class="form-group">
                         <label>সদস্য আইডি (ID)</label>
-                        <input type="number" id="crud-mem-id" class="form-control" required placeholder="নতুন সদস্যের জন্য নতুন আইডি দিন, তথ্য বদলাতে আগের আইডি">
+                        <input type="number" id="crud-mem-id" class="form-control" required placeholder="আইডি টাইপ করুন">
                     </div>
                     <div class="form-group">
                         <label>সদস্যের নাম</label>
@@ -196,15 +192,15 @@
                     </div>
                     <div class="form-group">
                         <label>পদবি (Designation)</label>
-                        <input type="text" id="crud-mem-role" class="form-control" placeholder="যেমন: প্রতিষ্ঠাতা / সাধারণ সদস্য">
+                        <input type="text" id="crud-mem-role" class="form-control" placeholder="যেমন: প্রতিষ্ঠাতা">
                     </div>
                     <div class="form-group">
                         <label>ছবির লিঙ্ক / ফাইল নাম</label>
-                        <input type="text" id="crud-mem-img" class="form-control" placeholder="ছবির অনলাইন ইউআরএল বা গিটহাব ফাইলের নাম">
+                        <input type="text" id="crud-mem-img" class="form-control" placeholder="ছবির অনলাইন ইউআরএল">
                     </div>
                     <div class="btn-group" style="margin-top: 10px;">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> সদস্য যোগ/আপডেট করুন</button>
-                        <button type="button" class="btn btn-danger" onclick="deleteMemberAction()"><i class="fas fa-trash-alt"></i> আইডি দিয়ে মুছুন (Remove)</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteMemberAction()"><i class="fas fa-trash-alt"></i> আইডি দিয়ে মুছুন</button>
                     </div>
                 </form>
             </div>
@@ -215,11 +211,11 @@
                 <form onsubmit="handleNoticeSubmit(event)">
                     <div class="form-group">
                         <label>নোটিশের শিরোনাম</label>
-                        <input type="text" id="notice-title" class="form-control" required placeholder="জরুরি রক্তদান / সাধারণ সভা">
+                        <input type="text" id="notice-title" class="form-control" required placeholder="জরুরি রক্তদান">
                     </div>
                     <div class="form-group">
                         <label>বিস্তারিত বিবরণ</label>
-                        <textarea id="notice-desc" class="form-control" required placeholder="নোটিশের বিস্তারিত এখানে লিখুন..."></textarea>
+                        <textarea id="notice-desc" class="form-control" required placeholder="নোটিশের বিস্তারিত..."></textarea>
                     </div>
                     <button type="submit" class="btn btn-danger btn-block"><i class="fas fa-paper-plane"></i> নোটিশ জারি করুন</button>
                 </form>
@@ -235,7 +231,7 @@
                     </div>
                     <div class="form-group">
                         <label>পোস্ট কনটেন্ট</label>
-                        <textarea id="daily-content" class="form-control" required placeholder="বিস্তারিত কি ঘটেছিল লিখুন..."></textarea>
+                        <textarea id="daily-content" class="form-control" required placeholder="বিস্তারিত লিখুন..."></textarea>
                     </div>
                     <button type="submit" class="btn btn-warning btn-block"><i class="fas fa-plus-circle"></i> ডেইলি পোস্ট পাবলিশ করুন</button>
                 </form>
@@ -247,15 +243,15 @@
                 <form onsubmit="handleActivitySubmit(event)">
                     <div class="form-group">
                         <label>অ্যাক্টিভিটি বা প্রজেক্টের নাম</label>
-                        <input type="text" id="act-title" class="form-control" required placeholder="ফ্রি মেডিকেল ক্যাম্প / শীতবস্ত্র বিতরণ">
+                        <input type="text" id="act-title" class="form-control" required placeholder="শীতবস্ত্র বিতরণ">
                     </div>
                     <div class="form-group">
                         <label>কার্যক্রমের বিবরণ</label>
-                        <textarea id="act-desc" class="form-control" required placeholder="সংগঠনের এই কার্যক্রমের সংক্ষিপ্ত বিবরণ দিন..."></textarea>
+                        <textarea id="act-desc" class="form-control" required placeholder="সংক্ষিপ্ত বিবরণ..."></textarea>
                     </div>
                     <div class="form-group">
                         <label>কার্যক্রমের প্রজেক্ট ইমেজ লিঙ্ক</label>
-                        <input type="text" id="act-img" class="form-control" placeholder="ইভেন্টের ছবির অনলাইন ইউআরএল লিঙ্ক">
+                        <input type="text" id="act-img" class="form-control" placeholder="ছবির ইউআরএল লিঙ্ক">
                     </div>
                     <button type="submit" class="btn btn-secondary btn-block"><i class="fas fa-save"></i> অ্যাক্টিভিটি হিস্টোরিতে যুক্ত করুন</button>
                 </form>
@@ -270,10 +266,8 @@
                     <div class="form-group"><label>স্লোগান</label><input type="text" id="g-slogan" class="form-control" required></div>
                     <div class="form-group"><label>নিবন্ধন নম্বর</label><input type="text" id="g-reg" class="form-control" required></div>
                     <div class="form-group"><label>লোগো ফাইল নেম / লিঙ্ক</label><input type="text" id="g-logo" class="form-control"></div>
-                    
-                    <div class="form-group"><label>ফেসবुक পেজ লিঙ্ক</label><input type="text" id="g-fb-page" class="form-control"></div>
+                    <div class="form-group"><label>ফেসবুক পেজ লিঙ্ক</label><input type="text" id="g-fb-page" class="form-control"></div>
                     <div class="form-group"><label>অ্যাডমিন আইডি লিঙ্ক</label><input type="text" id="g-fb-admin" class="form-control"></div>
-                    
                     <div class="form-group"><label>সংक्षिप्त পরিচিতি টেক্সট</label><textarea id="g-intro" class="form-control" required></textarea></div>
                     <div class="form-group inline-inputs">
                         <div><label>সদস্য সংখ্যা</label><input type="text" id="g-s1" class="form-control" required></div>
@@ -294,31 +288,34 @@
         <div class="nav-item" onclick="switchScreen('admin')"><i class="fas fa-user-shield"></i>অ্যাডমিন</div>
     </nav>
 
-    <!-- পূর্ণাঙ্গ ডায়নামিক স্ক্রিপ্ট ইঞ্জিন -->
+    <!-- জাভাস্ক্রিপ্ট ইঞ্জিন -->
     <script>
         const API_LINK = "https://script.google.com/macros/s/AKfycbwgmsn0Jlilw-SplNZZZYhMm9JH3i0_fBP1OIFuv-it5h7t1lbJxJQw6l5UcAaPuYqa/exec";
 
         function switchScreen(id) {
             document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
-            document.getElementById('screen-' + id).classList.add('active');
+            const targetScreen = document.getElementById('screen-' + id);
+            if (targetScreen) {
+                targetScreen.classList.add('active');
+            }
             
             document.querySelectorAll('.nav-item').forEach(n => {
                 n.classList.remove('active');
                 n.classList.remove('active-admin');
             });
+            
             const steps = document.querySelectorAll('.nav-item');
-            if(id === 'home') steps[0].classList.add('active');
-            if(id === 'members') steps[1].classList.add('active');
-            if(id === 'admin') steps[2].classList.add('active-admin');
+            if(id === 'home' && steps[0]) steps[0].classList.add('active');
+            if(id === 'members' && steps[1]) steps[1].classList.add('active');
+            if(id === 'admin' && steps[2]) steps[2].classList.add('active-admin');
             window.scrollTo(0, 0);
         }
 
         function loadApplicationEngine() {
-            // ডিফল্ট লোগো ইমেজ পাথ সেটআপ
             document.getElementById("app-logo").src = "Logo-01.jpg";
             document.getElementById("hero-logo-img").src = "Logo-01.jpg";
 
-            // ১. সেটিংস ও গ্লোবাল কনটেন্ট ফেচিং
+            // ১. সেটিংস ফেচিং
             fetch(API_LINK + "?type=settings")
                 .then(res => res.json())
                 .then(d => {
@@ -339,7 +336,7 @@
                         if(d.fb_page_url) document.getElementById("link-fb-page").href = d.fb_page_url;
                         if(d.fb_admin_url) document.getElementById("link-fb-admin").href = d.fb_admin_url;
 
-                        if(d.icon_src && !d.icon_src.includes("imgur.com") && d.icon_src.trim() !== "") {
+                        if(d.icon_src && d.icon_src.trim() !== "") {
                             document.getElementById("app-logo").src = d.icon_src;
                             document.getElementById("hero-logo-img").src = d.icon_src;
                         }
@@ -356,80 +353,84 @@
                         document.getElementById("g-s2").value = d.stat2 || "";
                         document.getElementById("g-s3").value = d.stat3 || "";
                     }
-                }).catch(e => {
-                    document.getElementById("link-fb-page").href = "https://www.facebook.com/humanresourcedevelopmentfoundation/";
-                    document.getElementById("link-fb-admin").href = "https://www.facebook.com/mohammad.riaz.99/";
-                    console.log("সেটিংস ফেচিং অফলাইন।");
-                });
+                }).catch(e => console.log("সেটিংস ফেচিং অফলাইন।"));
 
-            // ২. সদস্য ডাটাবেজ ফেচিং
+            // ২. সদস্য তালিকা ফেচিং
             fetch(API_LINK + "?type=members")
                 .then(res => res.json())
                 .then(members => {
                     const box = document.getElementById("all-members-render-box");
-                    box.innerHTML = "";
-                    if(!members || members.length === 0){
-                        box.innerHTML = `<p style="grid-column:span 2;text-align:center;">কোনো সদস্য ডাটা পাওয়া যায়নি।</p>`;
-                        return;
+                    if(box) {
+                        box.innerHTML = "";
+                        if(!members || members.length === 0){
+                            box.innerHTML = `<p style="grid-column:span 2;text-align:center;">কোনো সদস্য ডাটা পাওয়া যায়নি।</p>`;
+                            return;
+                        }
+                        members.forEach(m => {
+                            box.innerHTML += `
+                                <div class="member-card">
+                                    <span class="member-id-tag">ID: ${m.id}</span>
+                                    <img src="${m.image_url}" class="member-avatar" onerror="this.src='Logo-01.jpg'">
+                                    <div class="member-name">${m.name}</div>
+                                    <div class="member-role">${m.designation}</div>
+                                </div>
+                            `;
+                        });
                     }
-                    members.forEach(m => {
-                        box.innerHTML += `
-                            <div class="member-card">
-                                <span class="member-id-tag">ID: ${m.id}</span>
-                                <img src="${m.image_url}" class="member-avatar" onerror="this.src='Logo-01.jpg'">
-                                <div class="member-name">${m.name}</div>
-                                <div class="member-role">${m.designation}</div>
-                            </div>
-                        `;
-                    });
-                }).catch(e => console.log("সদস্য ডাটা ফেচিং ট্রাবল।"));
+                }).catch(e => console.log("সদস্য ডাটা ট্রাবল।"));
 
-            // ৩. ফিড লোড প্রোটোকল
+            // ৩. ফিড ফেচিং
             fetch(API_LINK + "?type=feeds")
                 .then(res => res.json())
                 .then(data => {
                     const noticeBox = document.getElementById("notice-board-container");
-                    noticeBox.innerHTML = "";
-                    if(data.notices && data.notices.length > 0) {
-                        data.notices.reverse().forEach(n => {
-                            noticeBox.innerHTML += `
-                                <div class="card notice-card">
-                                    <span class="post-time"><i class="far fa-clock"></i> ${n.date || 'আজ'}</span>
-                                    <h3><i class="fas fa-exclamation-circle" style="color:var(--danger)"></i> ${n.title}</h3>
-                                    <p>${n.desc}</p>
-                                </div>
-                            `;
-                        });
-                    } else { noticeBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো চলমান নোটিশ নেই।</p>`; }
+                    if(noticeBox) {
+                        noticeBox.innerHTML = "";
+                        if(data.notices && data.notices.length > 0) {
+                            data.notices.reverse().forEach(n => {
+                                noticeBox.innerHTML += `
+                                    <div class="card notice-card">
+                                        <span class="post-time"><i class="far fa-clock"></i> ${n.date || 'আজ'}</span>
+                                        <h3><i class="fas fa-exclamation-circle" style="color:var(--danger)"></i> ${n.title}</h3>
+                                        <p>${n.desc}</p>
+                                    </div>
+                                `;
+                            });
+                        } else { noticeBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো চলমান নোটিশ নেই।</p>`; }
+                    }
 
                     const postBox = document.getElementById("daily-posts-container");
-                    postBox.innerHTML = "";
-                    if(data.posts && data.posts.length > 0) {
-                        data.posts.reverse().forEach(p => {
-                            postBox.innerHTML += `
-                                <div class="card">
-                                    <span class="post-time"><i class="far fa-calendar-alt"></i> ${p.date || 'সম্প্রতি'}</span>
-                                    <h3><i class="fas fa-feather-alt" style="color:var(--warning)"></i> ${p.title}</h3>
-                                    <p>${p.content}</p>
-                                </div>
-                            `;
-                        });
-                    } else { postBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো পোস্ট পাওয়া যায়নি।</p>`; }
+                    if(postBox) {
+                        postBox.innerHTML = "";
+                        if(data.posts && data.posts.length > 0) {
+                            data.posts.reverse().forEach(p => {
+                                postBox.innerHTML += `
+                                    <div class="card">
+                                        <span class="post-time"><i class="far fa-calendar-alt"></i> ${p.date || 'সম্প্রতি'}</span>
+                                        <h3><i class="fas fa-feather-alt" style="color:var(--warning)"></i> ${p.title}</h3>
+                                        <p>${p.content}</p>
+                                    </div>
+                                `;
+                            });
+                        } else { postBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো পোস্ট পাওয়া যায়নি।</p>`; }
+                    }
 
                     const actBox = document.getElementById("activities-container");
-                    actBox.innerHTML = "";
-                    if(data.activities && data.activities.length > 0) {
-                        data.activities.reverse().forEach(a => {
-                            let imgTag = a.img ? `<img src="${a.img}" class="activity-img" onerror="this.style.display='none'">` : '';
-                            actBox.innerHTML += `
-                                <div class="card">
-                                    <h3><i class="fas fa-star" style="color:var(--primary)"></i> ${a.title}</h3>
-                                    <p>${a.desc}</p>
-                                    ${imgTag}
-                                </div>
-                            `;
-                        });
-                    } else { actBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো কার্যক্রম হিস্টোরি নেই।</p>`; }
+                    if(actBox) {
+                        actBox.innerHTML = "";
+                        if(data.activities && data.activities.length > 0) {
+                            data.activities.reverse().forEach(a => {
+                                let imgTag = a.img ? `<img src="${a.img}" class="activity-img" onerror="this.style.display='none'">` : '';
+                                actBox.innerHTML += `
+                                    <div class="card">
+                                        <h3><i class="fas fa-star" style="color:var(--primary)"></i> ${a.title}</h3>
+                                        <p>${a.desc}</p>
+                                        ${imgTag}
+                                    </div>
+                                `;
+                            });
+                        } else { actBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো কার্যক্রম হিস্টোরি নেই।</p>`; }
+                    }
                 }).catch(e => console.log("ফিড লোড ট্রাবল।"));
         }
 
@@ -521,7 +522,6 @@
             executePostAction(payload, "মেইন গ্লোবাল সেটিংস সফলভাবে আপডেট করা হয়েছে!");
         }
 
-        // উইন্ডো লোড হওয়ার সাথে সাথে ইঞ্জিন স্টার্ট করার প্রোটোকল
         window.addEventListener("DOMContentLoaded", () => {
             loadApplicationEngine();
         });
