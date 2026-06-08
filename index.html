@@ -3,78 +3,528 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>স্বপ্নতরী - স্বেচ্ছাসেবী যুব সংগঠন</title>
+    <title id="app-title-tag">Swapnatari</title>
+    
+    <!-- PWA Manifest Link -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a365d">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* আপনার বর্তমান সিএসএস এখানে রাখুন (একই থাকবে) */
+        :root {
+            --primary: #27ae60;
+            --secondary: #1a365d;
+            --bg: #f4f7f6;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --info: #2980b9;
+            --fb-color: #1877f2;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; }
+        
+        /* Header */
+        .app-header { background: var(--secondary); color: white; padding: 12px 15px; text-align: center; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .app-header .header-logo { width: 45px; height: 45px; border-radius: 50%; background: white; padding: 2px; object-fit: contain; }
+        .app-header .header-text-group { text-align: left; }
+        .app-header h1 { font-size: 16px; font-weight: 700; line-height: 1.2; }
+        .app-header .eng-title { font-size: 10px; letter-spacing: 0.3px; opacity: 0.9; text-transform: uppercase; }
+        .app-header p { font-size: 11px; color: #58fa9b; font-weight: bold; margin-top: 1px; }
+        
+        .app-container { padding: 15px; max-width: 600px; margin: 0 auto; }
+        
+        /* Screen Navigation Switching */
+        .app-screen { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .app-screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        h2 { font-size: 17px; color: var(--secondary); margin: 20px 0 12px 0; border-left: 4px solid var(--primary); padding-left: 8px; display: flex; align-items: center; gap: 8px; }
+        h2:first-of-type { margin-top: 5px; }
+        h3 { font-size: 15px; color: var(--secondary); margin-bottom: 8px; border-bottom: 1px dashed #cbd5e0; padding-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+        
+        .card { background: var(--card-bg); padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .card p { font-size: 14px; line-height: 1.7; text-align: justify; white-space: pre-line; }
+        
+        /* Hero UI */
+        .hero { background: linear-gradient(135deg, rgba(26,54,93,0.95), rgba(39,174,96,0.9)), url('20260304_112626.jpg'); background-size: cover; background-position: center; color: white; padding: 25px 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .hero .logo-container { margin-bottom: 10px; }
+        .hero .hero-logo { width: 85px; height: 85px; border-radius: 50%; background: white; padding: 4px; object-fit: contain; }
+        .hero h2 { color: white; border: none; padding: 0; font-size: 21px; margin-bottom: 2px; text-align: center; }
+        .hero .eng-sub { font-size: 11px; opacity: 0.8; margin-bottom: 8px; }
+        .hero .badge { background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 20px; font-size: 11px; display: inline-block; margin-bottom: 12px; }
+        .hero p { font-size: 13px; opacity: 0.95; margin-bottom: 15px; line-height: 1.5; text-align: center; }
+        
+        /* Component Badges & Timestamps */
+        .post-time { font-size: 11px; color: #a0aec0; margin-bottom: 5px; display: block; }
+        .notice-card { border-left: 4px solid var(--danger); background: #fff5f5; }
+        .activity-img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-top: 8px; }
+        
+        /* Buttons Setup */
+        .btn-group { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+        .btn { padding: 10px 18px; border-radius: 25px; border: none; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; transition: 0.2s; text-decoration: none; }
+        .btn:active { transform: scale(0.95); }
+        .btn-primary { background: #2ecc71; color: white; }
+        .btn-secondary { background: var(--secondary); color: white; }
+        .btn-danger { background: #e74c3c; color: white; }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-fb { background: var(--fb-color); color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; flex: 1; text-align: center; justify-content: center; box-shadow: 0 4px 6px rgba(24, 119, 242, 0.15); }
+        .btn-block { width: 100%; justify-content: center; margin-top: 5px; }
+        
+        /* Social Grid Layout */
+        .social-flex-group { display: flex; gap: 12px; margin-top: 8px; width: 100%; }
+
+        /* Stats System */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; text-align: center; }
+        .stat-box { background: white; padding: 12px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); border-bottom: 3px solid var(--primary); }
+        .stat-box h4 { font-size: 16px; color: var(--primary); font-weight: 700; }
+        .stat-box p { font-size: 11px; color: #718096; margin-top: 2px; }
+
+        /* Grid View for Members */
+        .members-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .member-card { background: white; border-radius: 12px; padding: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.02); border-top: 3px solid var(--info); position: relative; }
+        .member-id-tag { position: absolute; top: 5px; left: 8px; font-size: 10px; color: #a0aec0; font-weight: bold; }
+        .member-avatar { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; margin: 5px auto; background: #f0f0f0; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .member-name { font-size: 13px; font-weight: bold; color: var(--secondary); }
+        .member-role { font-size: 11px; color: #718096; background: #f0f4f8; padding: 2px 6px; border-radius: 10px; display: inline-block; margin-top: 3px; }
+
+        /* Form Controls */
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; color: var(--secondary); }
+        .form-control { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0; font-size: 13px; }
+        .form-control:focus { border-color: var(--primary); outline: none; }
+        textarea.form-control { resize: vertical; min-height: 70px; }
+        .inline-inputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+        /* Navbar Layout */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; height: 60px; display: flex; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 1000; }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #a0aec0; cursor: pointer; font-size: 11px; font-weight: 600; text-decoration: none; }
+        .nav-item i { font-size: 18px; margin-bottom: 2px; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item.active-admin { color: var(--danger); }
     </style>
 </head>
 <body>
 
-    <header class="app-header">...</header>
+    <!-- অ্যাপ হেডার -->
+    <header class="app-header">
+        <img src="Logo-01.jpg" alt="Logo" class="header-logo" id="app-logo">
+        <div class="header-text-group">
+            <h1 id="app-title-bn">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h1>
+            <div class="eng-title" id="app-title-en">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
+            <p id="app-slogan">"সৃষ্টির সেবাই আমাদের স্বপ্নতরী"</p>
+        </div>
+    </header>
+
     <div class="app-container">
+        
+        <!-- ১. হোম স্ক্রিন -->
+        <div id="screen-home" class="app-screen active">
+            <div class="hero">
+                <div class="logo-container"><img src="Logo-01.jpg" alt="Logo" class="hero-logo" id="hero-logo-img"></div>
+                <h2 id="hero-title-bn">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h2>
+                <div class="eng-sub" id="hero-title-en">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
+                <span class="badge" id="app-reg-no"><i class="fas fa-award"></i> নিবন্ধন নং: যু/উ/অ/সদর-০৯৩</span>
+                <p id="hero-short-desc">লোডিং...</p>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="switchScreen('members')"><i class="fas fa-users"></i> সদস্য তালিকা</button>
+                    <button class="btn btn-danger" onclick="alert('ডাটাবেজ আপগ্রেড চলছে!')"><i class="fas fa-search"></i> রক্তদাতা খুঁজুন</button>
+                </div>
+            </div>
+
+            <!-- Live Stats Box -->
+            <div class="stats-grid">
+                <div class="stat-box"><h4 id="display-stat1">০</h4><p>মোট সদস্য</p></div>
+                <div class="stat-box"><h4 id="display-stat2">০</h4><p>রক্তদান সেশন</p></div>
+                <div class="stat-box"><h4 id="display-stat3">০</h4><p>সামাজিক ইভেন্ট</p></div>
+            </div>
+
+            <!-- Notice Board Section -->
+            <h2><i class="fas fa-bullhorn"></i> নোটিশ বোর্ড</h2>
+            <div id="notice-board-container"><p style="color:#718096; font-size:13px;">কোনো নোটিশ নেই।</p></div>
+
+            <!-- Introduction -->
+            <h2><i class="fas fa-info-circle"></i> সংক্ষিপ্ত পরিচিতি</h2>
+            <div class="card"><p id="display-intro">লোডিং...</p></div>
+
+            <!-- Daily Post Feed -->
+            <h2><i class="fas fa-edit"></i> ডেইলি পোস্ট / ডায়েরি</h2>
+            <div id="daily-posts-container"><p style="color:#718096; font-size:13px;">কোনো ডেইলি পোস্ট পাওয়া যায়নি।</p></div>
+
+            <!-- Activities Module -->
+            <h2><i class="fas fa-tasks"></i> আমাদের কার্যক্রম (Activities)</h2>
+            <div id="activities-container"><p style="color:#718096; font-size:13px;">কোনো কার্যক্রম রেকর্ড নেই।</p></div>
+
+            <!-- Contact & Social Media -->
+            <h2><i class="fas fa-share-alt"></i> যোগাযোগ ও সোশ্যাল মিডিয়া</h2>
+            <div class="card">
+                <p style="font-size:13px; margin-bottom:10px; color:#4a5568;"><i class="fas fa-hashtag"></i> আমাদের ফেসবুক পেজ এবং অ্যাডমিন আইডির সাথে সংযুক্ত থাকুন:</p>
+                <div class="social-flex-group">
+                    <a href="https://www.facebook.com/humanresourcedevelopmentfoundation/" target="_blank" class="btn btn-fb" id="link-fb-page"><i class="fab fa-facebook"></i> ফেসবুক পেজ</a>
+                    <a href="https://www.facebook.com/mohammad.riaz.99/" target="_blank" class="btn btn-fb" id="link-fb-admin" style="background:#2c3e50;"><i class="fas fa-user-shield"></i> অ্যাডমিন আইডি</a>
+                </div>
+            </div>
         </div>
 
+        <!-- ২. সদস্য তালিকা স্ক্রিন -->
+        <div id="screen-members" class="app-screen">
+            <h2><i class="fas fa-users"></i> স্বপ্নতরী পরিবার (সদস্য পর্ষদ)</h2>
+            <div class="members-grid" id="all-members-render-box">
+                <p style="text-align: center; grid-column: span 2; padding: 20px; color: #718096;">সদস্য ডাটাবেজ লোড হচ্ছে...</p>
+            </div>
+        </div>
+
+        <!-- ৩. অ্যাডমিন কন্ট্রোল রুম -->
+        <div id="screen-admin" class="app-screen">
+            <h2><i class="fas fa-user-shield"></i> নিয়ন্ত্রণ কক্ষ (অ্যাডমিন প্যানেল)</h2>
+            
+            <!-- Member Management Forms -->
+            <div class="card">
+                <h3><i class="fas fa-user-cog"></i> সদস্য ব্যবস্থাপনা (যোগ/আপডেট/মুছুন)</h3>
+                <form id="member-crud-form" onsubmit="handleMemberSubmit(event)">
+                    <div class="form-group">
+                        <label>সদস্য আইডি (ID)</label>
+                        <input type="number" id="crud-mem-id" class="form-control" required placeholder="নতুন সদস্যের জন্য নতুন আইডি দিন, তথ্য বদলাতে আগের আইডি">
+                    </div>
+                    <div class="form-group">
+                        <label>সদস্যের নাম</label>
+                        <input type="text" id="crud-mem-name" class="form-control" placeholder="যেমন: মোহাম্মদ রিয়াজ">
+                    </div>
+                    <div class="form-group">
+                        <label>পদবি (Designation)</label>
+                        <input type="text" id="crud-mem-role" class="form-control" placeholder="যেমন: প্রতিষ্ঠাতা / সাধারণ সদস্য">
+                    </div>
+                    <div class="form-group">
+                        <label>ছবির লিঙ্ক / ফাইল নাম</label>
+                        <input type="text" id="crud-mem-img" class="form-control" placeholder="ছবির অনলাইন ইউআরএল বা গিটহাব ফাইলের নাম">
+                    </div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> সদস্য যোগ/আপডেট করুন</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteMemberAction()"><i class="fas fa-trash-alt"></i> আইডি দিয়ে মুছুন (Remove)</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Notice Board Control -->
+            <div class="card">
+                <h3><i class="fas fa-bullhorn"></i> নতুন নোটিশ প্রকাশ করুন</h3>
+                <form onsubmit="handleNoticeSubmit(event)">
+                    <div class="form-group">
+                        <label>নোটিশের শিরোনাম</label>
+                        <input type="text" id="notice-title" class="form-control" required placeholder="জরুরি রক্তদান / সাধারণ সভা">
+                    </div>
+                    <div class="form-group">
+                        <label>বিস্তারিত বিবরণ</label>
+                        <textarea id="notice-desc" class="form-control" required placeholder="নোটিশের বিস্তারিত এখানে লিখুন..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-block"><i class="fas fa-paper-plane"></i> নোটিশ জারি করুন</button>
+                </form>
+            </div>
+
+            <!-- Daily Post Uploader -->
+            <div class="card">
+                <h3><i class="fas fa-pen-fancy"></i> ডেইলি পোস্ট / ডায়েরি আপডেট</h3>
+                <form onsubmit="handleDailyPostSubmit(event)">
+                    <div class="form-group">
+                        <label>আজকের পোস্টের বিষয়</label>
+                        <input type="text" id="daily-title" class="form-control" required placeholder="আজকের কার্যক্রমের ডায়রি">
+                    </div>
+                    <div class="form-group">
+                        <label>পোস্ট কনটেন্ট</label>
+                        <textarea id="daily-content" class="form-control" required placeholder="বিস্তারিত কি ঘটেছিল লিখুন..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-warning btn-block"><i class="fas fa-plus-circle"></i> ডেইলি পোস্ট পাবলিশ করুন</button>
+                </form>
+            </div>
+
+            <!-- Activity Manager -->
+            <div class="card">
+                <h3><i class="fas fa-history"></i> অর্গানাইজেশন অ্যাক্টিভিটি আপডেট</h3>
+                <form onsubmit="handleActivitySubmit(event)">
+                    <div class="form-group">
+                        <label>অ্যাক্টিভিটি বা প্রজেক্টের নাম</label>
+                        <input type="text" id="act-title" class="form-control" required placeholder="ফ্রি মেডিকেল ক্যাম্প / শীতবস্ত্র বিতরণ">
+                    </div>
+                    <div class="form-group">
+                        <label>কার্যক্রমের বিবরণ</label>
+                        <textarea id="act-desc" class="form-control" required placeholder="সংগঠনের এই কার্যক্রমের সংক্ষিপ্ত বিবরণ দিন..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>কার্যক্রমের প্রজেক্ট ইমেজ লিঙ্ক</label>
+                        <input type="text" id="act-img" class="form-control" placeholder="ইভেন্টের ছবির অনলাইন ইউআরএল লিঙ্ক">
+                    </div>
+                    <button type="submit" class="btn btn-secondary btn-block"><i class="fas fa-save"></i> অ্যাক্টিভিটি হিস্টোরিতে যুক্ত করুন</button>
+                </form>
+            </div>
+
+            <!-- Global App Settings Control -->
+            <div class="card">
+                <h3><i class="fas fa-cogs"></i> সংগঠনের মেইন গ্লোবাল সেটিংস</h3>
+                <form onsubmit="handleGlobalSettingsSubmit(event)">
+                    <div class="form-group"><label>সংগঠনের নাম (বাংলা)</label><input type="text" id="g-name-bn" class="form-control" required></div>
+                    <div class="form-group"><label>সংগঠনের নাম (ইংরেজি)</label><input type="text" id="g-name-en" class="form-control" required></div>
+                    <div class="form-group"><label>স্লোগান</label><input type="text" id="g-slogan" class="form-control" required></div>
+                    <div class="form-group"><label>নিবন্ধন নম্বর</label><input type="text" id="g-reg" class="form-control" required></div>
+                    <div class="form-group"><label>লোগো ফাইল নেম / লিঙ্ক</label><input type="text" id="g-logo" class="form-control"></div>
+                    
+                    <div class="form-group"><label>ফেসবुक পেজ লিঙ্ক</label><input type="text" id="g-fb-page" class="form-control"></div>
+                    <div class="form-group"><label>অ্যাডমিন আইডি লিঙ্ক</label><input type="text" id="g-fb-admin" class="form-control"></div>
+                    
+                    <div class="form-group"><label>সংक्षिप्त পরিচিতি টেক্সট</label><textarea id="g-intro" class="form-control" required></textarea></div>
+                    <div class="form-group inline-inputs">
+                        <div><label>সদস্য সংখ্যা</label><input type="text" id="g-s1" class="form-control" required></div>
+                        <div><label>রক্তদান সেশন</label><input type="text" id="g-s2" class="form-control" required></div>
+                        <div><label>সামাজিক ইভেন্ট</label><input type="text" id="g-s3" class="form-control" required></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-globe"></i> মেইন গ্লোবাল সেটিংস সেভ করুন</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- বটম নেভিগেশন মডিউল -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="switchScreen('home')"><i class="fas fa-home"></i>হোম</div>
-        <div class="nav-item" onclick="switchScreen('members')"><i class="fas fa-users"></i>সদস্য</div>
+        <div class="nav-item" onclick="switchScreen('members')"><i class="fas fa-users"></i>সদস্যবৃন্দ</div>
         <div class="nav-item" onclick="switchScreen('admin')"><i class="fas fa-user-shield"></i>অ্যাডমিন</div>
     </nav>
 
+    <!-- পূর্ণাঙ্গ ডায়নামিক স্ক্রিপ্ট ইঞ্জিন -->
     <script>
         const API_LINK = "https://script.google.com/macros/s/AKfycbwgmsn0Jlilw-SplNZZZYhMm9JH3i0_fBP1OIFuv-it5h7t1lbJxJQw6l5UcAaPuYqa/exec";
 
-        // স্ক্রিন সুইচিং লজিক
         function switchScreen(id) {
             document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
             document.getElementById('screen-' + id).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active', 'active-admin'));
-            const navItems = document.querySelectorAll('.nav-item');
-            if(id === 'home') navItems[0].classList.add('active');
-            if(id === 'members') navItems[1].classList.add('active');
-            if(id === 'admin') navItems[2].classList.add('active-admin');
+            
+            document.querySelectorAll('.nav-item').forEach(n => {
+                n.classList.remove('active');
+                n.classList.remove('active-admin');
+            });
+            const steps = document.querySelectorAll('.nav-item');
+            if(id === 'home') steps[0].classList.add('active');
+            if(id === 'members') steps[1].classList.add('active');
+            if(id === 'admin') steps[2].classList.add('active-admin');
             window.scrollTo(0, 0);
         }
 
-        // ডাটা ফেচিং ইঞ্জিন
         function loadApplicationEngine() {
-            // সেটিংস লোড
+            // ডিফল্ট লোগো ইমেজ পাথ সেটআপ
+            document.getElementById("app-logo").src = "Logo-01.jpg";
+            document.getElementById("hero-logo-img").src = "Logo-01.jpg";
+
+            // ১. সেটিংস ও গ্লোবাল কনটেন্ট ফেচিং
             fetch(API_LINK + "?type=settings")
                 .then(res => res.json())
                 .then(d => {
-                    if(!d.org_name_bn) return;
-                    document.getElementById("app-title-bn").innerText = d.org_name_bn;
-                    document.getElementById("hero-title-bn").innerText = d.org_name_bn;
-                    document.getElementById("app-slogan").innerText = d.org_slogan;
-                    document.getElementById("display-stat1").innerText = d.stat1 || "০";
-                    // ... অন্যান্য ফিল্ডগুলো একইভাবে আপডেট করুন
+                    if(d.org_name_bn) {
+                        document.getElementById("app-title-bn").innerText = d.org_name_bn;
+                        document.getElementById("app-title-en").innerText = d.org_name_en;
+                        document.getElementById("app-slogan").innerText = d.org_slogan;
+                        document.getElementById("app-reg-no").innerHTML = `<i class="fas fa-award"></i> নিবন্ধন নং: ` + d.org_reg_no;
+                        document.getElementById("hero-title-bn").innerText = d.org_name_bn;
+                        document.getElementById("hero-title-en").innerText = d.org_name_en;
+                        document.getElementById("hero-short-desc").innerText = d.short_desc || "মানবকল্যাণে নিয়োজিত স্বেচ্ছাসেবী প্ল্যাটফর্ম।";
+                        document.getElementById("display-intro").innerText = d.intro_text || "";
+                        
+                        document.getElementById("display-stat1").innerText = d.stat1 || "০";
+                        document.getElementById("display-stat2").innerText = d.stat2 || "০";
+                        document.getElementById("display-stat3").innerText = d.stat3 || "০";
+
+                        if(d.fb_page_url) document.getElementById("link-fb-page").href = d.fb_page_url;
+                        if(d.fb_admin_url) document.getElementById("link-fb-admin").href = d.fb_admin_url;
+
+                        if(d.icon_src && !d.icon_src.includes("imgur.com") && d.icon_src.trim() !== "") {
+                            document.getElementById("app-logo").src = d.icon_src;
+                            document.getElementById("hero-logo-img").src = d.icon_src;
+                        }
+
+                        document.getElementById("g-name-bn").value = d.org_name_bn;
+                        document.getElementById("g-name-en").value = d.org_name_en;
+                        document.getElementById("g-slogan").value = d.org_slogan;
+                        document.getElementById("g-reg").value = d.org_reg_no;
+                        document.getElementById("g-logo").value = d.icon_src || "";
+                        document.getElementById("g-fb-page").value = d.fb_page_url || "";
+                        document.getElementById("g-fb-admin").value = d.fb_admin_url || "";
+                        document.getElementById("g-intro").value = d.intro_text || "";
+                        document.getElementById("g-s1").value = d.stat1 || "";
+                        document.getElementById("g-s2").value = d.stat2 || "";
+                        document.getElementById("g-s3").value = d.stat3 || "";
+                    }
+                }).catch(e => {
+                    document.getElementById("link-fb-page").href = "https://www.facebook.com/humanresourcedevelopmentfoundation/";
+                    document.getElementById("link-fb-admin").href = "https://www.facebook.com/mohammad.riaz.99/";
+                    console.log("সেটিংস ফেচিং অফলাইন।");
                 });
 
-            // সদস্য লোড
+            // ২. সদস্য ডাটাবেজ ফেচিং
             fetch(API_LINK + "?type=members")
                 .then(res => res.json())
-                .then(m => { /* রেন্ডারিং লজিক */ });
+                .then(members => {
+                    const box = document.getElementById("all-members-render-box");
+                    box.innerHTML = "";
+                    if(!members || members.length === 0){
+                        box.innerHTML = `<p style="grid-column:span 2;text-align:center;">কোনো সদস্য ডাটা পাওয়া যায়নি।</p>`;
+                        return;
+                    }
+                    members.forEach(m => {
+                        box.innerHTML += `
+                            <div class="member-card">
+                                <span class="member-id-tag">ID: ${m.id}</span>
+                                <img src="${m.image_url}" class="member-avatar" onerror="this.src='Logo-01.jpg'">
+                                <div class="member-name">${m.name}</div>
+                                <div class="member-role">${m.designation}</div>
+                            </div>
+                        `;
+                    });
+                }).catch(e => console.log("সদস্য ডাটা ফেচিং ট্রাবল।"));
 
-            // ফিড লোড
+            // ৩. ফিড লোড প্রোটোকল
             fetch(API_LINK + "?type=feeds")
                 .then(res => res.json())
-                .then(f => { /* নোটিশ ও পোস্ট রেন্ডারিং লজিক */ });
+                .then(data => {
+                    const noticeBox = document.getElementById("notice-board-container");
+                    noticeBox.innerHTML = "";
+                    if(data.notices && data.notices.length > 0) {
+                        data.notices.reverse().forEach(n => {
+                            noticeBox.innerHTML += `
+                                <div class="card notice-card">
+                                    <span class="post-time"><i class="far fa-clock"></i> ${n.date || 'আজ'}</span>
+                                    <h3><i class="fas fa-exclamation-circle" style="color:var(--danger)"></i> ${n.title}</h3>
+                                    <p>${n.desc}</p>
+                                </div>
+                            `;
+                        });
+                    } else { noticeBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো চলমান নোটিশ নেই।</p>`; }
+
+                    const postBox = document.getElementById("daily-posts-container");
+                    postBox.innerHTML = "";
+                    if(data.posts && data.posts.length > 0) {
+                        data.posts.reverse().forEach(p => {
+                            postBox.innerHTML += `
+                                <div class="card">
+                                    <span class="post-time"><i class="far fa-calendar-alt"></i> ${p.date || 'সম্প্রতি'}</span>
+                                    <h3><i class="fas fa-feather-alt" style="color:var(--warning)"></i> ${p.title}</h3>
+                                    <p>${p.content}</p>
+                                </div>
+                            `;
+                        });
+                    } else { postBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো পোস্ট পাওয়া যায়নি।</p>`; }
+
+                    const actBox = document.getElementById("activities-container");
+                    actBox.innerHTML = "";
+                    if(data.activities && data.activities.length > 0) {
+                        data.activities.reverse().forEach(a => {
+                            let imgTag = a.img ? `<img src="${a.img}" class="activity-img" onerror="this.style.display='none'">` : '';
+                            actBox.innerHTML += `
+                                <div class="card">
+                                    <h3><i class="fas fa-star" style="color:var(--primary)"></i> ${a.title}</h3>
+                                    <p>${a.desc}</p>
+                                    ${imgTag}
+                                </div>
+                            `;
+                        });
+                    } else { actBox.innerHTML = `<p style="color:#718096; font-size:13px;">কোনো কার্যক্রম হিস্টোরি নেই।</p>`; }
+                }).catch(e => console.log("ফিড লোড ট্রাবল।"));
         }
 
-        // পোস্ট অ্যাকশন ফাংশন
-        function executePostAction(payload, msg) {
+        function executePostAction(payload, successMessage) {
             fetch(API_LINK, { method: "POST", body: JSON.stringify(payload) })
             .then(res => res.json())
             .then(res => {
-                alert(msg);
-                loadApplicationEngine();
-            });
+                if(res.status === "success" || res.result === "success") {
+                    alert(successMessage);
+                    loadApplicationEngine();
+                    switchScreen('home');
+                } else { alert("সার্ভার রেসপন্স এরর হয়েছে।"); }
+            }).catch(e => alert("কানেকশন এরর বা পোস্ট রিকোয়েস্ট ফেইল্ড!"));
         }
 
-        // সব হ্যান্ডলার ফাংশনগুলো এখানে নিচে বসান
-        function handleMemberSubmit(e) { e.preventDefault(); /* ... */ }
-        
-        window.addEventListener('load', loadApplicationEngine);
+        function handleMemberSubmit(e) {
+            e.preventDefault();
+            const payload = {
+                action: "upsert_member",
+                id: document.getElementById("crud-mem-id").value,
+                name: document.getElementById("crud-mem-name").value,
+                designation: document.getElementById("crud-mem-role").value,
+                image_url: document.getElementById("crud-mem-img").value
+            };
+            executePostAction(payload, "সদস্য তথ্য সফলভাবে ডাটাবেজে যুক্ত/আপডেট করা হয়েছে!");
+            document.getElementById("member-crud-form").reset();
+        }
+
+        function deleteMemberAction() {
+            const id = document.getElementById("crud-mem-id").value;
+            if(!id) { alert("দয়া করে যে সদস্যকে মুছতে চান তার আইডি টাইপ করুন।"); return; }
+            if(confirm("আপনি কি নিশ্চিত যে আইডি " + id + " সম্পন্ন সদস্যকে ডাটাবেজ থেকে সম্পূর্ণ মুছে ফেলবেন?")) {
+                const payload = { action: "delete_member", id: id };
+                executePostAction(payload, "সদস্যকে সফলভাবে ডাটাবেজ থেকে রিমুভ করা হয়েছে!");
+                document.getElementById("member-crud-form").reset();
+            }
+        }
+
+        function handleNoticeSubmit(e) {
+            e.preventDefault();
+            const payload = {
+                action: "add_notice",
+                title: document.getElementById("notice-title").value,
+                desc: document.getElementById("notice-desc").value
+            };
+            executePostAction(payload, "নতুন নোটিশ সফলভাবে লাইভ বোর্ডে জারি হয়েছে!");
+            e.target.reset();
+        }
+
+        function handleDailyPostSubmit(e) {
+            e.preventDefault();
+            const payload = {
+                action: "add_post",
+                title: document.getElementById("daily-title").value,
+                content: document.getElementById("daily-content").value
+            };
+            executePostAction(payload, "আজকের ডেইলি ডায়রি বা পোস্ট সফলভাবে পাবলিশ হয়েছে!");
+            e.target.reset();
+        }
+
+        function handleActivitySubmit(e) {
+            e.preventDefault();
+            const payload = {
+                action: "add_activity",
+                title: document.getElementById("act-title").value,
+                desc: document.getElementById("act-desc").value,
+                img: document.getElementById("act-img").value
+            };
+            executePostAction(payload, "সংগঠনের নতুন একটিভিটি রেকর্ড সফলভাবে যুক্ত হয়েছে!");
+            e.target.reset();
+        }
+
+        function handleGlobalSettingsSubmit(e) {
+            e.preventDefault();
+            const payload = {
+                action: "update_global",
+                org_name_bn: document.getElementById("g-name-bn").value,
+                org_name_en: document.getElementById("g-name-en").value,
+                org_slogan: document.getElementById("g-slogan").value,
+                org_reg_no: document.getElementById("g-reg").value,
+                icon_src: document.getElementById("g-logo").value,
+                fb_page_url: document.getElementById("g-fb-page").value,
+                fb_admin_url: document.getElementById("g-fb-admin").value,
+                intro_text: document.getElementById("g-intro").value,
+                stat1: document.getElementById("g-s1").value,
+                stat2: document.getElementById("g-s2").value,
+                stat3: document.getElementById("g-s3").value
+            };
+            executePostAction(payload, "মেইন গ্লোবাল সেটিংস সফলভাবে আপডেট করা হয়েছে!");
+        }
+
+        // উইন্ডো লোড হওয়ার সাথে সাথে ইঞ্জিন স্টার্ট করার প্রোটোকল
+        window.addEventListener("DOMContentLoaded", () => {
+            loadApplicationEngine();
+        });
     </script>
 </body>
 </html>
