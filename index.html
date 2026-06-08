@@ -6,7 +6,20 @@
     <title>SWAPNATARI VOLUNTARY YOUTH ORGANIZATION (SVYO)</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <!-- PWA Manifest এবং থিম কালার সংযোজন -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1a365d">
+
+<!-- PWA অটো-ইনস্টল স্ক্রিপ্ট -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('Service Worker সফলভাবে রেজিস্টার হয়েছে!', reg))
+        .catch(err => console.log('Service Worker রেজিস্টার করতে ব্যর্থ:', err));
+    });
+  }
+</script>
     <style>
         :root {
             --primary: #27ae60;
