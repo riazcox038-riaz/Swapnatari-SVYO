@@ -42,6 +42,7 @@
         h2 { font-size: 17px; color: var(--secondary); margin: 20px 0 12px 0; border-left: 4px solid var(--primary); padding-left: 8px; display: flex; align-items: center; gap: 8px; }
         h2:first-of-type { margin-top: 5px; }
         h3 { font-size: 15px; color: var(--secondary); margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+        .address-heading { font-size: 13.5px; color: var(--primary); margin: 10px 0 5px 0; font-weight: bold; border-bottom: 1px solid #edf2f7; padding-bottom: 3px; }
 
         /* Component Cards */
         .card { background: var(--card-bg); padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.02); }
@@ -69,7 +70,20 @@
 
         /* Grid Framework */
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        @media(max-width: 480px) { .form-grid { grid-template-columns: 1fr; } }
+        .address-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; background: #f8fafc; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #e2e8f0; }
+        @media(max-width: 480px) { .form-grid, .address-grid { grid-template-columns: 1fr; } }
+
+        /* Form Sub-tabs switcher */
+        .form-toggle-buttons { display: flex; background: #e2e8f0; border-radius: 8px; padding: 4px; margin-bottom: 15px; gap: 5px; }
+        .toggle-tab-btn { flex: 1; padding: 8px; text-align: center; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; border: none; background: transparent; color: #4a5568; transition: 0.2s; }
+        .toggle-tab-btn.active { background: white; color: var(--secondary); box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+
+        /* Founders View Matrix Grid */
+        .founders-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; }
+        .founder-profile-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; text-align: center; }
+        .founder-avatar { width: 75px; height: 75px; border-radius: 50%; border: 3px solid var(--secondary); object-fit: cover; margin: 0 auto 8px auto; background: #edf2f7; display: flex; align-items: center; justify-content: center; }
+        .founder-profile-card h4 { font-size: 14px; color: var(--secondary); margin-bottom: 2px; }
+        .founder-profile-card p { font-size: 11px; color: var(--primary); font-weight: bold; }
 
         /* Forms Architecture */
         .form-group { margin-bottom: 12px; }
@@ -91,6 +105,8 @@
         .member-main-details h4 { font-size: 15px; color: var(--secondary); }
         .member-main-details p { font-size: 12px; color: var(--primary); font-weight: 600; }
         .member-nav-id { font-size: 11px; color: #4a5568; }
+        .member-meta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; font-size: 11.5px; margin-top: 12px; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #edf2f7; }
+        .member-meta-grid div { line-height: 1.4; color: #4a5568; }
 
         /* Signature Display Architecture */
         .signature-display-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; text-align: center; padding-top: 10px; border-top: 1px solid #edf2f7; }
@@ -162,7 +178,7 @@
 
             <h2><i class="fas fa-bars"></i> সংক্ষিপ্ত পরিচিতি</h2>
             <div class="card">
-                <p id="render-about-short" style="font-size: 13px; line-height: 1.6; text-align: justify;"><strong>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO)</strong> একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২১ সালে কক্সবাজার পৌরসভার ৭নং ওয়ার্ডের দক্ষিণ রুমালিয়ার ছরা এলাকায় একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়। সমাজ থেকে রক্তের অভাব দূরীকরণ, পরিবেশ রক্ষা এবং যুবসমাজকে দক্ষ জনশক্তিতে রূপান্তর করতে সংগঠনটি নিরলস কাজ করে যাচ্ছে।</p>
+                <p id="render-about-short" style="font-size: 13px; line-height: 1.6; text-align: justify;"><strong>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO)</strong> একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২১ সালে কক্সবাজার পৌরসভার ৭নং ওয়ার্ডের দক্ষিণ রুমালিয়ার ছরা এলাকায় একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়。 সমাজ থেকে রক্তের অভাব দূরীকরণ, পরিবেশ রক্ষা এবং যুবসমাজকে দক্ষ জনশক্তিতে রূপান্তর করতে সংগঠনটি নিরলস কাজ করে যাচ্ছে।</p>
             </div>
 
             <h2><i class="fas fa-chart-line"></i> আমাদের পরিসংখ্যান</h2>
@@ -177,7 +193,29 @@
         <div id="screen-about" class="app-screen">
             <h2><i class="fas fa-history"></i> প্রতিষ্ঠার ইতিহাস</h2>
             <div class="card">
-                <p id="render-history-full" style="font-size:13px; line-height: 1.6; text-align: justify;">মানবতার কল্যাণ এবং স্থানীয় যুবসমাজকে সামাজিক উন্নয়নমূলক কাজে সম্পৃক্ত করার মহৎ উদ্দেশ্যে ২০২১ সালে কক্সবাজারের স্থানীয় তরুণ সমাজসেবক ও সংগঠক <strong>মোহাম্মদ রিয়াজ</strong> এর একক উদ্যোগে এবং একঝাঁক উদ্যমী সহযোদ্ধাদের সক্রিয় সহযোগিতায় <strong>"স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন"</strong> প্রতিষ্ঠিত হয়। প্রতিষ্ঠার পর থেকে সংগঠনটি সফলতার সাথে যুব উন্নয়ন অধিদপ্তরের তালিকাভুক্ত হয়ে কাজ করে আসছে।</p>
+                <p id="render-history-full" style="font-size:13px; line-height: 1.6; text-align: justify;">মানবতার কল্যাণ এবং স্থানীয় যুবসমাজকে সামাজিক উন্নয়নমূলক কাজে সম্পৃক্ত করার মহৎ উদ্দেশ্যে ২০২১ সালে কক্সবাজারের স্থানীয় তরুণ সমাজসেবক ও সংগঠক <strong>মোহাম্মদ রিয়াজ</strong> এর একক উদ্যোগে এবং একঝাঁক উদ্যমী সহযোদ্ধাদের সক্রিয় সহযোগิตায় <strong>"স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন"</strong> প্রতিষ্ঠিত হয়。 প্রতিষ্ঠার পর থেকে সংগঠনটি সফলতার সাথে যুব উন্নয়ন অধিদপ্তরের তালিকাভুক্ত হয়ে কাজ করে আসছে।</p>
+            </div>
+
+            <h2><i class="fas fa-user-tie"></i> সম্মানিত প্রতিষ্ঠাতা মণ্ডলী</h2>
+            <div class="card">
+                <div class="founders-grid">
+                    <!-- Founder Card 1 -->
+                    <div class="founder-profile-card">
+                        <div class="founder-avatar">
+                            <i class="fas fa-user-circle fa-4x" style="color: #cbd5e0;"></i>
+                        </div>
+                        <h4>মোহাম্মদ রিয়াজ</h4>
+                        <p>প্রতিষ্ঠাতা পরিচালক</p>
+                    </div>
+                    <!-- Placeholders for other founders (you can add or edit photo URLs later) -->
+                    <div class="founder-profile-card">
+                        <div class="founder-avatar">
+                            <i class="fas fa-user-circle fa-4x" style="color: #cbd5e0;"></i>
+                        </div>
+                        <h4>সহ-প্রতিষ্ঠাতা ১</h4>
+                        <p>সদস্য</p>
+                    </div>
+                </div>
             </div>
 
             <h2><i class="fas fa-map-marked-alt"></i> কার্য এলাকা</h2>
@@ -202,90 +240,152 @@
                 </ul>
             </div>
 
-            <h2><i class="fas fa-handshake"></i> আমাদের অঙ্গীকার</h2>
-            <div class="card" style="background: #eef9f1; border-left: 4px solid var(--primary);">
-                <p style="font-size:13.5px; line-height:1.6; text-align: justify;">মানুষের কল্যাণে, মানবতার সেবায় এবং একটি সুন্দর সমাজ গঠনে <strong>স্বপ্নতরী সর্বদা নিবেদিত</strong>। আমরা বিশ্বাস করি—একটি ছোট মানবিক উদ্যোগও কারও জীবনে বড় পরিবর্তন আনতে পারে। তাই সমাজের প্রতিটি স্তরের মানুষকে সঙ্গে নিয়ে আমরা এগিয়ে যেতে চাই একটি আলোকিত ও মানবিক ভবিষ্যতের পথে।</p>
-            </div>
-
             <h2><i class="fas fa-users-cog"></i> আমাদের নিবন্ধিত সদস্য ও উপদেষ্টামণ্ডলী</h2>
             <div id="render-public-members-list"></div>
         </div>
 
         <!-- =================== 3. FORMS & REGISTRATION ENGINE =================== -->
         <div id="screen-register" class="app-screen">
-            <h2><i class="fas fa-file-signature"></i> অনলাইন আবেদন ফরম (বাংলা ও English)</h2>
-            <div class="card">
-                <form id="membershipForm" onsubmit="handleFormSubmission(event)">
-                    <div class="form-group">
-                        <label>আবেদনের ধরণ (Application Category):</label>
-                        <select id="f_type">
-                            <option value="সদস্য (Member)">সদস্য পদ আবেদন ফরম / Membership Application</option>
-                            <option value="উপدهষ্টা (Advisor)">উপদেষ্টা পদ আবেদন ফরম / Advisor Application</option>
-                        </select>
-                    </div>
+            <div class="form-toggle-buttons">
+                <button id="toggle-btn-member" class="toggle-tab-btn active" onclick="switchFormType('member')"><i class="fas fa-user-shield"></i> সদস্য/উপদেষ্টা ফরম</button>
+                <button id="toggle-btn-donor" class="toggle-tab-btn" onclick="switchFormType('donor')"><i class="fas fa-tint" style="color:var(--danger)"></i> শুধু রক্তদাতা ফরম</button>
+            </div>
 
-                    <div class="form-grid">
-                        <div class="form-group"><label>আবেদনকৃত পদবি (Designation/Role):</label><input type="text" id="f_role" placeholder="উদা: প্রতিষ্ঠাতা / সাধারণ সদস্য / উপদেষ্টা" required></div>
-                        <div class="form-group"><label>মোবাইল নম্বর / Mobile No:</label><input type="tel" id="f_phone" required></div>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-group"><label>নাম (বাংলা):</label><input type="text" id="f_name_bn" required></div>
-                        <div class="form-group"><label>Name (English):</label><input type="text" id="f_name_en" required></div>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-group"><label>পিতার নাম (বাংলা):</label><input type="text" id="f_father_bn" required></div>
-                        <div class="form-group"><label>Father's Name (English):</label><input type="text" id="f_father_en" required></div>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-group"><label>মাতার নাম (বাংলা):</label><input type="text" id="f_mother_bn" required></div>
-                        <div class="form-group"><label>Mother's Name (English):</label><input type="text" id="f_mother_en" required></div>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-group"><label>জন্মতারিখ (বাংলা):</label><input type="text" id="f_dob_bn" placeholder="উদা: ১৫ই আগস্ট ২০০১" required></div>
-                        <div class="form-group"><label>Date of Birth (English):</label><input type="date" id="f_dob_en" required></div>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-group"><label>জন্মনিবন্ধন/এনআইডি নম্বর (বাংলা):</label><input type="text" id="f_nid_bn" required></div>
-                        <div class="form-group"><label>NID/Birth Reg No (English):</label><input type="text" id="f_nid_en" required></div>
-                    </div>
-
-                    <div class="form-grid">
+            <!-- TYPE A: MEMBER & ADVISOR APPLICATION FORM -->
+            <div id="form-zone-member">
+                <h2><i class="fas fa-file-signature"></i> অনলাইন আবেদন ফরম (সদস্য ও উপদেষ্টা)</h2>
+                <div class="card">
+                    <form id="membershipForm" onsubmit="handleFormSubmission(event)">
                         <div class="form-group">
-                            <label>রক্তের গ্রুপ (Blood Group):</label>
-                            <select id="f_blood">
-                                <option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option>
-                                <option value="A-">A-</option><option value="B-">B-</option><option value="O-">O-</option><option value="AB-">AB-</option>
+                            <label>আবেদনের ধরণ (Application Category):</label>
+                            <select id="f_type">
+                                <option value="সদস্য (Member)">সদস্য পদ আবেদন ফরম / Membership Application</option>
+                                <option value="উপদেষ্টা (Advisor)">উপদেষ্টা পদ আবেদন ফরম / Advisor Application</option>
                             </select>
                         </div>
-                        <div class="form-group"><label>পেশা / Profession:</label><input type="text" id="f_job" placeholder="পেশা (বাংলা / English)" required></div>
-                    </div>
 
-                    <div class="form-group"><label>পূর্ণাঙ্গ ঠিকানা / Present Address:</label><textarea id="f_address" rows="2" placeholder="ঠিকানা বাংলা অথবা ইংরেজিতে লিখুন" required></textarea></div>
-                    
-                    <div class="form-group">
-                        <label>সদস্যের ছবি যুক্ত করুন (Upload Photo):</label>
-                        <input type="file" id="f_photo" accept="image/*" onchange="processImageToBase64(this, 'photo_data')">
-                        <input type="hidden" id="photo_data">
-                    </div>
+                        <div class="form-grid">
+                            <div class="form-group"><label>আবেদনকৃত পদবি (Designation/Role):</label><input type="text" id="f_role" placeholder="উদা: প্রতিষ্ঠাতা / সাধারণ সদস্য / উপদেষ্টা" required></div>
+                            <div class="form-group"><label>মোবাইল নম্বর / Mobile No:</label><input type="tel" id="f_phone" required></div>
+                        </div>
 
-                    <div class="form-grid" style="margin-top:15px; border-top: 1px dashed #cbd5e0; padding-top:10px;">
-                        <div class="form-group"><label>আবেদনের তারিখ (বাংলা):</label><input type="text" id="f_date_bn" placeholder="উদা: ২৪শে মার্চ ২০২৬" required></div>
-                        <div class="form-group"><label>Application Date (English):</label><input type="date" id="f_date_en" required></div>
-                    </div>
+                        <div class="form-grid">
+                            <div class="form-group"><label>নাম (বাংলা):</label><input type="text" id="f_name_bn" required></div>
+                            <div class="form-group"><label>Name (English):</label><input type="text" id="f_name_en" required></div>
+                        </div>
 
-                    <div style="display:none"><input type="hidden" id="sig_member_data"></div>
-                    <div class="form-group">
-                        <label>আপনার ডিজিটাল স্বাক্ষর আপলোড করুন (Member Signature):</label>
-                        <input type="file" accept="image/*" onchange="processImageToBase64(this, 'sig_member_data')">
-                    </div>
+                        <div class="form-grid">
+                            <div class="form-group"><label>পিতার নাম (বাংলা):</label><input type="text" id="f_father_bn" required></div>
+                            <div class="form-group"><label>Father's Name (English):</label><input type="text" id="f_father_en" required></div>
+                        </div>
 
-                    <button type="submit" class="btn btn-primary btn-full" style="margin-top:10px;"><i class="fas fa-paper-plane"></i> আবেদনপত্র জমা দিন (Submit Form)</button>
-                </form>
+                        <div class="form-grid">
+                            <div class="form-group"><label>মাতার নাম (বাংলা):</label><input type="text" id="f_mother_bn" required></div>
+                            <div class="form-group"><label>Mother's Name (English):</label><input type="text" id="f_mother_en" required></div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group"><label>জন্মতারিখ (বাংলা):</label><input type="text" id="f_dob_bn" placeholder="উদা: ১৫ই আগস্ট ২০০১" required></div>
+                            <div class="form-group"><label>Date of Birth (English):</label><input type="date" id="f_dob_en" required></div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group"><label>জন্মনিবন্ধন/এনআইডি নম্বর (বাংলা):</label><input type="text" id="f_nid_bn" required></div>
+                            <div class="form-group"><label>NID/Birth Reg No (English):</label><input type="text" id="f_nid_en" required></div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>রক্তের গ্রুপ (Blood Group):</label>
+                                <select id="f_blood">
+                                    <option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option>
+                                    <option value="A-">A-</option><option value="B-">B-</option><option value="O-">O-</option><option value="AB-">AB-</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label>পেশা / Profession:</label><input type="text" id="f_job" placeholder="পেশা" required></div>
+                        </div>
+
+                        <!-- ADVANCED STRUCTURED ADDRESS SYSTEM -->
+                        <div class="address-heading"><i class="fas fa-map-marker-alt"></i> বর্তমান ঠিকানা (Present Address)</div>
+                        <div class="address-grid">
+                            <div class="form-group"><label>গ্রাম/মহল্লা:</label><input type="text" id="f_curr_village" required></div>
+                            <div class="form-group"><label>থানা/উপজেলা:</label><input type="text" id="f_curr_thana" required></div>
+                            <div class="form-group"><label>জেলা:</label><input type="text" id="f_curr_district" required></div>
+                            <div class="form-group"><label>পোস্ট কোড:</label><input type="text" id="f_curr_postcode" required></div>
+                            <div class="form-group"><label>বিভাগ:</label><input type="text" id="f_curr_division" required></div>
+                        </div>
+
+                        <div class="address-heading"><i class="fas fa-home"></i> স্থায়ী ঠিকানা (Permanent Address)</div>
+                        <div class="address-grid">
+                            <div class="form-group"><label>গ্রাম/মহল্লা:</label><input type="text" id="f_perm_village" required></div>
+                            <div class="form-group"><label>থানা/উপজেলা:</label><input type="text" id="f_perm_thana" required></div>
+                            <div class="form-group"><label>জেলা:</label><input type="text" id="f_perm_district" required></div>
+                            <div class="form-group"><label>পোস্ট কোড:</label><input type="text" id="f_perm_postcode" required></div>
+                            <div class="form-group"><label>বিভাগ:</label><input type="text" id="f_perm_division" required></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>সদস্যের ছবি যুক্ত করুন (Upload Photo):</label>
+                            <input type="file" id="f_photo" accept="image/*" onchange="processImageToBase64(this, 'photo_data')">
+                            <input type="hidden" id="photo_data">
+                        </div>
+
+                        <div class="form-grid" style="margin-top:15px; border-top: 1px dashed #cbd5e0; padding-top:10px;">
+                            <div class="form-group"><label>আবেদনের তারিখ (বাংলা):</label><input type="text" id="f_date_bn" placeholder="উদা: ২৪শে মার্চ ২০২৬" required></div>
+                            <div class="form-group"><label>Application Date (English):</label><input type="date" id="f_date_en" required></div>
+                        </div>
+
+                        <div style="display:none"><input type="hidden" id="sig_member_data"></div>
+                        <div class="form-group">
+                            <label>আপনার ডিজিটাল স্বাক্ষর আপলোড করুন (Member Signature):</label>
+                            <input type="file" accept="image/*" onchange="processImageToBase64(this, 'sig_member_data')">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full" style="margin-top:10px;"><i class="fas fa-paper-plane"></i> আবেদনপত্র জমা দিন (Submit Form)</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TYPE B: DEDICATED BLOOD DONOR REGISTRATION FORM -->
+            <div id="form-zone-donor" style="display:none;">
+                <h2><i class="fas fa-tint" style="color:var(--danger)"></i> রক্তদাতা নিবন্ধন ফরম (Blood Donor Only)</h2>
+                <div class="card" style="border-top: 4px solid var(--danger);">
+                    <form id="donorForm" onsubmit="handleDonorFormSubmission(event)">
+                        <div class="form-group">
+                            <label>রক্তদাতার সম্পূর্ণ নাম:</label>
+                            <input type="text" id="d_name" placeholder="নাম লিখুন" required>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group"><label>উপজেলা/থানা:</label><input type="text" id="d_thana" placeholder="উদা: কক্সবাজার সদর" required></div>
+                            <div class="form-group"><label>জেলা:</label><input type="text" id="d_district" placeholder="উদা: কক্সবাজার" required></div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>রক্তের গ্রুপ (Blood Group):</label>
+                                <select id="d_blood" style="border: 1px solid var(--danger); font-weight: bold;">
+                                    <option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option>
+                                    <option value="A-">A-</option><option value="B-">B-</option><option value="O-">O-</option><option value="AB-">AB-</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label>মোবাইল নম্বর:</label><input type="tel" id="d_phone" placeholder="01XXXXXXXXX" required></div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group"><label>শেষ রক্তদানের তারিখ:</label><input type="date" id="d_last_date"></div>
+                            <div class="form-group"><label>সম্ভাব্য পরবর্তী রক্তদানের তারিখ:</label><input type="date" id="d_next_date"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>রক্তদাতার ছবি (ঐচ্ছিক / Optional):</label>
+                            <input type="file" accept="image/*" onchange="processImageToBase64(this, 'donor_photo_data')">
+                            <input type="hidden" id="donor_photo_data">
+                        </div>
+
+                        <button type="submit" class="btn btn-danger btn-full" style="margin-top:10px;"><i class="fas fa-heart"></i> রক্তদাতা হিসেবে নাম রেজিস্ট্রি করুন</button>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -296,6 +396,7 @@
                 <select id="bloodSearch" onchange="runBloodSearch()" style="border: 2px solid var(--danger); font-weight: bold; color: var(--danger);">
                     <option value="ALL">🩸 সমস্ত রক্তদাতা তালিকা দেখুন</option>
                     <option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option>
+                    <option value="A-">A-</option><option value="B-">B-</option><option value="O-">O-</option><option value="AB-">AB-</option>
                 </select>
             </div>
             <div id="donorResults"></div>
@@ -312,7 +413,7 @@
         <div id="screen-admin" class="app-screen">
             <h2><i class="fas fa-lock"></i> অ্যাডমিন সিকিউরিটি গেটওয়ে</h2>
             <div id="admin-login-area" class="card">
-                <div class="form-group"><label>সিক্রেট পিন নম্বর দিন:</label><input type="password" id="adminPin" placeholder="Default Pin: 1234"></div>
+                <div class="form-group"><label>সিক্রেট পিন নম্বর দিন:</label><input type="password" id="adminPin" placeholder="পিন নম্বর টাইপ করুন"></div>
                 <button class="btn btn-primary btn-full" onclick="verifyAdmin()">লগইন করুন</button>
             </div>
 
@@ -401,6 +502,7 @@
     <script>
         const AUTO_OFFICIAL_SIGNATURE = "20260310_054144.png";
         const STARTING_SERIAL_ID = 230001;
+        const ADMIN_SECRET_PIN = "9388093";
 
         let appData = JSON.parse(localStorage.getItem('svyo_v5_config')) || {
             appName: "স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন",
@@ -413,7 +515,7 @@
             address: "সোনাআলী ভবন, দক্ষিণ রুমালিয়ার ছরা, ৭নং ওয়ার্ড, পৌরসভা, কক্সবাজার",
             aboutShort: "স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO) একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২১ সালে কক্সবাজার পৌরসভার ৭নং ওয়ার্ডের দক্ষিণ রুমালিয়ার ছরা এলাকায় একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়।",
             historyFull: "মানবতার কল্যাণ এবং স্থানীয় যুবসমাজকে সামাজিক উন্নয়নমূলক কাজে সম্পৃক্ত করার মহৎ উদ্দেশ্যে ২০২১ সালে কক্সবাজারের স্থানীয় তরুণ সমাজসেবক ও সংগঠক মোহাম্মদ রিয়াজ এর একক উদ্যোগ এবং একঝাঁক উদ্যমী সহযোদ্ধাদের সক্রিয় সহযোগিতায় \"স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন\" প্রতিষ্ঠিত হয়।",
-            statBlood: "১,২০০+", statMembers: "৩৫০+", statProjects: "২৫+",
+            statBlood: "১,২০০+", statMembers: "৩ضا০+", statProjects: "২৫+",
             registry: [
                 {
                     type: "সদস্য (Member)", idNo: "SVYO-230001", role: "প্রতিষ্ঠাতা পরিচালক ও সভাপতি",
@@ -426,10 +528,26 @@
                     phone: "01839369388", dateBn: "০১লা জানুয়ারি ২০২৬", dateEn: "2026-01-01",
                     photo: "20260304_112626.jpg", sigMember: "", status: "Approved"
                 }
-            ]
+            ],
+            donors: [] // Dedicated standalone blood donors collection array
         };
 
         window.onload = function() { renderAppInterface(); };
+
+        function switchFormType(type) {
+            document.getElementById('toggle-btn-member').classList.remove('active');
+            document.getElementById('toggle-btn-donor').classList.remove('active');
+            document.getElementById('form-zone-member').style.display = 'none';
+            document.getElementById('form-zone-donor').style.display = 'none';
+
+            if(type === 'member') {
+                document.getElementById('toggle-btn-member').classList.add('active');
+                document.getElementById('form-zone-member').style.display = 'block';
+            } else {
+                document.getElementById('toggle-btn-donor').classList.add('active');
+                document.getElementById('form-zone-donor').style.display = 'block';
+            }
+        }
 
         function renderAppInterface() {
             document.getElementById('render-app-name').innerText = appData.appName;
@@ -480,10 +598,9 @@
                             <div><strong>পিতা (বাংলা):</strong> ${m.fatherBn}</div><div><strong>Father (Eng):</strong> ${m.fatherEn}</div>
                             <div><strong>মাতা (বাংলা):</strong> ${m.motherBn}</div><div><strong>Mother (Eng):</strong> ${m.motherEn}</div>
                             <div><strong>জন্মদিন (বাংলা):</strong> ${m.dobBn}</div><div><strong>DOB (Eng):</strong> ${m.dobEn}</div>
-                            <div><strong>এনআইডি/জন্মনিবন্ধন (বাং):</strong> ${m.nidBn}</div><div><strong>NID/BRN (Eng):</strong> ${m.nidEn}</div>
-                            <div><strong>রক্তের গ্রুপ:</strong> <span style="color:var(--danger);font-weight:bold;">${m.blood}</span></div><div><strong>পেশা:</strong> ${m.job}</div>
-                            <div><strong>মোবাইল নম্বর:</strong> ${m.phone}</div><div><strong>ঠিকানা:</strong> ${m.address}</div>
-                            <div><strong>তারিখ (বাংলা):</strong> ${m.dateBn}</div><div><strong>Date (Eng):</strong> ${m.dateEn}</div>
+                            <div><strong>এনআইডি/জন্মনিবন্ধন:</strong> ${m.nidBn}</div><div><strong>রক্তের গ্রুপ:</strong> <span style="color:var(--danger);font-weight:bold;">${m.blood}</span></div>
+                            <div><strong>পেশা:</strong> ${m.job}</div><div><strong>মোবাইল নম্বর:</strong> ${m.phone}</div>
+                            <div style="grid-column: span 2;"><strong>বর্তমান ঠিকানা:</strong> ${m.address}</div>
                         </div>
                         ${signatureBlockHtml}
                     </div>`;
@@ -518,9 +635,15 @@
         function handleFormSubmission(e) {
             e.preventDefault();
             
-            // Calculate continuous auto-increment serial logic from 230001
             let nextIdNumber = STARTING_SERIAL_ID + appData.registry.length;
             let generatedIdStr = "SVYO-" + nextIdNumber;
+
+            // Combine sub-fields of structured address to plain text presentation string
+            let combinedAddressText = "গ্রাম: " + document.getElementById('f_curr_village').value + 
+                                      ", উপজেলা: " + document.getElementById('f_curr_thana').value + 
+                                      ", জেলা: " + document.getElementById('f_curr_district').value + 
+                                      ", পোস্ট কোড: " + document.getElementById('f_curr_postcode').value + 
+                                      ", বিভাগ: " + document.getElementById('f_curr_division').value;
 
             let newRecord = {
                 type: document.getElementById('f_type').value,
@@ -538,7 +661,7 @@
                 nidEn: document.getElementById('f_nid_en').value,
                 blood: document.getElementById('f_blood').value,
                 job: document.getElementById('f_job').value,
-                address: document.getElementById('f_address').value,
+                address: combinedAddressText,
                 phone: document.getElementById('f_phone').value,
                 dateBn: document.getElementById('f_date_bn').value,
                 dateEn: document.getElementById('f_date_en').value,
@@ -552,6 +675,30 @@
             renderAppInterface();
             alert("আপনার আবেদনপত্রটি সফলভাবে সাবমিট হয়েছে। আপনার আইডি কোড হবে: " + generatedIdStr + " (অনুমোদনের পর সক্রিয় হবে)।");
             document.getElementById('membershipForm').reset();
+        }
+
+        function handleDonorFormSubmission(e) {
+            e.preventDefault();
+            
+            let newDonor = {
+                name: document.getElementById('d_name').value,
+                thana: document.getElementById('d_thana').value,
+                district: document.getElementById('d_district').value,
+                blood: document.getElementById('d_blood').value,
+                phone: document.getElementById('d_phone').value,
+                lastDate: document.getElementById('d_last_date').value || "দেওয়া হয়নি",
+                nextDate: document.getElementById('d_next_date').value || "দেওয়া হয়নি",
+                photo: document.getElementById('donor_photo_data').value || ""
+            };
+
+            if(!appData.donors) { appData.donors = []; }
+            appData.donors.unshift(newDonor);
+            localStorage.setItem('svyo_v5_config', JSON.stringify(appData));
+            
+            alert("রক্তদাতা হিসেবে আপনার নাম ডাটাবেজে সফলভাবে নিবন্ধিত হয়েছে। ধন্যবাদ!");
+            document.getElementById('donorForm').reset();
+            document.getElementById('donor_photo_data').value = "";
+            runBloodSearch();
         }
 
         function generateIdCardLive(index) {
@@ -590,7 +737,7 @@
 
         function verifyAdmin() {
             let pin = document.getElementById('adminPin').value;
-            if(pin === "1234") {
+            if(pin === ADMIN_SECRET_PIN) {
                 document.getElementById('admin-login-area').style.display = "none";
                 document.getElementById('admin-dashboard').style.display = "block";
                 populateAdminForm();
@@ -651,17 +798,51 @@
             const grp = document.getElementById('bloodSearch').value;
             const container = document.getElementById('donorResults');
             container.innerHTML = "";
-            let filtered = grp === "ALL" ? appData.registry : appData.registry.filter(d => d.blood === grp);
+            
+            // Sync/merge data from main approved registry & the dedicated standalone donors pool
+            let mergedPool = [];
+            
+            appData.registry.forEach(m => {
+                if(m.status === "Approved") {
+                    mergedPool.push({
+                        name: m.nameBn,
+                        blood: m.blood,
+                        phone: m.phone,
+                        location: m.address,
+                        lastDonation: "মেম্বার ডাটাবেজ",
+                        photo: m.photo
+                    });
+                }
+            });
+
+            if(appData.donors) {
+                appData.donors.forEach(d => {
+                    mergedPool.push({
+                        name: d.name,
+                        blood: d.blood,
+                        phone: d.phone,
+                        location: d.thana + ", " + d.district,
+                        lastDonation: d.lastDate,
+                        photo: d.photo
+                    });
+                });
+            }
+
+            let filtered = grp === "ALL" ? mergedPool : mergedPool.filter(d => d.blood === grp);
             
             filtered.forEach((d) => {
+                let donorImg = d.photo ? `<img src="${d.photo}" style="width:50px; height:50px; border-radius:50%; object-fit:cover; border:2px solid var(--danger); margin-right:10px;">` : `<div style="width:50px; height:50px; border-radius:50%; background:#ffebee; color:var(--danger); display:flex; align-items:center; justify-content:center; margin-right:10px;"><i class="fas fa-tint fa-lg"></i></div>`;
+                
                 container.innerHTML += `
-                    <div class="card member-card" style="border-left: 4px solid var(--danger); margin-bottom:10px;">
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <div>
-                                <h4 style="color:var(--secondary)">${d.nameBn}</h4>
-                                <span style="font-size:12px;">রক্তের গ্রুপ: <strong style="color:var(--danger)">${d.blood}</strong></span>
+                    <div class="card member-card" style="border-left: 4px solid var(--danger); margin-bottom:10px; padding:12px;">
+                        <div style="display:flex; justify-content:between; align-items:center; width:100%;">
+                            ${donorImg}
+                            <div style="flex-grow:1;">
+                                <h4 style="color:var(--secondary); font-size:14px;">${d.name}</h4>
+                                <p style="font-size:11px; color:#4a5568;"><i class="fas fa-map-marker-alt"></i> ${d.location}</p>
+                                <span style="font-size:11px;">রক্তের গ্রুপ: <strong style="color:var(--danger)">${d.blood}</strong> | শেষ রক্তদান: ${d.lastDonation}</span>
                             </div>
-                            <a href="tel:${d.phone}" class="btn btn-danger" style="padding:6px 12px; font-size:12px;"><i class="fas fa-phone-alt"></i> কল করুন</a>
+                            <a href="tel:${d.phone}" class="btn btn-danger" style="padding:6px 10px; font-size:11px; border-radius:6px;"><i class="fas fa-phone-alt"></i> কল</a>
                         </div>
                     </div>`;
             });
