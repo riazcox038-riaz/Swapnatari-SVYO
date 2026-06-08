@@ -5,91 +5,202 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swapnatari SVYO</title>
     
-    <meta name="theme-color" content="#1a365d">
+    <meta name="theme-color" content="#0a192f">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #27ae60;
-            --secondary: #1a365d;
-            --bg: #f4f7f6;
-            --card-bg: #ffffff;
-            --text: #2d3748;
-            --danger: #e74c3c;
-            --warning: #f39c12;
-            --info: #2980b9;
-            --fb-color: #1877f2;
+            --primary: #00f2fe;
+            --primary-glow: rgba(0, 242, 254, 0.2);
+            --secondary: #4facfe;
+            --bg: #0a192f;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --danger: #ff4757;
+            --success: #2ed573;
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
-        body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; }
         
-        /* Header style based on image_a4c3e9.jpg */
-        .app-header { background: var(--secondary); color: white; padding: 12px 15px; text-align: center; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .app-header .header-logo { width: 45px; height: 45px; border-radius: 50%; background: white; padding: 2px; object-fit: contain; }
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            padding-bottom: 90px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ব্যাকগ্রাউন্ড অ্যানিমেশন ইফেক্ট (লিংকের মতো হুবহু) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1e3a8a 0%, #0a192f 100%);
+            z-index: -2;
+        }
+
+        /* ভাসমান কণা বা স্টারের জন্য অ্যানিমেশন */
+        .bg-stars {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background-image: radial-gradient(white 1px, transparent 0);
+            background-size: 40px 40px;
+            opacity: 0.15;
+            animation: starsMove 20s linear infinite;
+        }
+        @keyframes starsMove {
+            from { background-position: 0 0; }
+            to { background-position: 40px 80px; }
+        }
+
+        /* হেডার ডিজাইন */
+        .app-header { 
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: white; 
+            padding: 15px; 
+            text-align: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 15px; 
+            border-bottom: 1px solid var(--card-border);
+        }
+        .app-header .header-logo { 
+            width: 50px; height: 50px; 
+            border-radius: 50%; 
+            background: rgba(255,255,255,0.1); 
+            padding: 2px; 
+            object-fit: contain;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
         .app-header .header-text-group { text-align: left; }
-        .app-header h1 { font-size: 16px; font-weight: 700; line-height: 1.2; }
-        .app-header .eng-title { font-size: 10px; letter-spacing: 0.3px; opacity: 0.9; text-transform: uppercase; }
-        .app-header p { font-size: 11px; color: #58fa9b; font-weight: bold; margin-top: 1px; }
+        .app-header h1 { font-size: 17px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+        .app-header .eng-title { font-size: 10px; color: var(--text-muted); letter-spacing: 0.5px; font-weight: bold; }
+        .app-header p { font-size: 11px; color: var(--primary); font-weight: bold; margin-top: 2px; }
         
         .app-container { padding: 15px; max-width: 600px; margin: 0 auto; }
-        .app-screen { display: none; }
+        .app-screen { display: none; animation: fadeIn 0.4s ease-in-out; }
         .app-screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        h2 { font-size: 17px; color: var(--secondary); margin: 20px 0 12px 0; border-left: 4px solid var(--primary); padding-left: 8px; display: flex; align-items: center; gap: 8px; }
-        h2:first-of-type { margin-top: 5px; }
-        h3 { font-size: 15px; color: var(--secondary); margin-bottom: 8px; border-bottom: 1px dashed #cbd5e0; padding-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+        /* গ্লাস-মরফিজম হেডিংস */
+        h2 { font-size: 16px; color: #fff; margin: 25px 0 15px 0; display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        h2 i { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+        h3 { font-size: 15px; color: var(--secondary); margin-bottom: 15px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         
-        .card { background: var(--card-bg); padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
-        .card p { font-size: 14px; line-height: 1.7; text-align: justify; white-space: pre-line; }
+        /* প্রিমিয়াম গ্লাসের মতো কার্ড */
+        .card { 
+            background: var(--card-bg); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 20px; 
+            border-radius: 16px; 
+            margin-bottom: 20px; 
+            border: 1px solid var(--card-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 242, 254, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 242, 254, 0.1);
+        }
+        .card p { font-size: 14px; line-height: 1.8; text-align: justify; color: #cbd5e1; }
         
-        .hero { background: linear-gradient(135deg, rgba(26,54,93,0.95), rgba(39,174,96,0.9)); color: white; padding: 25px 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
-        .hero .hero-logo { width: 85px; height: 85px; border-radius: 50%; background: white; padding: 4px; object-fit: contain; margin-bottom: 10px; }
-        .hero h2 { color: white; border: none; padding: 0; font-size: 21px; margin-bottom: 2px; text-align: center; }
-        .hero .eng-sub { font-size: 11px; opacity: 0.8; margin-bottom: 8px; }
-        .hero .badge { background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 20px; font-size: 11px; display: inline-block; margin-bottom: 12px; }
+        /* হিরো সেকশন */
+        .hero { 
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.7), rgba(10, 25, 47, 0.9));
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            padding: 30px 20px; 
+            border-radius: 20px; 
+            text-align: center; 
+            margin-bottom: 25px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .hero .hero-logo { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,0.05); padding: 5px; object-fit: contain; margin-bottom: 15px; box-shadow: 0 0 20px rgba(0, 242, 254, 0.3); }
+        .hero h2 { color: white; border: none; padding: 0; font-size: 22px; margin-bottom: 2px; justify-content: center; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .hero .eng-sub { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; font-weight: 600; }
+        .hero .badge { background: rgba(0, 242, 254, 0.1); color: var(--primary); border: 1px solid rgba(0, 242, 254, 0.2); padding: 5px 15px; border-radius: 20px; font-size: 12px; display: inline-block; margin-bottom: 18px; font-weight: 600; }
         
-        .info-tag-container { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px; font-size: 12px; text-align: left; }
-        .info-tag-container span { display: flex; align-items: center; gap: 8px; }
+        .info-tag-container { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.2); padding: 12px; border-radius: 12px; font-size: 13px; text-align: left; border: 1px solid var(--card-border); }
+        .info-tag-container span { display: flex; align-items: center; gap: 10px; color: #94a3b8; }
+        .info-tag-container b { color: #fff; }
 
-        .btn-group { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
-        .btn { padding: 10px 18px; border-radius: 25px; border: none; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; transition: 0.2s; text-decoration: none; }
+        /* বাটন স্টাইল */
+        .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 15px; }
+        .btn { padding: 12px 22px; border-radius: 30px; border: none; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; transition: all 0.3s ease; text-decoration: none; }
         .btn:active { transform: scale(0.95); }
-        .btn-primary { background: #2ecc71; color: white; }
-        .btn-secondary { background: var(--secondary); color: white; }
-        .btn-danger { background: #e74c3c; color: white; }
-        .btn-info { background: var(--info); color: white; }
-        .btn-block { width: 100%; justify-content: center; margin-top: 5px; }
+        .btn-primary { background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); color: #0a192f; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3); }
+        .btn-primary:hover { box-shadow: 0 4px 25px rgba(0, 242, 254, 0.5); }
+        .btn-danger { background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%); color: white; box-shadow: 0 4px 15px rgba(ff, 47, 87, 0.3); }
+        .btn-info { background: rgba(255,255,255,0.08); color: white; border: 1px solid var(--card-border); }
+        .btn-info:hover { background: rgba(255,255,255,0.15); }
+        .btn-block { width: 100%; justify-content: center; margin-top: 10px; }
 
-        .members-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        .member-card { background: white; border-radius: 12px; padding: 12px; text-align: center; border-top: 3px solid var(--info); position: relative; }
-        .member-id-tag { position: absolute; top: 5px; left: 8px; font-size: 10px; color: #a0aec0; font-weight: bold; }
-        .member-avatar { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; margin: 5px auto; background: #f0f0f0; border: 2px solid #fff; }
+        /* মেম্বার গ্রিড */
+        .members-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; min-height: 100px; }
+        .member-card { 
+            background: var(--card-bg); 
+            border-radius: 16px; 
+            padding: 15px; 
+            text-align: center; 
+            border: 1px solid var(--card-border);
+            position: relative; 
+            backdrop-filter: blur(10px);
+        }
+        .member-id-tag { position: absolute; top: 8px; left: 10px; font-size: 9px; color: var(--primary); font-weight: bold; background: rgba(0, 242, 254, 0.1); padding: 1px 6px; border-radius: 10px; }
+        .member-avatar { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin: 8px auto; background: #1e293b; border: 2px solid var(--card-border); box-shadow: 0 0 10px rgba(0,0,0,0.3); }
         
-        .notice-card { border-left: 4px solid var(--danger); background: #fff5f5; }
+        .notice-card { border-left: 4px solid var(--danger); background: rgba(255, 71, 87, 0.05); }
 
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; color: var(--secondary); }
-        .form-control { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0; font-size: 13px; }
-        .form-control:focus { border-color: var(--primary); outline: none; }
-        .pin-lock-field { border: 2px solid var(--danger) !important; background: #fff5f5; font-weight: bold; text-align: center; letter-spacing: 5px; }
+        /* ফর্ম ইনপুট ডিজাইন (ডার্ক থিম অনুযায়ী মার্জিত) */
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-control { width: 100%; padding: 12px; border-radius: 10px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--card-border); color: white; font-size: 14px; outline: none; transition: all 0.3s; }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); background: rgba(0, 0, 0, 0.3); }
+        .form-control option { background: #0a192f; color: white; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .pin-lock-field { border: 1px solid var(--danger) !important; background: rgba(255, 71, 87, 0.05); font-weight: bold; text-align: center; letter-spacing: 5px; color: var(--danger); }
 
-        /* Navigation Style matching image_a4c3e9.jpg */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; height: 60px; display: flex; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 1000; }
-        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #a0aec0; cursor: pointer; font-size: 11px; font-weight: 600; text-decoration: none; }
-        .nav-item i { font-size: 18px; margin-bottom: 2px; }
-        .nav-item.active { color: var(--primary); }
+        /* গ্লাস-মরফিজম বটম নেভিগেশন বার (হুবহু নতুন লিংকের মতো ট্র্যান্সপারেন্ট) */
+        .bottom-nav { 
+            position: fixed; bottom: 0; left: 0; right: 0; 
+            background: rgba(10, 25, 47, 0.8); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            height: 65px; display: flex; 
+            border-top: 1px solid var(--card-border);
+            z-index: 1000; 
+        }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; font-size: 11px; font-weight: 600; text-decoration: none; transition: all 0.3s; }
+        .nav-item i { font-size: 19px; margin-bottom: 3px; transition: transform 0.3s; }
+        .nav-item:hover { color: #fff; }
+        .nav-item.active { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+        .nav-item.active i { transform: translateY(-2px); }
     </style>
 </head>
 <body>
+
+    <!-- অ্যানিমেটেড কণা ব্যাকগ্রাউন্ড ফিক্স -->
+    <div class="bg-stars"></div>
 
     <!-- হেডার মডিউল -->
     <header class="app-header">
         <img src="Logo-01.jpg" alt="Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/150'">
         <div class="header-text-group">
-            <h1 id="app-title-bn">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h1>
-            <div class="eng-title" id="app-title-en">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
-            <p id="app-slogan">"সৃষ্টির সেবাই আমাদের স্বপ্নতরী"</p>
+            <h1>নিয়ন্ত্রণ কক্ষ</h1>
+            <div class="eng-title">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
+            <p>"সৃষ্টির সেবাই আমাদের স্বপ্নতরী"</p>
         </div>
     </header>
 
@@ -99,14 +210,14 @@
         <div id="screen-home" class="app-screen active">
             <div class="hero">
                 <div><img src="Logo-01.jpg" alt="Logo" class="hero-logo" onerror="this.src='https://via.placeholder.com/150'"></div>
-                <h2 id="hero-title-bn">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h2>
-                <div class="eng-sub" id="hero-title-en">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
-                <span class="badge" id="app-reg-no"><i class="fas fa-award"></i> নিবন্ধন নং: যু/উ/অ/সনদ-০৯৩</span>
+                <h2>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</h2>
+                <div class="eng-sub">SWAPNATARI VOLUNTARY YOUTH ORGANIZATION</div>
+                <span class="badge"><i class="fas fa-award"></i> নিবন্ধন নং: যু/উ/অ/সনদ-০৯৩</span>
                 
                 <div class="info-tag-container">
-                    <span><i class="fas fa-map-marked-alt" style="color:#ffeaa7;"></i> <b>কার্য এলাকা:</b> <span id="display-area">কক্সবাজার (পর্যায়ক্রমে বাংলাদেশ ও Out Country)</span></span>
-                    <span><i class="fas fa-phone-volume" style="color:#55efc4;"></i> <b>হেল্পলাইন নম্বর:</b> <a href="tel:01839369388" id="display-phone" style="color:white; text-decoration:none;">01839369388</a></span>
-                    <span><i class="fas fa-map-marker-alt" style="color:#ff7675;"></i> <b>কার্যালয়:</b> <span id="display-address">SonaAli Building, South Rumaliar Chara, Cox's Bazar</span></span>
+                    <span><i class="fas fa-map-marked-alt" style="color:var(--primary);"></i> <b>কার্য এলাকা:</b> <span>কক্সবাজার (পর্যায়ক্রমে বাংলাদেশ ও Out Country)</span></span>
+                    <span><i class="fas fa-phone-volume" style="color:var(--secondary);"></i> <b>হেল্পলাইন নম্বর:</b> <a href="tel:01839369388" style="color:white; text-decoration:none;">01839369388</a></span>
+                    <span><i class="fas fa-map-marker-alt" style="color:var(--danger);"></i> <b>কার্যালয়:</b> <span>SonaAli Building, South Rumaliar Chara, Cox's Bazar</span></span>
                 </div>
                 
                 <div class="btn-group">
@@ -117,7 +228,7 @@
 
             <h2><i class="fas fa-bullhorn"></i> নোটিশ বোর্ড</h2>
             <div id="notice-board-container">
-                <p style="color:#718096; font-size:13px;">নোটিশ লোড হচ্ছে...</p>
+                <p style="color:var(--text-muted); font-size:13px; padding: 10px;">নোটিশ লোড হচ্ছে...</p>
             </div>
         </div>
 
@@ -125,81 +236,151 @@
         <div id="screen-about" class="app-screen">
             <h2><i class="fas fa-info-circle"></i> সংক্ষিপ্ত পরিচিতি</h2>
             <div class="card">
-                <p id="display-intro" style="font-size:14px; text-align:justify; color:#2d3748;">
+                <p>
                 স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO) একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২৬ সালে কক্সবাজার পৌরসভার ২নং ওয়ার্ডের দক্ষিণ রুমালিয়ার ছড়া এলাকায় একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়।
                 </p>
             </div>
 
             <h2><i class="fas fa-users"></i> স্বপ্নতরী পরিবার (সদস্য পর্ষদ)</h2>
             <div class="members-grid" id="all-members-render-box">
-                <p style="text-align: center; grid-column: span 2; padding: 10px; color:#718096;">মেম্বার ডাটাবেজ প্রসেস হচ্ছে...</p>
+                <p style="text-align: center; grid-column: span 2; padding: 20px; color:var(--text-muted);">মেম্বার ডাটাবেজ প্রসেস হচ্ছে...</p>
             </div>
         </div>
 
-        <!-- ৩. ফরম স্ক্রিন -->
+        <!-- ৩. ফরম স্ক্রিন (Members & Adviser Application) -->
         <div id="screen-forms" class="app-screen">
             <h2><i class="fas fa-file-signature"></i> Application Registration Hub</h2>
+            
+            <!-- মেম্বারশিপ ফর্ম -->
             <div class="card">
-                <h3><i class="fas fa-user-plus"></i> 1. Membership Registration</h3>
+                <h3><i class="fas fa-user-plus"></i> Membership Registration Form</h3>
                 <form onsubmit="handleUserFormSubmit(event, 'public_member')">
-                    <div class="form-group"><label>Full Name</label><input type="text" class="form-control" required placeholder="Enter full name"></div>
-                    <div class="form-group"><label>Desired Position</label><input type="text" class="form-control" required placeholder="e.g. Volunteer, General Member"></div>
-                    <div class="form-group"><label>Phone Number</label><input type="tel" class="form-control" required placeholder="Enter active contact number"></div>
-                    <div class="form-group"><label>Photo URL / Cloud Link</label><input type="text" class="form-control" placeholder="Optional image link"></div>
-                    <button type="submit" class="btn btn-primary btn-block">Submit Membership Application</button>
+                    <div class="form-group"><label>Full Name</label><input type="text" class="form-control" required placeholder="Enter Full Name"></div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Father's Name</label><input type="text" class="form-control" required placeholder="Father's Name"></div>
+                        <div class="form-group"><label>Mother's Name</label><input type="text" class="form-control" required placeholder="Mother's Name"></div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Date of Birth</label><input type="date" class="form-control" required></div>
+                        <div class="form-group">
+                            <label>Blood Group</label>
+                            <select class="form-control" required>
+                                <option value="">Select</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"><label>NID Number / Birth Certificate</label><input type="number" class="form-control" required placeholder="Enter NID or Birth Reg No"></div>
+                    
+                    <p style="font-size:12px; font-weight:bold; color:var(--primary); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px;">Address Details</p>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Village / Area</label><input type="text" class="form-control" required placeholder="Village"></div>
+                        <div class="form-group"><label>Ward No</label><input type="text" class="form-control" required placeholder="Ward"></div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Thana</label><input type="text" class="form-control" required placeholder="Thana"></div>
+                        <div class="form-group"><label>Upazila</label><input type="text" class="form-control" required placeholder="Upazila"></div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Zilla</label><input type="text" class="form-control" required placeholder="Zilla"></div>
+                        <div class="form-group"><label>Division</label><input type="text" class="form-control" required placeholder="Division"></div>
+                    </div>
+                    
+                    <div class="form-group"><label>Mobile Number</label><input type="tel" class="form-control" required placeholder="Active Mobile Number"></div>
+                    <div class="form-group"><label>Photo URL / Drive Link</label><input type="text" class="form-control" placeholder="Optional image web link"></div>
+                    <button type="submit" class="btn btn-primary btn-block">Submit Membership Form</button>
+                </form>
+            </div>
+
+            <!-- অ্যাডভাইজার ফর্ম -->
+            <div class="card">
+                <h3><i class="fas fa-user-tie"></i> Adviser Registration Form</h3>
+                <form onsubmit="handleUserFormSubmit(event, 'public_adviser')">
+                    <div class="form-group"><label>Full Name</label><input type="text" class="form-control" required placeholder="Enter Full Name"></div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Father's Name</label><input type="text" class="form-control" required placeholder="Father's Name"></div>
+                        <div class="form-group"><label>Mother's Name</label><input type="text" class="form-control" required placeholder="Mother's Name"></div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Date of Birth</label><input type="date" class="form-control" required></div>
+                        <div class="form-group">
+                            <label>Blood Group</label>
+                            <select class="form-control" required>
+                                <option value="">Select</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"><label>NID Number</label><input type="number" class="form-control" required placeholder="Enter NID Number"></div>
+                    
+                    <p style="font-size:12px; font-weight:bold; color:var(--primary); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px;">Address Details</p>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Village / Area</label><input type="text" class="form-control" required placeholder="Village"></div>
+                        <div class="form-group"><label>Ward No</label><input type="text" class="form-control" required placeholder="Ward"></div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Thana</label><input type="text" class="form-control" required placeholder="Thana"></div>
+                        <div class="form-group"><label>Upazila</label><input type="text" class="form-control" required placeholder="Upazila"></div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Zilla</label><input type="text" class="form-control" required placeholder="Zilla"></div>
+                        <div class="form-group"><label>Division</label><input type="text" class="form-control" required placeholder="Division"></div>
+                    </div>
+                    
+                    <div class="form-group"><label>Profession / Occupation</label><input type="text" class="form-control" required placeholder="e.g. Business, Doctor, Service"></div>
+                    <div class="form-group"><label>Mobile Number</label><input type="tel" class="form-control" required placeholder="Active Mobile Number"></div>
+                    <button type="submit" class="btn btn-primary btn-block" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">Submit Adviser Form</button>
                 </form>
             </div>
         </div>
 
-        <!-- ৪. রক্তদান স্ক্রিন -->
+        <!-- ৪. রক্তদান স্ক্রিন (সম্পূর্ণ আলাদা ব্লাড ডোনার মডিউল) -->
         <div id="screen-blood" class="app-screen">
             <h2><i class="fas fa-heartbeat"></i> Blood Donor Network</h2>
             <div class="card">
                 <h3><i class="fas fa-hand-holding-water"></i> Become a Registered Blood Donor</h3>
                 <form onsubmit="handleUserFormSubmit(event, 'public_donor')">
-                    <div class="form-group"><label>Donor Name</label><input type="text" class="form-control" required placeholder="Full Name"></div>
+                    <div class="form-group"><label>Donor Name</label><input type="text" class="form-control" required placeholder="Donor Full Name"></div>
                     <div class="form-group">
                         <label>Blood Group</label>
                         <select class="form-control" required>
-                            <option value="">Select Group</option>
+                            <option value="">Select Blood Group</option>
                             <option value="A+">A+</option><option value="A-">A-</option>
                             <option value="B+">B+</option><option value="B-">B-</option>
                             <option value="O+">O+</option><option value="O-">O-</option>
                             <option value="AB+">AB+</option><option value="AB-">AB-</option>
                         </select>
                     </div>
-                    <div class="form-group"><label>Mobile Number</label><input type="tel" class="form-control" required placeholder="Your contact phone"></div>
-                    <div class="form-group"><label>Location / Area</label><input type="text" class="form-control" required placeholder="e.g. Cox's Bazar"></div>
+                    <div class="form-group"><label>Mobile Number</label><input type="tel" class="form-control" required placeholder="Contact Mobile Number"></div>
+                    <div class="form-group"><label>Last Donation Date</label><input type="date" class="form-control"></div>
+                    <div class="form-group"><label>Location / Present Area</label><input type="text" class="form-control" required placeholder="e.g. Cox's Bazar"></div>
                     <button type="submit" class="btn btn-danger btn-block">Register As Blood Donor</button>
                 </form>
             </div>
         </div>
 
-        <!-- ৫. গোপন গ্লোবাল অ্যাডমিন কন্ট্রোল রুম -->
+        <!-- ৫. গ্লোবাল অ্যাডমিন কন্ট্রোল রুম -->
         <div id="screen-admin" class="app-screen">
-            <h2><i class="fas fa-user-shield"></i> নিয়ন্ত্রণ কক্ষ (A-Z App Control Room)</h2>
-            
+            <h2><i class="fas fa-user-shield"></i> নিয়ন্ত্রণ কক্ষ (Admin Control Room)</h2>
             <div class="card">
-                <h3><i class="fas fa-user-cog"></i> ১. সদস্য ডাটাবেজ এডিটর / CRUD মডিউল</h3>
+                <h3><i class="fas fa-user-cog"></i> সদস্য ডাটাবেজ এডিটর / CRUD মডিউল</h3>
                 <form id="member-crud-form" onsubmit="handleMemberSubmit(event)">
                     <div class="form-group"><label>Admin Security PIN</label><input type="password" maxlength="7" class="form-control pin-lock-field crud-pin" required placeholder="•••••••"></div>
-                    <div class="form-group"><label>Member ID (To Edit/Create/Delete)</label><input type="number" id="crud-mem-id" class="form-control" required placeholder="Type Member ID"></div>
+                    <div class="form-group"><label>Member ID</label><input type="number" id="crud-mem-id" class="form-control" required placeholder="Type Member ID"></div>
                     <div class="form-group"><label>Full Name</label><input type="text" id="crud-mem-name" class="form-control" placeholder="Enter Full Name"></div>
                     <div class="form-group"><label>Designation</label><input type="text" id="crud-mem-role" class="form-control" placeholder="Designation"></div>
-                    <div class="form-group"><label>Image Online URL</label><input type="text" id="crud-mem-img" class="form-control" placeholder="Paste Image Link"></div>
+                    <div class="form-group"><label>Image URL</label><input type="text" id="crud-mem-img" class="form-control" placeholder="Paste Image Link"></div>
                     <div class="btn-group">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save / Update Member</button>
-                        <button type="button" class="btn btn-danger" onclick="deleteMemberAction()"><i class="fas fa-trash-alt"></i> Delete by ID</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save / Update</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteMemberAction()"><i class="fas fa-trash-alt"></i> Delete</button>
                     </div>
                 </form>
             </div>
 
             <div class="card">
-                <h3><i class="fas fa-bullhorn"></i> ২. লাইভ নোটিশ বোর্ড এডিটর</h3>
+                <h3><i class="fas fa-bullhorn"></i> নোটিশ বোর্ড এডিটর</h3>
                 <form onsubmit="handleNoticeSubmit(event)">
                     <div class="form-group"><label>Admin Security PIN</label><input type="password" maxlength="7" class="form-control pin-lock-field notice-pin" required placeholder="•••••••"></div>
-                    <div class="form-group"><label>Notice Title</label><input type="text" id="notice-title" class="form-control" required placeholder="e.g. জরুরি সভা"></div>
-                    <div class="form-group"><label>Notice Details</label><textarea id="notice-desc" class="form-control" required placeholder="Write details here..."></textarea></div>
+                    <div class="form-group"><label>Notice Title</label><input type="text" id="notice-title" class="form-control" required></div>
+                    <div class="form-group"><label>Notice Details</label><textarea id="notice-desc" class="form-control" required></textarea></div>
                     <button type="submit" class="btn btn-danger btn-block">Broadcast Notice</button>
                 </form>
             </div>
@@ -207,7 +388,7 @@
 
     </div>
 
-    <!-- বটম ফিক্সড নেভিগেশন (আইডেন্টিকাল টু ইমেজ লেআউট) -->
+    <!-- বটম ফিক্সড নেভিগেশন বার -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="switchScreen('home')"><i class="fas fa-home"></i>হোম</div>
         <div class="nav-item" onclick="switchScreen('about')"><i class="fas fa-info-circle"></i>পরিচিতি</div>
@@ -216,33 +397,26 @@
     </nav>
 
     <script>
-        // আপনার গুগল শিটের এক্সিকিউটেবল ম্যাক্রো লিংক
         const API_LINK = "https://script.google.com/macros/s/AKfycbwgmsn0Jlilw-SplNZZZYhMm9JH3i0_fBP1OIFuv-it5h7t1lbJxJQw6l5UcAaPuYqa/exec";
         const MASTER_PIN = "9388093"; 
         
         let clickCounter = 0;
         let lastClickTime = 0;
 
-        // দ্রুত ৫ বার ক্লিক ট্র্যাকার লজিক
         function handleBloodClick() {
             const currentTime = new Date().getTime();
-            
-            // যদি ২ সেকেন্ডের বেশি গ্যাপ হয়, কাউন্টার ১ থেকে আবার শুরু হবে
-            if (currentTime - lastClickTime > 2000) {
-                clickCounter = 0;
-            }
-            
+            if (currentTime - lastClickTime > 2000) { clickCounter = 0; }
             clickCounter++;
             lastClickTime = currentTime;
 
             if(clickCounter >= 5) {
-                clickCounter = 0; // কাউন্টার রিসেট
+                clickCounter = 0;
                 let accessGate = prompt("🔐 গ্লোবাল অ্যাডমিন প্যানেল অ্যাক্সেস পিন কোডটি দিন:");
                 if(accessGate === MASTER_PIN) {
                     switchScreen('admin');
                     return;
                 } else if(accessGate !== null) {
-                    alert("❌ ভুল পিন কোড! অ্যাক্সেস দেওয়া সম্ভব নয়।");
+                    alert("❌ ভুল পিন কোড!");
                 }
             }
             switchScreen('blood');
@@ -257,14 +431,12 @@
         }
 
         function switchScreen(id) {
-            clickCounter = 0; // স্ক্রিন চেঞ্জ করলে কাউন্টার জিরো হবে
+            clickCounter = 0;
             document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
             const targetScreen = document.getElementById('screen-' + id);
             if (targetScreen) targetScreen.classList.add('active');
             
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            const items = document.querySelectorAll('.nav-nav .nav-item, nav .nav-item');
-            
             const steps = document.querySelectorAll('.nav-item');
             if(id === 'home' && steps[0]) steps[0].classList.add('active');
             if(id === 'about' && steps[1]) steps[1].classList.add('active');
@@ -273,9 +445,7 @@
             window.scrollTo(0, 0);
         }
 
-        // এসিঙ্ক্রোনাস ডাটা লোডার (যাতে অ্যাপ ওপেন হতে এক সেকেন্ডও লেট না হয়)
         function loadApplicationEngine() {
-            // নোটিশ বোর্ড লোড
             fetch(API_LINK + "?type=feeds")
                 .then(res => res.json())
                 .then(data => {
@@ -284,15 +454,14 @@
                         if(data.notices && data.notices.length > 0) {
                             noticeBox.innerHTML = "";
                             data.notices.reverse().forEach(n => {
-                                noticeBox.innerHTML += `<div class="card notice-card"><h3>⚠️ ${n.title}</h3><p>${n.desc}</p></div>`;
+                                noticeBox.innerHTML += `<div class="card notice-card"><h3 style="color:var(--danger)">⚠️ ${n.title}</h3><p>${n.desc}</p></div>`;
                             });
-                        } else { noticeBox.innerHTML = `<p style="color:#718096; font-size:13px;">চলতি কোনো নোটিশ নেই।</p>`; }
+                        } else { noticeBox.innerHTML = `<p style="color:var(--text-muted); font-size:13px; padding:10px;">চলতি কোনো নোটিশ নেই।</p>`; }
                     }
                 }).catch(e => {
-                    document.getElementById("notice-board-container").innerHTML = `<p style="color:#718096; font-size:13px;">চলতি কোনো নোটিশ পাওয়া যায়নি।</p>`;
+                    document.getElementById("notice-board-container").innerHTML = `<p style="color:var(--text-muted); font-size:13px; padding:10px;">চলতি কোনো নোটিশ পাওয়া যায়নি।</p>`;
                 });
 
-            // মেম্বার লিস্ট লোড
             fetch(API_LINK + "?type=members")
                 .then(res => res.json())
                 .then(members => {
@@ -300,7 +469,7 @@
                     if(box) {
                         box.innerHTML = "";
                         if(!members || members.length === 0){
-                            box.innerHTML = `<p style="grid-column:span 2;text-align:center;color:#a0aec0;">কোনো মেম্বার ডাটা পাওয়া যায়নি।</p>`;
+                            box.innerHTML = `<p style="grid-column:span 2;text-align:center;color:var(--text-muted);padding:20px;">কোনো অ্যাক্টিভ মেম্বার ডাটা পাওয়া যায়নি।</p>`;
                             return;
                         }
                         members.forEach(m => {
@@ -308,14 +477,16 @@
                                 <div class="member-card">
                                     <span class="member-id-tag">ID: ${m.id}</span>
                                     <img src="${m.image_url}" class="member-avatar" onerror="this.src='Logo-01.jpg'">
-                                    <div style="font-size: 13px; font-weight: bold; color: var(--secondary); margin-top:5px;">${m.name}</div>
-                                    <div style="font-size: 11px; color: #718096; background: #f0f4f8; padding: 2px 6px; border-radius: 10px; display: inline-block; margin-top: 3px;">${m.designation}</div>
-                                </div>
-                            `;
+                                    <div style="font-size: 14px; font-weight: bold; color: #fff; margin-top:5px;">${m.name}</div>
+                                    <div style="font-size: 11px; color: var(--primary); background: rgba(0, 242, 254, 0.08); padding: 2px 8px; border-radius: 10px; display: inline-block; margin-top: 5px; border: 1px solid rgba(0, 242, 254, 0.15);">${m.designation}</div>
+                                </div>`;
                         });
                     }
                 }).catch(e => {
-                    document.getElementById("all-members-render-box").innerHTML = `<p style="grid-column:span 2;text-align:center;color:#a0aec0;">ডাটাবেজ অফলাইন বা কানেকশনে সমস্যা রয়েছে।</p>`;
+                    document.getElementById("all-members-render-box").innerHTML = `
+                    <div style="grid-column:span 2; text-align:center; padding:20px; background:rgba(255, 71, 87, 0.05); border-radius:12px; border:1px solid rgba(255, 71, 87, 0.2);">
+                        <p style="color:var(--danger); font-size:13px; font-weight:bold;"><i class="fas fa-exclamation-triangle"></i> ডাটাবেজ অফলাইন বা গুগল স্ক্রিপ্ট কানেকশনে সমস্যা রয়েছে।</p>
+                    </div>`;
                 });
         }
 
@@ -328,21 +499,19 @@
                     document.querySelectorAll('.pin-lock-field').forEach(p => p.value = "");
                     loadApplicationEngine();
                     switchScreen('home');
-                } else { alert("সার্ভার থেকে ইরর রেসপন্স এসেছে।"); }
-            }).catch(e => alert("নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।"));
+                } else { alert("সার্ভার রেসপন্স ইরর।"); }
+            }).catch(e => alert("নেটওয়ার্ক সমস্যা! আপনার ফর্মটি সাবমিট করা যায়নি।"));
         }
 
         function handleUserFormSubmit(e, formActionType) {
             e.preventDefault();
             const inputs = e.target.querySelectorAll('input, select, textarea');
-            let payload = {
-                action: formActionType,
-                field1: inputs[0] ? inputs[0].value : "",
-                field2: inputs[1] ? inputs[1].value : "",
-                field3: inputs[2] ? inputs[2].value : "",
-                field4: inputs[3] ? inputs[3].value : ""
-            };
-            executePostAction(payload, "আবেদনটি সফলভাবে জমা হয়েছে!");
+            let formData = {};
+            inputs.forEach((input, index) => {
+                formData["field" + (index + 1)] = input.value;
+            });
+            let payload = { action: formActionType, ...formData };
+            executePostAction(payload, "আপনার আবেদনটি সফলভাবে সিস্টেমে জমা হয়েছে!");
             e.target.reset();
         }
 
@@ -388,7 +557,6 @@
             e.target.reset();
         }
 
-        // পেজ লোড হওয়ার সাথে সাথে রেন্ডার শুরু হবে
         window.addEventListener("DOMContentLoaded", () => {
             loadApplicationEngine();
         });
