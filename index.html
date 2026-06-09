@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO)</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- html2pdf for PDF Export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         html { scroll-behavior: smooth; }
@@ -20,7 +17,6 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
-    <!-- 🌐 NAVIGATION BAR -->
     <nav class="bg-emerald-600 text-white sticky top-0 z-50 shadow-md">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#" class="text-xl font-bold flex items-center gap-2">
@@ -30,47 +26,41 @@
                 <a href="#home" class="hover:text-yellow-200">হোম</a>
                 <a href="#about" class="hover:text-yellow-200">পরিচিতি</a>
                 <a href="#structure" class="hover:text-yellow-200">সাংগঠনিক কাঠামো</a>
-                <a href="#blood" class="hover:text-yellow-200">রکتদান</a>
+                <a href="#blood" class="hover:text-yellow-200">বিশ্বব্যাপী রক্তদাতা সন্ধান</a>
                 <a href="#contact" class="hover:text-yellow-200">যোগাযোগ</a>
                 <button onclick="openAdminPanel()" class="bg-yellow-400 text-emerald-900 px-4 py-1.5 rounded-lg hover:bg-yellow-300 transition"><i class="fa-solid fa-lock mr-1"></i>অ্যাডমিন ড্যাশবোর্ড</button>
             </div>
         </div>
     </nav>
 
-    <!-- ১৩. HOMEPAGE LAYOUT SECTION -->
-    
-    <!-- 1. Banner -->
     <header id="home" class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white py-20 px-6 text-center">
         <h1 class="text-3xl md:text-5xl font-extrabold mb-3">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO)</h1>
         <p class="text-base md:text-lg max-w-2xl mx-auto mb-6 text-emerald-100">একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২১ সালের ৪ঠা জুন কক্সবাজারে একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়।</p>
-        <div class="flex justify-center gap-4">
+        <div class="flex justify-center gap-4 flex-wrap">
             <a href="#about" class="bg-yellow-400 text-emerald-900 px-5 py-2.5 rounded-lg font-bold hover:bg-yellow-300 transition shadow-md">পরিচিতি</a>
-            <a href="#blood" class="bg-red-600 text-white px-5 py-2.5 rounded-lg font-bold hover:bg-red-700 transition shadow-md">রক্তদান কর্মসূচি</a>
+            <a href="#blood" class="bg-red-600 text-white px-5 py-2.5 rounded-lg font-bold hover:bg-red-700 transition shadow-md"><i class="fa-solid fa-droplet mr-1"></i>রক্তদাতা খুঁজুন / হোন</a>
         </div>
     </header>
 
-    <!-- 2. Notice Board -->
     <section class="container mx-auto px-6 mt-[-30px] relative z-10">
         <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div class="flex items-center gap-3">
                 <span class="bg-amber-500 text-white text-xs px-2.5 py-1 rounded-full font-bold uppercase tracking-wider animate-pulse">নোটিশ</span>
-                <p id="notice-text" class="text-sm font-semibold text-amber-900">আসন্ন রক্তদান ও ফ্রি মেডিকেল ক্যাম্পের জন্য সকল সদস্যকে প্রস্তুতি নেওয়ার অনুরোধ করা হচ্ছে।</p>
+                <p id="notice-text" class="text-sm font-semibold text-amber-900">আসন্ন বিশ্ব রক্তদাতা দিবস উপলক্ষে স্বপ্নতরী (SVYO) ফ্রি ক্যাম্পের আয়োজন করতে যাচ্ছে।</p>
             </div>
             <span class="text-xs text-amber-600 font-mono">তারিখ: ২০২৬-০৬-০৯</span>
         </div>
     </section>
 
-    <!-- 3. Statistics Dashboard -->
     <section class="container mx-auto px-6 py-12">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div class="stat-card"><h2 id="stat-members">0</h2><p>মোট সদস্য</p></div>
-            <div class="stat-card border-t-4 border-red-500"><h2 id="stat-blood">0</h2><p>রক্তদাতা</p></div>
+            <div class="stat-card border-t-4 border-red-500"><h2 id="stat-blood">0</h2><p>গ্লোবাল রক্তদাতা</p></div>
             <div class="stat-card border-t-4 border-blue-500"><h2 id="stat-founders">0</h2><p>প্রতিষ্ঠাতা সদস্য</p></div>
             <div class="stat-card border-t-4 border-purple-500"><h2 id="stat-executive">0</h2><p>নির্বাহী সদস্য</p></div>
         </div>
     </section>
 
-    <!-- 4. About Organization & 5. Working Area -->
     <section id="about" class="container mx-auto px-6 py-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div class="lg:col-span-2 card">
             <h3 class="text-2xl font-bold text-emerald-800 mb-4"><i class="fa-solid fa-bookmark mr-2"></i>সংগঠন পরিচিতি</h3>
@@ -88,7 +78,6 @@
             </ul>
         </div>
         
-        <!-- 2. working Area Markup -->
         <div class="card">
             <h3 class="text-xl font-bold text-emerald-800 mb-4"><i class="fa-solid fa-map-location-dot mr-2"></i>কার্য এলাকা</h3>
             <p class="text-xs text-gray-500 mb-3">কক্সবাজার জেলার সকল উপজেলা। পর্যায়ক্রমে সারা বাংলাদেশ ও আন্তর্জাতিক পর্যায়ে কার্যক্রম পরিচালনার পরিকল্পনা রয়েছে।</p>
@@ -105,40 +94,92 @@
         </div>
     </section>
 
-    <!-- 6. & 12. Organization Structure & Panels -->
+    <section id="blood" class="bg-red-50 py-16 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <h3 class="text-3xl font-bold text-center text-red-700 mb-2"><i class="fa-solid fa-heart-pulse mr-2"></i>বিশ্বব্যাপী রক্তদাতা সন্ধান ও নিবন্ধন কেন্দ্র</h3>
+            <p class="text-center text-gray-600 mb-10 max-w-xl mx-auto text-sm">বিশ্বের যেকোনো প্রান্ত থেকে রক্তের গ্রুপ দিয়ে ডোনার খুঁজুন অথবা মানবতার কল্যাণে একজন গর্বিত রক্তদাতা হিসেবে নিজেকে রেজিস্টার্ড করুন।</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-red-600 lg:col-span-1">
+                    <h4 class="font-bold text-gray-800 text-lg mb-4 text-center"><i class="fa-solid fa-user-plus text-red-600 mr-2"></i>রক্তদাতা ফর্ম</h4>
+                    <form id="publicDonorForm" onsubmit="registerPublicDonor(event)" class="space-y-3.5 text-xs">
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-1">রক্তদাতার নাম (Donor Name) *</label>
+                            <input type="text" id="dName" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-400 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-1">রক্তের গ্রুপ (Blood Group) *</label>
+                            <select id="dBlood" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-400 outline-none">
+                                <option value="">নির্বাচন করুন</option>
+                                <option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option>
+                                <option value="A-">A-</option><option value="B-">B-</option><option value="O-">O-</option><option value="AB-">AB-</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block font-bold text-gray-700 mb-1">শেষ রক্তদানের তারিখ</label>
+                                <input type="date" id="dLastDate" oninput="calculateNextDate()" class="w-full p-2 border rounded-lg outline-none">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-gray-700 mb-1">সম্ভাব্য পরবর্তী তারিখ</label>
+                                <input type="date" id="dNextDate" readonly class="w-full p-2 bg-gray-50 border rounded-lg outline-none text-red-600 font-bold">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-1">ঠিকানা (Address - বিশ্বব্যাপী যেকোনো স্থান) *</label>
+                            <input type="text" id="dAddress" placeholder="গ্রাম/শহর, উপজেলা, জেলা, দেশ" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-400 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-1">মোবাইল নাম্বার (Mobile No) *</label>
+                            <input type="tel" id="dPhone" placeholder="01XXXXXXXXX" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-400 outline-none">
+                        </div>
+                        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold p-3 rounded-lg text-sm shadow-md transition mt-2">নিবন্ধন সম্পন্ন করুন</button>
+                    </form>
+                </div>
+
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border flex flex-col md:flex-row gap-3">
+                        <div class="w-full md:w-1/3">
+                            <select id="globalBloodFilter" onchange="searchGlobalDonors()" class="w-full p-3 border rounded-xl outline-none focus:ring-2 focus:ring-red-400 font-bold text-red-600">
+                                <option value="">সব রক্তের গ্রুপ (All Groups)</option>
+                                <option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option>
+                                <option value="A-">A-</option><option value="B-">B-</option><option value="O-">O-</option><option value="AB-">AB-</option>
+                            </select>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <input type="text" id="globalAddressFilter" oninput="searchGlobalDonors()" placeholder="বিশ্বের যেকোনো দেশ, জেলা, উপজেলা বা ঠিকানা লিখে খুঁজুন..." class="w-full p-3 border rounded-xl outline-none focus:ring-2 focus:ring-red-400">
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs md:text-sm">
+                                <thead class="bg-red-600 text-white">
+                                    <tr>
+                                        <th class="p-4">রক্তদাতার নাম</th>
+                                        <th class="p-4 text-center">গ্রুপ</th>
+                                        <th class="p-4">ঠিকানা/লোকেশন</th>
+                                        <th class="p-4">শেষ দান</th>
+                                        <th class="p-4">পরবর্তী দান</th>
+                                        <th class="p-4">যোগাযোগ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="globalDonorTableBody" class="divide-y divide-gray-100">
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="structure" class="container mx-auto px-6 py-12">
         <h3 class="text-2xl font-bold text-center text-emerald-800 mb-8"><i class="fa-solid fa-sitemap mr-2"></i>সাংগঠনিক কাঠামো প্যানেল</h3>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="panel-container">
-            <!-- Panels injected dynamically by JavaScript -->
-        </div>
+            </div>
     </section>
 
-    <!-- Blood Donation Section -->
-    <section id="blood" class="bg-red-50 py-12 px-6">
-        <div class="container mx-auto max-w-4xl">
-            <h3 class="text-2xl font-bold text-center text-red-700 mb-6"><i class="fa-solid fa-heart-pulse mr-2"></i>রক্তদান কর্মসূচি ও জরুরি সন্ধান</h3>
-            <div class="bg-white p-4 rounded-xl shadow-sm flex flex-col md:flex-row gap-4 mb-6">
-                <!-- 11. Search Member System -->
-                <input type="text" id="member-search" oninput="searchMembers()" placeholder="সদস্য নং, নাম, মোবাইল বা NID দিয়ে খুঁজুন..." class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500">
-            </div>
-            <div class="bg-white rounded-xl shadow-md overflow-x-auto">
-                <table class="w-full text-left">
-                    <thead class="bg-red-600 text-white text-sm">
-                        <tr>
-                            <th class="p-3">আইডি</th>
-                            <th class="p-3">নাম</th>
-                            <th class="p-3">গ্রুপ</th>
-                            <th class="p-3">উপজেলা</th>
-                            <th class="p-3">যোগাযোগ</th>
-                        </tr>
-                    </thead>
-                    <tbody id="publicDonorTable" class="text-sm"></tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. Google Map Location & 5. Contact Section -->
     <section id="contact" class="container mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div class="card">
             <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fa-solid fa-location-dot mr-2"></i>গুগল ম্যাপ লোকেশন</h3>
@@ -151,337 +192,25 @@
                 <p class="flex items-center gap-2"><strong>📞 ফোন:</strong> 01839-369388</p>
                 <p class="flex items-center gap-2"><strong>📧 ইমেইল:</strong> swapnataricoxbd@gmail.com</p>
                 <p class="bg-emerald-50 p-3 rounded-lg"><strong>🏢 প্রধান কার্যালয়:</strong> সোনাআলী ভবন, দক্ষিণ রুমালিয়ার ছরা, পৌরসভা, কক্সবাজার।</p>
-                <p class="bg-amber-50 p-3 rounded-lg"><strong>🏫 অস্থায়ী কার্যালয়:</strong> সাওতুল কুরআন ইন্টারন্যাশনাল হিফয মাদরাসা, কক্সবাজার।</p>
+                <p class="bg-amber-50 p-3 rounded-lg"><strong>🏫 অস্থায়ী কার্যালয়:</strong>  সাওতুল কুরআন ইন্টারন্যাশনাল হিফয মাদরাসা, কক্সবাজার।</p>
             </div>
         </div>
     </section>
 
-    <!-- 📋 ADMIN PANEL MODAL (SECURE FRAMEWORK) -->
     <div id="adminPanelModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden backdrop-blur-sm">
         <div class="bg-white w-full max-w-6xl h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col">
-            <!-- Header -->
             <div class="bg-emerald-700 text-white p-4 flex justify-between items-center">
-                <h3 class="font-bold text-lg"><i class="fa-solid fa-gauge mr-2"></i>SVYO প্রফেশনাল ড্যাশবোর্ড</h3>
-                <button onclick="closeAdminPanel()" class="text-2xl hover:text-red-300 font-bold">&times;</button>
+                <h3 class="font-bold text-lg"><i class="fa-solid fa-gauge mr-2"></i>SVYO প্রফেশনাল ড্যাশবোর্ড প্যানেল</h3>
+                <button onclick="closeAdminPanel()" class="text-2xl hover:text-red-300 font-bold">×</button>
             </div>
             
-            <!-- Auth Login Panel (Safe Gateway Placeholder) -->
             <div id="adminAuthGate" class="p-8 max-w-md mx-auto text-center my-auto space-y-4">
                 <i class="fa-solid fa-shield-halved text-5xl text-emerald-600"></i>
                 <h4 class="text-xl font-bold">নিরাপদ ড্যাশবোর্ড লগইন</h4>
-                <p class="text-xs text-gray-500">Firebase Role Based Access এনভায়রনমেন্ট গেটওয়ে। ডেমো অ্যাক্সেসের জন্য সাবমিট করুন।</p>
+                <p class="text-xs text-gray-500">Role Based Access এনভায়রনমেন্ট গেটওয়ে। ডেমো অ্যাক্সেসের জন্য সাবমিট করুন।</p>
                 <input type="password" id="securePass" placeholder="অ্যাডমিন সিকিউরিটি কোড দিন" class="w-full p-2.5 border rounded-lg text-center">
                 <button onclick="verifyAdminAuth()" class="w-full bg-emerald-600 text-white p-2 rounded font-bold hover:bg-emerald-700">লগইন করুন</button>
             </div>
 
-            <!-- Main Dashboard View (Hidden by default) -->
             <div id="adminDashboardView" class="hidden flex-1 flex overflow-hidden">
-                <!-- Sidebar Navigation -->
-                <div class="w-64 bg-gray-900 text-gray-300 p-4 space-y-2 text-sm">
-                    <p class="text-xs font-bold text-gray-500 uppercase px-2 tracking-wider">ম্যানেজমেন্ট</p>
-                    <button class="w-full text-left p-2.5 rounded bg-emerald-800 text-white font-semibold"><i class="fa-solid fa-users mr-2"></i>সদস্য ও রক্তদাতা তালিকা</button>
-                    <button onclick="alert('ফিচারটি ফায়ারবেজ কানেকশনের পর লাইভ হবে')" class="w-full text-left p-2.5 rounded hover:bg-gray-800"><i class="fa-solid fa-bullhorn mr-2"></i>নোটিশ বোর্ড</button>
-                    <button onclick="alert('রিপোর্ট মডিউল রেডি')" class="w-full text-left p-2.5 rounded hover:bg-gray-800"><i class="fa-solid fa-file-invoice-dollar mr-2"></i>আর্থিক রিপোর্ট</button>
-                </div>
-
-                <!-- Admin Workspace -->
-                <div class="flex-1 p-6 overflow-y-auto space-y-6">
-                    <!-- 9. Admin Edit / Add Form -->
-                    <div class="bg-gray-50 p-5 rounded-xl border">
-                        <h4 class="font-bold text-gray-800 mb-4"><i class="fa-solid fa-user-plus mr-2"></i>নতুন সদস্য নিবন্ধন / তথ্য হালনাগাদ ফরম</h4>
-                        <form id="memberForm" onsubmit="saveMember(event)" class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
-                            <div><label class="block font-bold mb-1">নাম *</label><input type="text" id="regName" required class="w-full p-2 border rounded"></div>
-                            <div><label class="block font-bold mb-1">পিতার নাম</label><input type="text" id="regFather" class="w-full p-2 border rounded"></div>
-                            <div><label class="block font-bold mb-1">মাতার নাম</label><input type="text" id="regMother" class="w-full p-2 border rounded"></div>
-                            <div><label class="block font-bold mb-1">মোবাইল *</label><input type="tel" id="regPhone" required class="w-full p-2 border rounded"></div>
-                            <div>
-                                <label class="block font-bold mb-1">রক্তের গ্রুপ *</label>
-                                <select id="regBlood" required class="w-full p-2 border rounded">
-                                    <option value="O+">O+</option><option value="A+">A+</option><option value="B+">B+</option><option value="AB+">AB+</option>
-                                    <option value="O-">O-</option><option value="A-">A-</option><option value="B-">B-</option><option value="AB-">AB-</option>
-                                </select>
-                            </div>
-                            <div><label class="block font-bold mb-1">NID নাম্বার</label><input type="text" id="regNid" class="w-full p-2 border rounded"></div>
-                            <div><label class="block font-bold mb-1">গ্রাম</label><input type="text" id="regVillage" class="w-full p-2 border rounded"></div>
-                            <div><label class="block font-bold mb-1">ইউনিয়ন</label><input type="text" id="regUnion" class="w-full p-2 border rounded"></div>
-                            <div><label class="block font-bold mb-1">উপজেলা</label><input type="text" id="regUpazila" class="w-full p-2 border rounded"></div>
-                            <div><label class="block font-bold mb-1">জেলা</label><input type="text" id="regDistrict" value="কক্সবাজার" class="w-full p-2 border rounded"></div>
-                            <div><label class="block font-bold mb-1">বিভাগ</label><input type="text" id="regDivision" value="চট্টগ্রাম" class="w-full p-2 border rounded"></div>
-                            <div>
-                                <label class="block font-bold mb-1">সাংগঠনিক প্যানেল</label>
-                                <select id="regPanel" class="w-full p-2 border rounded">
-                                    <option value="Founders Council">Founders Council</option>
-                                    <option value="Executive Body">Executive Body</option>
-                                    <option value="Adviser Body">Adviser Body</option>
-                                    <option value="General Members">General Members</option>
-                                </select>
-                            </div>
-                            <div><label class="block font-bold mb-1">পদবী/রোল</label><input type="text" id="regRole" placeholder="যেমন: Founder & CEO" class="w-full p-2 border rounded"></div>
-                            <div><label class="block font-bold mb-1">ছবির লিঙ্ক (URL)</label><input type="text" id="regImg" placeholder="https://example.com/photo.jpg" class="w-full p-2 border rounded"></div>
-                            <div class="md:col-span-4 flex justify-end pt-2">
-                                <button type="submit" class="bg-emerald-600 text-white px-6 py-2 rounded font-bold hover:bg-emerald-700 text-sm">তথ্য ডাটাবেজে সংরক্ষণ করুন</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- Member Table Management View -->
-                    <div class="bg-white rounded-xl border overflow-hidden">
-                        <div class="p-4 bg-gray-100 font-bold text-gray-700 flex justify-between items-center text-sm">
-                            <span>নিবন্ধিত সদস্য ডাটাবেজ তালিকা</span>
-                            <span class="text-xs text-emerald-600 font-mono">টোটাল ডেটা রিয়েলটাইম লুপড</span>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs">
-                                <thead class="bg-gray-200">
-                                    <tr>
-                                        <th class="p-3">সদস্য আইডি</th>
-                                        <th class="p-3">নাম</th>
-                                        <th class="p-3">মোবাইল</th>
-                                        <th class="p-3">রক্ত</th>
-                                        <th class="p-3">প্যানেল/পদবী</th>
-                                        <th class="p-3">অ্যাকশন</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="adminMemberTable"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 8. MEMBER ID CARD VIEW MODAL -->
-    <div id="idCardModal" class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center hidden">
-        <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm w-full text-center space-y-4">
-            <div id="id-card-capture" class="border-2 border-emerald-600 p-4 rounded-xl bg-gradient-to-b from-emerald-50 to-white relative">
-                <div class="text-emerald-700 font-extrabold text-sm border-b pb-2 mb-3 tracking-wider">SVYO ID CARD</div>
-                <img id="card-img" src="https://via.placeholder.com/100" class="w-24 h-24 mx-auto rounded-full border-2 border-emerald-500 object-cover mb-3">
-                <div class="space-y-1 text-xs">
-                    <p class="text-gray-400 font-mono">Member No: <span id="card-no" class="font-bold text-gray-800"></span></p>
-                    <h5 id="card-name" class="text-base font-bold text-emerald-900 pt-1"></h5>
-                    <p class="text-amber-600 font-semibold" id="card-designation"></p>
-                    <div class="grid grid-cols-2 gap-1 pt-3 border-t text-[11px] text-gray-600">
-                        <p class="text-left"><strong>Blood:</strong> <span id="card-blood" class="text-red-600 font-bold"></span></p>
-                        <p class="text-right"><strong>Phone:</strong> <span id="card-phone"></span></p>
-                    </div>
-                </div>
-                <div class="text-[9px] text-gray-400 mt-4 pt-1 border-t">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</div>
-            </div>
-            <div class="flex gap-2">
-                <button onclick="printIdCard()" class="flex-1 bg-blue-600 text-white p-2 rounded text-xs font-bold hover:bg-blue-700"><i class="fa-solid fa-print mr-1"></i>Print</button>
-                <button onclick="exportIdCardPDF()" class="flex-1 bg-emerald-600 text-white p-2 rounded text-xs font-bold hover:bg-emerald-700"><i class="fa-solid fa-file-pdf mr-1"></i>Export PDF</button>
-                <button onclick="closeIdCardModal()" class="bg-gray-300 p-2 rounded text-xs">বন্ধ করুন</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 📄 FOOTER -->
-    <footer class="bg-gray-900 text-gray-500 py-6 text-center text-xs border-t border-gray-800">
-        <p>&copy; ২০২৬ স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO)। সর্বস্বত্ব সংরক্ষিত।</p>
-    </footer>
-
-    <!-- ⚙️ JAVASCRIPT LOGIC (ENGINE & ARCHITECTURE) -->
-    <script>
-        // ৬. Category Panels
-        const PANELS = ["Founders Council", "Executive Body", "Adviser Body", "General Members"];
-        
-        // মেম্বারদের মূল গ্লোবাল স্টেট ভেরিয়েবল
-        let nextMemberNo = 210001;
-        let membersData = [
-            { memberNo: "SVYO-210001", name: "Mohammad Riaz", father: "Abdul Alim", mother: "Rasheda Begum", phone: "01839369388", blood: "O+", nid: "19982211XXXXX", village: "দক্ষিণ রুমালিয়ার ছরা", union: "পৌরসভা", upazila: "কক্সবাজার সদর", district: "কক্সবাজার", division: "চট্টগ্রাম", panel: "Founders Council", role: "Founder & CEO", img: "https://via.placeholder.com/150" },
-            { memberNo: "SVYO-210002", name: "আরিফুর রহমান", father: "", mother: "", phone: "01839369389", blood: "B+", nid: "", village: "চকরিয়া", union: "চকরিয়া", upazila: "চকরিয়া", district: "কক্সবাজার", division: "চট্টগ্রাম", panel: "Executive Body", role: "President", img: "" }
-        ];
-
-        // লোড ম্যানেজার
-        window.onload = function() {
-            renderPanels();
-            updateStatistics();
-            refreshTables(membersData);
-        };
-
-        // ড্যাশবোর্ড স্ট্যাটিস্টিক ক্যালকুলেটর
-        function updateStatistics() {
-            document.getElementById('stat-members').innerText = membersData.length;
-            document.getElementById('stat-blood').innerText = membersData.filter(m => m.blood).length;
-            document.getElementById('stat-founders').innerText = membersData.filter(m => m.panel === "Founders Council").length;
-            document.getElementById('stat-executive').innerText = membersData.filter(m => m.panel === "Executive Body").length;
-        }
-
-        // প্যানেল ভিত্তিক স্ট্রাকচার জেনারেটর
-        function renderPanels() {
-            const container = document.getElementById('panel-container');
-            container.innerHTML = '';
-            PANELS.forEach(panel => {
-                container.innerHTML += `
-                    <div class="card bg-emerald-50/50">
-                        <h4 class="font-bold text-sm text-emerald-900 border-b pb-2 mb-3">${panel}</h4>
-                        <ul class="space-y-1.5 text-xs text-gray-700" id="list-${panel.replace(/\s+/g, '')}"></ul>
-                    </div>
-                `;
-            });
-            buildStructureTree();
-        }
-
-        function buildStructureTree() {
-            PANELS.forEach(panel => {
-                const listEl = document.getElementById(`list-${panel.replace(/\s+/g, '')}`);
-                if(listEl) {
-                    const filtered = membersData.filter(m => m.panel === panel);
-                    listEl.innerHTML = filtered.length ? '' : '<span class="text-gray-400 italic">কোনো সদস্য নেই</span>';
-                    filtered.forEach(m => {
-                        listEl.innerHTML += `<li class="flex justify-between"><span>${m.name}</span><span class="text-emerald-700 font-semibold">${m.role || 'সদস্য'}</span></li>`;
-                    });
-                }
-            });
-        }
-
-        // ১১. Search Member Function (Real-time Filter)
-        function searchMembers() {
-            const query = document.getElementById('member-search').value.toLowerCase();
-            const filtered = membersData.filter(m => 
-                m.memberNo.toLowerCase().includes(query) || 
-                m.name.toLowerCase().includes(query) || 
-                m.phone.includes(query) || 
-                (m.nid && m.nid.includes(query))
-            );
-            refreshTables(filtered);
-        }
-
-        function refreshTables(data) {
-            // পাবলিক রেন্ডারিং
-            const pubBody = document.getElementById('publicDonorTable');
-            pubBody.innerHTML = '';
-            data.forEach(m => {
-                pubBody.innerHTML += `
-                    <tr class="border-b">
-                        <td class="p-3 font-mono">${m.memberNo}</td>
-                        <td class="p-3 font-semibold">${m.name}</td>
-                        <td class="p-3 text-red-600 font-bold">${m.blood}</td>
-                        <td class="p-3 text-gray-600">${m.upazila || 'কক্সবাজার'}</td>
-                        <td class="p-3"><a href="tel:${m.phone}" class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-xs font-bold"><i class="fa-solid fa-phone"></i> কল</a></td>
-                    </tr>
-                `;
-            });
-
-            // অ্যাডমিন রেন্ডারিং
-            const admBody = document.getElementById('adminMemberTable');
-            if(admBody) {
-                admBody.innerHTML = '';
-                data.forEach(m => {
-                    admBody.innerHTML += `
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="p-3 font-mono">${m.memberNo}</td>
-                            <td class="p-3 font-bold text-gray-800">${m.name}</td>
-                            <td class="p-3 text-gray-600">${m.phone}</td>
-                            <td class="p-3 text-red-500 font-bold">${m.blood}</td>
-                            <td class="p-3">${m.panel} (${m.role || 'N/A'})</td>
-                            <td class="p-3 flex gap-2">
-                                <button onclick="openIdCard('${m.memberNo}')" class="text-blue-600 hover:underline"><i class="fa-solid fa-id-card"></i> আইডি কার্ড</button>
-                                <button onclick="deleteMember('${m.memberNo}')" class="text-red-500 hover:text-red-700 ml-2"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    `;
-                });
-            }
-        }
-
-        // ৭. Member ID Auto Generator & ৯. Save System
-        function saveMember(e) {
-            e.preventDefault();
-            
-            // অটো আইডি নির্ধারণ
-            const calculatedNo = "SVYO-" + (nextMemberNo + membersData.length);
-
-            const newMember = {
-                memberNo: calculatedNo,
-                name: document.getElementById('regName').value,
-                father: document.getElementById('regFather').value,
-                mother: document.getElementById('regMother').value,
-                phone: document.getElementById('regPhone').value,
-                blood: document.getElementById('regBlood').value,
-                nid: document.getElementById('regNid').value,
-                village: document.getElementById('regVillage').value,
-                union: document.getElementById('regUnion').value,
-                upazila: document.getElementById('regUpazila').value,
-                district: document.getElementById('regDistrict').value,
-                division: document.getElementById('regDivision').value,
-                panel: document.getElementById('regPanel').value,
-                role: document.getElementById('regRole').value,
-                img: document.getElementById('regImg').value || "https://via.placeholder.com/150"
-            };
-
-            membersData.push(newMember);
-            document.getElementById('memberForm').reset();
-            
-            updateStatistics();
-            renderPanels();
-            refreshTables(membersData);
-            alert(`সদস্য সফলভাবে নিবন্ধিত। আইডি নং: ${calculatedNo}`);
-        }
-
-        function deleteMember(id) {
-            if(confirm("আপনি কি নিশ্চিতভাবে এই ডেটা মুছে ফেলতে চান?")) {
-                membersData = membersData.filter(m => m.memberNo !== id);
-                updateStatistics();
-                renderPanels();
-                refreshTables(membersData);
-            }
-        }
-
-        // ৮. ID Card Visualizer
-        function openIdCard(id) {
-            const member = membersData.find(m => m.memberNo === id);
-            if(!member) return;
-
-            document.getElementById('card-no').innerText = member.memberNo;
-            document.getElementById('card-name').innerText = member.name;
-            document.getElementById('card-designation').innerText = member.role || "Volunteer";
-            document.getElementById('card-blood').innerText = member.blood;
-            document.getElementById('card-phone').innerText = member.phone;
-            document.getElementById('card-img').src = member.img || "https://via.placeholder.com/100";
-
-            document.getElementById('idCardModal').classList.remove('hidden');
-        }
-
-        function closeIdCardModal() { document.getElementById('idCardModal').classList.add('hidden'); }
-
-        // PDF Export & Print Engine
-        function printIdCard() {
-            const cardContent = document.getElementById('id-card-capture').innerHTML;
-            const originalContent = document.body.innerHTML;
-            document.body.innerHTML = `<div style="display:flex; justify-content:center; align-items:center; height:100vh;">${cardContent}</div>`;
-            window.print();
-            document.body.innerHTML = originalContent;
-            window.location.reload(); 
-        }
-
-        function exportIdCardPDF() {
-            const element = document.getElementById('id-card-capture');
-            const opt = {
-                margin:       0.5,
-                filename:     `SVYO-ID-${document.getElementById('card-no').innerText}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-            html2pdf().set(opt).from(element).save();
-        }
-
-        // নিরাপদ সিকিউরিটি গেটওয়ে প্যানেল কন্ট্রোল
-        function openAdminPanel() { document.getElementById('adminPanelModal').classList.remove('hidden'); }
-        function closeAdminPanel() { document.getElementById('adminPanelModal').classList.add('hidden'); }
-
-        function verifyAdminAuth() {
-            const pass = document.getElementById('securePass').value;
-            // এটি সাময়িক এনক্রিপশন লজিক ফ্রেমওয়ার্ক, প্রোডাকশনে Firebase Auth API দ্বারা রিপ্লেস হবে
-            if(btoa(pass) === "OTM4ODA5Mw==") { 
-                document.getElementById('adminAuthGate').classList.add('hidden');
-                document.getElementById('adminDashboardView').classList.remove('hidden');
-            } else {
-                alert("ভুল সিকিউরিটি কোড! সঠিক অনুমোদন ছাড়া প্রবেশ নিষিদ্ধ।");
-            }
-        }
-    </script>
-</body>
-</html>
+                <div class="w-64 bg-gray-900 text-gray-300
