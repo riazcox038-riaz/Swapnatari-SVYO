@@ -82,10 +82,10 @@
 
         /* Stats Component */
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; }
-        .stat-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 12px 8px; text-align: center; }
-        .stat-card i { font-size: 20px; margin-bottom: 6px; }
-        .stat-card .num { font-size: 16px; font-weight: 700; color: #fff; }
-        .stat-card .label { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+        .stats-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 12px 8px; text-align: center; }
+        .stats-card i { font-size: 20px; margin-bottom: 6px; }
+        .stats-card .num { font-size: 16px; font-weight: 700; color: #fff; }
+        .stats-card .label { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
 
         /* UI Forms */
         .form-group { margin-bottom: 15px; }
@@ -157,7 +157,7 @@
     <!-- Live Ticker Bar -->
     <div class="notice-ticker">
         <span>নোটিশ</span>
-        <marquee id="live-marquee-notice" behavior="scroll" direction="left">স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন গ্লোবাল নেটওয়ার্কিং পোর্টালে আপনাকে স্বাগতম।</marquee>
+        <marquee id="live-marquee-notice" behavior="scroll" direction="left">লোড হচ্ছে...</marquee>
     </div>
 
     <!-- Security Top Control Panel -->
@@ -222,17 +222,17 @@
 
             <div class="section-title"><i class="fas fa-chart-bar"></i> আমাদের রিয়েল-টাইম ইমপ্যাক্ট</div>
             <div class="stats-grid">
-                <div class="stat-card" style="border-bottom: 3px solid #ff4757;">
+                <div class="stats-card" style="border-bottom: 3px solid #ff4757;">
                     <i class="fas fa-tint" style="color:#ff4757;"></i>
                     <div class="num" id="stat-blood">০</div>
                     <div class="label">রক্তদাতা সক্রিয়</div>
                 </div>
-                <div class="stat-card" style="border-bottom: 3px solid var(--primary);">
+                <div class="stats-card" style="border-bottom: 3px solid var(--primary);">
                     <i class="fas fa-users" style="color:var(--primary);"></i>
                     <div class="num" id="stat-members">০</div>
                     <div class="label">মোট সদস্য</div>
                 </div>
-                <div class="stat-card" style="border-bottom: 3px solid var(--secondary);">
+                <div class="stats-card" style="border-bottom: 3px solid var(--secondary);">
                     <i class="fas fa-project-diagram" style="color:var(--secondary);"></i>
                     <div class="num" id="stat-projects">২৫+</div>
                     <div class="label">সফল প্রজেক্ট</div>
@@ -258,7 +258,7 @@
             <div class="section-title"><i class="fas fa-shield-alt"></i> ৩. কার্যকরী পরিষদ (Executive Committee)</div>
             <div class="grid-2" id="executive-render-box" style="margin-bottom:20px;"></div>
 
-            <div class="section-title"><i class="fas fa-users"></i> ৪. সাধারণ সদস্য ও ভলান্টিয়ার্স পর্ষদ</div>
+            <div class="section-title"><i class="fas fa-users"></i> ৪. সাধারণ সদস্য ও ভলান্টিয়ারส์ পর্ষদ</div>
             <div class="grid-2" id="general-render-box" style="margin-bottom:20px;"></div>
 
             <div class="section-title"><i class="fas fa-id-badge"></i> ৫. ডিজিটাল ডিরেক্টরি মাস্টার টেবিল (একত্রে সকল ডাটা)</div>
@@ -279,7 +279,7 @@
 
         <!-- SCREEN 3: REGISTRATION FORMS -->
         <div id="screen-forms" class="app-screen">
-            <div class="section-title"><i class="fas fa-user-plus"></i> গ্লোবাল সদস্যপদ আবেদন ফরম (বিশ্বের যেকোনো প্রান্ত থেকে)</div>
+            <div class="section-title"><i class="fas fa-user-plus"></i> গ্লোবাল সদস্যপদ আবেদন ফরম</div>
             <div class="card">
                 <form id="main-member-form" onsubmit="handlePublicRegistration(event)">
                     <input type="hidden" id="form-member-id">
@@ -298,7 +298,7 @@
                         <div class="form-group"><label>এনআইডি / জন্ম নিবন্ধন নম্বর</label><input type="number" id="reg-nid" class="form-control" required></div>
                     </div>
                     <div class="grid-2">
-                        <div class="form-group"><label>মোবাইল নম্বর (হোয়াটসঅ্যাপ সহ)</label><input type="tel" id="reg-phone" class="form-control" placeholder="যেমন: +88018..." required></div>
+                        <div class="form-group"><label>মোবাইল নম্বর (হোয়াটসঅ্যাপ সহ)</label><input type="tel" id="reg-phone" class="form-control" required></div>
                         <div class="form-group"><label>টার্গেট পর্ষদ ক্যাটাগরি</label>
                             <select id="reg-panel" class="form-control" required>
                                 <option value="Founder">প্রতিষ্ঠাতা পরিষদ</option>
@@ -309,7 +309,13 @@
                         </div>
                     </div>
                     <div class="form-group"><label>আকাঙ্ক্ষিত পদবী</label><input type="text" id="reg-role" class="form-control" placeholder="যেমন: কার্যকরী সদস্য, ভলান্টিয়ার ইত্যাদি" required></div>
-                    <div class="form-group"><label>প্রোফাইল ছবির ক্লাউড লিংক (Image Link)</label><input type="url" id="reg-img" class="form-control" placeholder="https://example.com/your-photo.jpg" required></div>
+                    
+                    <!-- ফাইল আপলোডার ইঞ্জিন (মেম্বার ফর্ম) -->
+                    <div class="form-group">
+                        <label>প্রোফাইল ছবি আপলোড করুন (PNG/JPG - ঐচ্ছিক)</label>
+                        <input type="file" id="reg-img-file" class="form-control" accept="image/*">
+                    </div>
+                    
                     <button type="submit" id="submit-member-btn" class="btn btn-primary btn-block">আবেদনপত্র সাবমিট করুন</button>
                 </form>
             </div>
@@ -336,8 +342,13 @@
                         <div class="form-group"><label>মোবাইল নাম্বার</label><input type="tel" id="don-phone" class="form-control" required></div>
                     </div>
                     <div class="grid-2">
-                        <div class="form-group"><label>ঠিকানা / উপজেলা / দেশ</label><input type="text" id="don-dist" class="form-control" placeholder="যেমন: কক্সবাজার সদর / ঢাকা / ওমান" required></div>
-                        <div class="form-group"><label>ছবির লিংক</label><input type="url" id="don-img" class="form-control" placeholder="https://example.com/donor.jpg" required></div>
+                        <div class="form-group"><label>ঠিকানা / উপজেলা / দেশ</label><input type="text" id="don-dist" class="form-control" placeholder="যেমন: কক্সবাজার সদর / উখিয়া / ঢাকা" required></div>
+                        
+                        <!-- ফাইল আপলোডার ইঞ্জিন (ডোনার ফর্ম) -->
+                        <div class="form-group">
+                            <label>আপনার ছবি আপলোড করুন (ঐচ্ছিক)</label>
+                            <input type="file" id="don-img-file" class="form-control" accept="image/*">
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-success btn-block">রক্তদাতা তালিকায় যুক্ত হওয়ার আবেদন দাখিল করুন</button>
                 </form>
@@ -360,11 +371,10 @@
 
         <!-- SCREEN 5: CENTRAL ADMIN PANEL -->
         <div id="screen-admin" class="app-screen">
-            <div class="section-title"><i class="fas fa-unlock-alt"></i> মাস্টার কন্ট্রোল অ্যাডমিন ড্যাশবোর্ড</div>
+            <div class="section-title"><i class="fas fa-unlock-alt"></i>マスター 控制 অ্যাডমিন ড্যাশবোর্ড</div>
             
             <div class="card">
                 <h3><i class="fas fa-terminal"></i> ডিরেক্ট মেম্বার ইনজেকশন মোড</h3>
-                <p style="font-size:11px; color:var(--text-muted); margin-bottom:12px;">কোনো অনুমোদন ছাড়া অ্যাডমিন সরাসরি ডাটাবেজে মেম্বার পুশ করতে ফর্ম ওপেন করুন।</p>
                 <button class="btn btn-primary" onclick="openDirectMemberForm()"><i class="fas fa-plus"></i> সরাসরি মেম্বার অ্যাড করুন</button>
             </div>
 
@@ -418,45 +428,82 @@
     </nav>
 
     <script>
-        // All original historical static data fully preserved
-        const defaultAppMembers = [
-            { id: 'svyo_m_1', name: "Md. Riaz Uddin", designation: "Founder", panel: "Founder", image_url: "https://via.placeholder.com/150" },
-            { id: 'svyo_m_2', name: "Md Mainuddin", designation: "Founding Member", panel: "Founder", image_url: "https://via.placeholder.com/150" },
-            { id: 'svyo_m_3', name: "Humaira Khanum", designation: "Founding Member", panel: "Founder", image_url: "https://via.placeholder.com/150" },
-            { id: 'svyo_m_4', name: "Nadia Sultana", designation: "Founding Member", panel: "Founder", image_url: "https://via.placeholder.com/150" },
-            { id: 'svyo_m_5', name: "Nazim Uddin", designation: "Team Marketing", panel: "Founder", image_url: "https://via.placeholder.com/150" },
-            { id: 'svyo_m_8', name: "জনাব এক্স", designation: "প্রধান উপদেষ্টা", panel: "Advisory", image_url: "https://via.placeholder.com/150" },
-            { id: 'svyo_m_11', name: "Mohammad Riaz", designation: "Founder & President", panel: "Executive", image_url: "https://via.placeholder.com/150" },
-            { id: 'svyo_m_12', name: "Md. Nazim Uddin", designation: "General Secretary", panel: "Executive", image_url: "https://via.placeholder.com/150" }
-        ];
+        const FIREBASE_URL = "https://swapnatari-svyo-default-rtdb.firebaseio.com/";
+        const DEFAULT_AVATAR = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 
-        let db_members = JSON.parse(localStorage.getItem('svyo_live_members')) || defaultAppMembers;
-        let db_donors = JSON.parse(localStorage.getItem('svyo_donors')) || [];
-        let db_pending = JSON.parse(localStorage.getItem('svyo_pending_members')) || [];
-        let db_pending_donors = JSON.parse(localStorage.getItem('svyo_pending_donors')) || [];
-        let db_posts = JSON.parse(localStorage.getItem('svyo_posts')) || [];
-        let system_notice = localStorage.getItem('svyo_notice') || "স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO) গ্লোবাল নেটওয়ার্কিং পোর্টালে আপনাকে স্বাগতম।";
+        let db_members = [];
+        let db_donors = [];
+        let db_pending = [];
+        let db_pending_donors = [];
+        let db_posts = [];
+        let system_notice = "কোনো নোটিশ আপলোড করা হয়নি।";
         let isAdminAuthenticated = false;
 
         window.addEventListener("DOMContentLoaded", () => {
+            fetchLiveDatabase();
             setTimeout(() => { document.getElementById('splash-screen').classList.add('hidden'); }, 1500);
-            saveToLocalStorage();
-            loadLiveDatabase();
-            searchGlobalDonors();
-            renderFeeds();
         });
 
-        function saveToLocalStorage() {
-            localStorage.setItem('svyo_live_members', JSON.stringify(db_members));
-            localStorage.setItem('svyo_pending_members', JSON.stringify(db_pending));
-            localStorage.setItem('svyo_pending_donors', JSON.stringify(db_pending_donors));
-            localStorage.setItem('svyo_donors', JSON.stringify(db_donors));
-            localStorage.setItem('svyo_posts', JSON.stringify(db_posts));
-            localStorage.setItem('svyo_notice', system_notice);
-            
-            // Sync Live Statistics Counter
-            document.getElementById('stat-members').innerText = db_members.length;
-            document.getElementById('stat-blood').innerText = db_donors.length;
+        // ফায়ারবেস থেকে ডাটা রিড করার ইঞ্জিন
+        async function fetchLiveDatabase() {
+            try {
+                const res = await fetch(`${FIREBASE_URL}.json`);
+                const data = await res.json();
+                
+                if (data) {
+                    db_members = data.live_members ? Object.values(data.live_members) : [];
+                    db_donors = data.donors ? Object.values(data.donors) : [];
+                    
+                    db_pending = data.pending_members ? Object.keys(data.pending_members).map(key => ({...data.pending_members[key], _fbKey: key})) : [];
+                    db_pending_donors = data.pending_donors ? Object.keys(data.pending_donors).map(key => ({...data.pending_donors[key], _fbKey: key})) : [];
+                    
+                    db_posts = data.posts ? Object.values(data.posts).sort((a,b) => b.id - a.id) : [];
+                    system_notice = data.notice || "স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO) পোর্টালে স্বাগতম।";
+                }
+                
+                document.getElementById('stat-members').innerText = db_members.length;
+                document.getElementById('stat-blood').innerText = db_donors.length;
+                
+                loadLiveDatabaseUI();
+                renderFeeds();
+                searchGlobalDonors();
+                if (isAdminAuthenticated) renderAdminDashboard();
+                
+            } catch (err) {
+                console.error("ডাটাবেজ সিঙ্ক ত্রুটি:", err);
+            }
+        }
+
+        // ক্লাউড রাইট মেথড
+        async function cloudWrite(path, payload, isPush = false, method = "PUT") {
+            try {
+                const url = isPush ? `${FIREBASE_URL}${path}.json` : `${FIREBASE_URL}${path}.json`;
+                await fetch(url, {
+                    method: isPush ? "POST" : method,
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                await fetchLiveDatabase();
+            } catch (e) {
+                console.error("রাইট ফেইল্ড:", e);
+            }
+        }
+
+        // ইমেজ ফাইলকে Base64 বা টেক্সটে কনভার্ট করার মেথড
+        function convertImageToBase64(fileInputId) {
+            return new Promise((resolve) => {
+                const fileInput = document.getElementById(fileInputId);
+                if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+                    resolve(DEFAULT_AVATAR);
+                    return;
+                }
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    resolve(reader.result);
+                };
+                reader.readAsDataURL(file);
+            });
         }
 
         function switchScreen(screenId) {
@@ -490,7 +537,7 @@
                         switchScreen('admin');
                         renderAdminDashboard();
                     } else {
-                        alert("❌ ভুল কোড! আপনি সঠিক অ্যাডমিন নন।");
+                        alert("❌ ভুল কোড!");
                         document.getElementById('panel-mode-selector').value = 'user';
                     }
                 }
@@ -501,26 +548,23 @@
             }
         }
 
-        function publishNotice() {
+        async function publishNotice() {
             let txt = document.getElementById('admin-notice-input').value.trim();
             if(!txt) return alert("নোটিশ ফাঁকা রাখা যাবে না!");
-            system_notice = txt;
-            saveToLocalStorage();
-            renderFeeds();
-            alert("📣 গ্লোবাল নোটিশ সিস্টেম সফলভাবে আপডেট করা হয়েছে!");
+            await cloudWrite("notice", txt);
+            alert("📣 নোটিশ সফলভাবে আপডেট করা হয়েছে!");
             document.getElementById('admin-notice-input').value = '';
         }
 
-        function publishActivityPost() {
+        async function publishActivityPost() {
             let title = document.getElementById('post-title').value.trim();
             let body = document.getElementById('post-body').value.trim();
             let img = document.getElementById('post-img').value.trim();
             if(!title || !body) return alert("শিরোনাম এবং বিবরণ আবশ্যক!");
 
-            let newPost = { id: Date.now(), title, body, img: img || '', date: new Date().toLocaleDateString('bn-BD') };
-            db_posts.unshift(newPost);
-            saveToLocalStorage();
-            renderFeeds();
+            let id = Date.now();
+            let newPost = { id, title, body, img: img || '', date: new Date().toLocaleDateString('bn-BD') };
+            await cloudWrite(`posts/${id}`, newPost);
             alert("✅ নতুন কার্যক্রম ফিডে পাবলিশ হয়েছে!");
             document.getElementById('post-title').value = '';
             document.getElementById('post-body').value = '';
@@ -554,45 +598,44 @@
             document.getElementById('submit-member-btn').innerText = "অ্যাডমিন মডিউলে সরাসরি ইনজেক্ট করুন";
         }
 
-        function handlePublicRegistration(e) {
+        async function handlePublicRegistration(e) {
             e.preventDefault();
             const editId = document.getElementById('form-member-id').value;
+            
+            // ছবি প্রোসেসিং (মেম্বার)
+            const imgBase64 = await convertImageToBase64('reg-img-file');
 
             const memberData = {
                 name: document.getElementById('reg-name').value,
                 designation: document.getElementById('reg-role').value,
                 panel: document.getElementById('reg-panel').value,
-                image_url: document.getElementById('reg-img').value
+                image_url: imgBase64
             };
 
             if(editId) {
-                const index = db_members.findIndex(m => m.id == editId);
-                if(index > -1) {
-                    memberData.id = editId;
-                    db_members[index] = memberData;
-                    alert("✅ মেম্বার ডাটা মডিফিকেশন সফল!");
-                }
+                memberData.id = editId;
+                await cloudWrite(`live_members/${editId}`, memberData);
+                alert("✅ মেম্বার ডাটা মডিফিকেশন সফল!");
             } else {
                 if(isAdminAuthenticated) {
-                    memberData.id = 'svyo_m_' + Date.now();
-                    db_members.push(memberData);
+                    let id = 'svyo_m_' + Date.now();
+                    memberData.id = id;
+                    await cloudWrite(`live_members/${id}`, memberData);
                     alert("🚀 কোর ডাটাবেজে মেম্বার সফলভাবে যুক্ত হয়েছে!");
                 } else {
                     memberData.tempId = Date.now();
-                    db_pending.push(memberData);
-                    alert("✅ গ্লোবাল মেম্বারশিপ রিকোয়েস্ট সফল! এডমিন প্যানেলের অ্যাপ্রুভালের পর আপনার নাম পর্ষদে প্রকাশ করা হবে।");
+                    await cloudWrite("pending_members", memberData, true);
+                    alert("✅ আবেদনপত্র সাবমিট হয়েছে! এডমিন অ্যাপ্রুভালের পর পর্ষদে প্রকাশ করা হবে।");
                 }
             }
             
-            saveToLocalStorage();
             e.target.reset();
             document.getElementById('form-member-id').value = '';
             document.getElementById('submit-member-btn').innerText = "আবেদনপত্র সাবমিট করুন";
-            loadLiveDatabase();
-            if(isAdminAuthenticated) { switchScreen('admin'); renderAdminDashboard(); } else { switchScreen('home'); }
+            if(isAdminAuthenticated) { switchScreen('admin'); } else { switchScreen('home'); }
         }
 
-        function loadLiveDatabase() {
+        function loadLiveDatabaseUI() {
             const boxes = { 
                 Founder: document.getElementById('founder-render-box'),
                 Executive: document.getElementById('executive-render-box'), 
@@ -605,11 +648,12 @@
             tableBody.innerHTML = '';
 
             db_members.forEach(m => {
+                let imgUrl = m.image_url || DEFAULT_AVATAR;
                 let targetBox = boxes[m.panel];
                 if(targetBox) {
                     targetBox.innerHTML += `
                         <div class="roster-card">
-                            <img src="${m.image_url}" class="roster-avatar" onerror="this.src='https://via.placeholder.com/150'">
+                            <img src="${imgUrl}" class="roster-avatar" onerror="this.src='${DEFAULT_AVATAR}'">
                             <div class="roster-name">${m.name}</div>
                             <div class="roster-designation">${m.designation}</div>
                         </div>`;
@@ -620,7 +664,7 @@
                 
                 tableBody.innerHTML += `
                     <tr>
-                        <td><img src="${m.image_url}" class="table-avatar" onerror="this.src='https://via.placeholder.com/150'"></td>
+                        <td><img src="${imgUrl}" class="table-avatar" onerror="this.src='${DEFAULT_AVATAR}'"></td>
                         <td style="font-weight:600; color:#fff;">${m.name}</td>
                         <td style="color:var(--text-muted);">${m.designation}</td>
                         <td><span class="badge-table ${badgeClass}">${panelText}</span></td>
@@ -639,8 +683,8 @@
                         <div><b style="color:#fff;">${p.name}</b> (${p.designation})</div>
                         <div style="font-size:10px; color:var(--warning); margin-top:3px;">পর্ষদ ক্যাটাগরি: ${p.panel}</div>
                         <div style="margin-top:8px; display:flex; gap:6px;">
-                            <button class="btn btn-success" style="padding:4px 10px; font-size:10px; border-radius:4px;" onclick="approveMember(${p.tempId})"><i class="fas fa-check"></i> অনুমোদন দিন</button>
-                            <button class="btn btn-danger" style="padding:4px 10px; font-size:10px; border-radius:4px;" onclick="deletePending(${p.tempId})"><i class="fas fa-trash-alt"></i> ডিলিট</button>
+                            <button class="btn btn-success" style="padding:4px 10px; font-size:10px; border-radius:4px;" onclick="approveMember('${p._fbKey}')"><i class="fas fa-check"></i> অনুমোদন দিন</button>
+                            <button class="btn btn-danger" style="padding:4px 10px; font-size:10px; border-radius:4px;" onclick="deletePending('${p._fbKey}')"><i class="fas fa-trash-alt"></i> ডিলিট</button>
                         </div>
                     </div>`;
             });
@@ -655,8 +699,8 @@
                         <div><b style="color:#fff;">${pd.name}</b> [গ্রুপ: ${pd.blood}]</div>
                         <div style="font-size:10px; color:var(--secondary); margin-top:3px;">ঠিকানা: ${pd.district}</div>
                         <div style="margin-top:8px; display:flex; gap:6px;">
-                            <button class="btn btn-success" style="padding:4px 10px; font-size:10px; border-radius:4px;" onclick="approveDonor(${pd.tempId})"><i class="fas fa-check"></i> অনুমোদন দিন</button>
-                            <button class="btn btn-danger" style="padding:4px 10px; font-size:10px; border-radius:4px;" onclick="deletePendingDonor(${pd.tempId})"><i class="fas fa-trash-alt"></i> ডিলিট</button>
+                            <button class="btn btn-success" style="padding:4px 10px; font-size:10px; border-radius:4px;" onclick="approveDonor('${pd._fbKey}')"><i class="fas fa-check"></i> অনুমোদন দিন</button>
+                            <button class="btn btn-danger" style="padding:4px 10px; font-size:10px; border-radius:4px;" onclick="deletePendingDonor('${pd._fbKey}')"><i class="fas fa-trash-alt"></i> ডিলিট</button>
                         </div>
                     </div>`;
             });
@@ -696,63 +740,55 @@
             });
         }
 
-        function approveMember(tempId) {
-            const idx = db_pending.findIndex(x => x.tempId === tempId);
-            if(idx > -1) {
-                const target = db_pending[idx];
-                target.id = 'svyo_m_' + Date.now();
-                delete target.tempId;
-                db_members.push(target);
-                db_pending.splice(idx, 1);
-                saveToLocalStorage();
-                renderAdminDashboard();
-                loadLiveDatabase();
+        async function approveMember(fbKey) {
+            const target = db_pending.find(x => x._fbKey === fbKey);
+            if(target) {
+                let id = 'svyo_m_' + Date.now();
+                let cleanData = { name: target.name, designation: target.designation, panel: target.panel, image_url: target.image_url || DEFAULT_AVATAR, id: id };
+                
+                await fetch(`${FIREBASE_URL}live_members/${id}.json`, { method: "PUT", body: JSON.stringify(cleanData) });
+                await fetch(`${FIREBASE_URL}pending_members/${fbKey}.json`, { method: "DELETE" });
+                
+                await fetchLiveDatabase();
                 alert("🎉 নতুন সদস্য অনুমোদন সম্পন্ন হয়েছে!");
             }
         }
 
-        function deletePending(tempId) {
-            db_pending = db_pending.filter(x => x.tempId !== tempId);
-            saveToLocalStorage();
-            renderAdminDashboard();
+        async function deletePending(fbKey) {
+            await fetch(`${FIREBASE_URL}pending_members/${fbKey}.json`, { method: "DELETE" });
+            await fetchLiveDatabase();
         }
 
-        function approveDonor(tempId) {
-            const idx = db_pending_donors.findIndex(x => x.tempId === tempId);
-            if(idx > -1) {
-                const target = db_pending_donors[idx];
-                target.id = 'svyo_d_' + Date.now();
-                delete target.tempId;
-                db_donors.push(target);
-                db_pending_donors.splice(idx, 1);
-                saveToLocalStorage();
-                renderAdminDashboard();
-                searchGlobalDonors();
+        async function approveDonor(fbKey) {
+            const target = db_pending_donors.find(x => x._fbKey === fbKey);
+            if(target) {
+                let id = 'svyo_d_' + Date.now();
+                let cleanData = { name: target.name, blood: target.blood, phone: target.phone, district: target.district, image_url: target.image_url || DEFAULT_AVATAR, id: id };
+                
+                await fetch(`${FIREBASE_URL}donors/${id}.json`, { method: "PUT", body: JSON.stringify(cleanData) });
+                await fetch(`${FIREBASE_URL}pending_donors/${fbKey}.json`, { method: "DELETE" });
+                
+                await fetchLiveDatabase();
                 alert("🎉 নতুন রক্তদাতা অনুমোদন সম্পন্ন হয়েছে!");
             }
         }
 
-        function deletePendingDonor(tempId) {
-            db_pending_donors = db_pending_donors.filter(x => x.tempId !== tempId);
-            saveToLocalStorage();
-            renderAdminDashboard();
+        async function deletePendingDonor(fbKey) {
+            await fetch(`${FIREBASE_URL}pending_donors/${fbKey}.json`, { method: "DELETE" });
+            await fetchLiveDatabase();
         }
 
-        function deleteMember(id) {
+        async function deleteMember(id) {
             if(confirm("আপনি কি নিশ্চিতভাবে এই মেম্বারকে তালিকা থেকে রিমুভ করতে চান?")) {
-                db_members = db_members.filter(m => m.id !== id);
-                saveToLocalStorage();
-                renderAdminDashboard();
-                loadLiveDatabase();
+                await fetch(`${FIREBASE_URL}live_members/${id}.json`, { method: "DELETE" });
+                await fetchLiveDatabase();
             }
         }
 
-        function deleteDonor(id) {
+        async function deleteDonor(id) {
             if(confirm("আপনি কি নিশ্চিতভাবে এই রক্তদাতাকে ব্লাড ব্যাংক থেকে রিমুভ করতে চান?")) {
-                db_donors = db_donors.filter(d => d.id != id);
-                saveToLocalStorage();
-                renderAdminDashboard();
-                searchGlobalDonors();
+                await fetch(`${FIREBASE_URL}donors/${id}.json`, { method: "DELETE" });
+                await fetchLiveDatabase();
             }
         }
 
@@ -764,7 +800,6 @@
                 document.getElementById('reg-name').value = m.name;
                 document.getElementById('reg-role').value = m.designation;
                 document.getElementById('reg-panel').value = m.panel;
-                document.getElementById('reg-img').value = m.image_url;
                 document.getElementById('submit-member-btn').innerText = "সদস্য তথ্য আপডেট নিশ্চিত করুন";
             }
         }
@@ -774,41 +809,54 @@
             document.getElementById('donor-search-zone').style.display = showForm ? 'none' : 'block';
         }
 
-        function handleDonorRegistration(e) {
+        async function handleDonorRegistration(e) {
             e.preventDefault();
+            
+            // ছবি প্রোসেসিং (ডোনার)
+            const imgBase64 = await convertImageToBase64('don-img-file');
+
             const donorData = {
                 name: document.getElementById('don-name').value,
                 blood: document.getElementById('don-blood').value,
                 phone: document.getElementById('don-phone').value,
                 district: document.getElementById('don-dist').value,
-                image_url: document.getElementById('don-img').value
+                image_url: imgBase64
             };
 
             if(isAdminAuthenticated) {
-                donorData.id = 'svyo_d_' + Date.now();
-                db_donors.push(donorData);
+                let id = 'svyo_d_' + Date.now();
+                donorData.id = id;
+                await cloudWrite(`donors/${id}`, donorData);
                 alert("🚀 অ্যাডমিন মোড: সরাসরি ব্লাড ব্যাংকে ডাটা ইনজেক্ট করা হয়েছে!");
             } else {
                 donorData.tempId = Date.now();
-                db_pending_donors.push(donorData);
-                alert("🩸 ব্লাড ডোনার আবেদনটি পেন্ডিং কিউতে জমা হয়েছে। অ্যাডমিন প্যানেলের অনুমোদনের পর এটি লাইভ হবে।");
+                await cloudWrite("pending_donors", donorData, true);
+                alert("🩸 ব্লাড ডোনার আবেদনটি পেন্ডিং কিউতে জমা হয়েছে। অ্যাডমিন অ্যাপ্রুভালের পর এটি লাইভ হবে।");
             }
 
-            saveToLocalStorage();
             e.target.reset();
             toggleDonorForm(false);
-            searchGlobalDonors();
-            if(isAdminAuthenticated) { renderAdminDashboard(); }
         }
 
+        // 🛠️ রক্তদাতা সার্চ করার আপগ্রেডেড লজিক ইঞ্জিন (সব ধরণের স্পেলিং মিসটেক হ্যান্ডেল করবে)
         function searchGlobalDonors() {
             const bloodFilter = document.getElementById('search-blood').value;
-            const distFilter = document.getElementById('search-district').value.trim().toLowerCase();
+            let distFilter = document.getElementById('search-district').value.trim().toLowerCase();
+            
+            // স্পেশাল ক্যারেক্টার যেমন সেমিকোলন বা কমা ফিক্সিং (যেমন: cox;s bazar কে cox's bazar এ রূপান্তর)
+            distFilter = distFilter.replace(/;/g, "'").replace(/,/g, " ");
+            
             const container = document.getElementById('global-donors-results');
             container.innerHTML = '';
 
             let filtered = db_donors.filter(d => {
-                return (bloodFilter ? d.blood === bloodFilter : true) && (distFilter ? d.district.toLowerCase().includes(distFilter) : true);
+                // ডাটাবেজের ডিস্ট্রিক্ট ফিল্ড ডাটা ক্লিনিং
+                let dDistrict = d.district ? d.district.toLowerCase().replace(/;/g, "'") : "";
+                
+                const matchBlood = bloodFilter ? d.blood === bloodFilter : true;
+                const matchDistrict = distFilter ? dDistrict.includes(distFilter) : true;
+                
+                return matchBlood && matchDistrict;
             });
 
             if(filtered.length === 0) { 
@@ -817,10 +865,11 @@
             }
 
             filtered.forEach(d => {
+                let imgUrl = d.image_url || DEFAULT_AVATAR;
                 container.innerHTML += `
                     <div class="donor-card">
                         <span class="donor-blood-tag">${d.blood}</span>
-                        <img src="${d.image_url}" class="table-avatar" style="width:48px; height:48px;" onerror="this.src='https://via.placeholder.com/150'">
+                        <img src="${imgUrl}" class="table-avatar" style="width:48px; height:48px;" onerror="this.src='${DEFAULT_AVATAR}'">
                         <div>
                             <div style="font-weight:bold; color:#fff; font-size:13px;">${d.name}</div>
                             <div style="font-size:11px; color:var(--text-muted); margin-top:2px;"><i class="fas fa-map-marker-alt"></i> ${d.district}</div>
