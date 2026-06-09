@@ -100,7 +100,7 @@
             justify-content: space-between;
         }
 
-        /* Logo Area */
+        /* Logo Area - Fixed with your original logo image */
         .hero-logo-area {
             flex: 0 0 200px;
             display: flex;
@@ -108,27 +108,14 @@
             align-items: center;
         }
 
-        .hero-logo-placeholder {
+        .hero-logo {
             width: 150px;
             height: 150px;
-            border: 2px dashed rgba(255, 255, 255, 0.4);
+            object-fit: cover;
             border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .hero-logo-placeholder i {
-            font-size: 35px;
-            color: #f39c12;
-            margin-bottom: 8px;
-        }
-
-        .hero-logo-placeholder span {
-            font-size: 13px;
-            color: #ddd;
+            border: 4px solid #fff;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         /* Content Area */
@@ -478,12 +465,9 @@
     <!-- Hero / Banner Section -->
     <header class="hero-section">
         <div class="hero-container">
-            <!-- Left Side Logo Area (As marked in image_46a699.jpg) -->
+            <!-- Left Side Logo Area - Integrated with your actual image file -->
             <div class="hero-logo-area">
-                <div class="hero-logo-placeholder">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <span>লোগো এখানে বসবে</span>
-                </div>
+                <img src="WhatsApp Image 2026-06-08 at 6.23.14 PM_2.jpeg" alt="SVVO Logo" class="hero-logo">
             </div>
 
             <!-- Central Content -->
@@ -628,7 +612,7 @@
         <!-- Advanced Reports Panel Section -->
         <div class="adv-reports">
             <div class="card-header" style="border:none; margin-bottom:20px;">
-                <i class="fa-solid fa-chart-line" style="color:#9b59b6;"></i> 📊 Advanced Reports (উন্নত প্রতিবেদন প্যানেল)
+                <i class="fa-solid fa-chart-line" style="color:#9b59b6;"></i> Advanced Reports (উন্নত প্রতিবেদন প্যানেল)
             </div>
             <div class="report-grid">
                 <div class="report-box">
