@@ -3,306 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>স্বপ্নতরী - স্বেচ্ছাসেবী সংগঠন</title>
-    <!-- Tailwind CSS CDN for Modern Styling -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome for Icons -->
+    <title>SVVO - ম্যানেজমেন্ট সিস্টেম</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        html { scroll-behavior: smooth; }
-    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-100 h-screen flex flex-col">
 
-    <!-- 🌐 NAVIGATION BAR -->
-    <nav class="bg-emerald-600 text-white sticky top-0 z-50 shadow-md">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold flex items-center gap-2">
-                <i class="fa-solid fa-ship text-yellow-300"></i> স্বপ্নতরী
-            </a>
-            <div class="hidden md:flex space-x-6">
-                <a href="#home" class="hover:text-yellow-200 transition">হোম</a>
-                <a href="#about" class="hover:text-yellow-200 transition">পরিচিতি</a>
-                <a href="#dashboard" class="hover:text-yellow-200 transition">ড্যাশবোর্ড</a>
-                <a href="#blood" class="hover:text-yellow-200 transition">রক্তদান</a>
-                <a href="#members" class="hover:text-yellow-200 transition">সদস্যবৃন্দ</a>
-                <a href="#donate" class="bg-yellow-400 text-emerald-900 px-4 py-1.5 rounded-full font-bold hover:bg-yellow-300 transition">অনুদান</a>
-            </div>
-        </div>
+    <nav class="bg-emerald-800 text-white p-4 shadow-lg flex justify-between items-center">
+        <h1 class="text-xl font-bold"><i class="fas fa-ship"></i> স্বপ্নতরী প্যানেল</h1>
+        <div id="live-clock" class="text-sm font-mono">Loading...</div>
     </nav>
 
-    <!-- 🏠 HERO SECTION -->
-    <header id="home" class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white py-24 px-6 text-center">
-        <h1 class="text-4xl md:text-6xl font-extrabold mb-4">তারুণ্যের শক্তিতে গড়বো আগামীর স্বপ্ন</h1>
-        <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8 text-emerald-100">স্বপ্নতরী স্বেচ্ছাসেবী সংগঠনে আপনাকে স্বাগতম। আমরা আর্তমানবতার সেবা, রক্তদান এবং সামাজিক উন্নয়নে নিয়োজিত।</p>
-        <div class="flex justify-center gap-4">
-            <a href="#donate" class="bg-yellow-400 text-emerald-900 px-6 py-3 rounded-lg font-bold hover:bg-yellow-300 transition shadow-lg">পাশে দাঁড়ান (Donate)</a>
-            <a href="#dashboard" class="bg-white/20 text-white border border-white/40 px-6 py-3 rounded-lg font-bold hover:bg-white/30 transition">অ্যাডমিন ড্যাশবোর্ড</a>
-        </div>
-    </header>
-
-    <!-- 📊 DASHBOARD MODULE -->
-    <section id="dashboard" class="container mx-auto px-6 py-12">
-        <h2 class="text-3xl font-bold text-center text-emerald-800 mb-8"><i class="fa-solid fa-chart-pie mr-2"></i>প্রশাসনিক ড্যাশবোর্ড</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-emerald-500 text-center">
-                <i class="fa-solid fa-users text-3xl text-emerald-500 mb-2"></i>
-                <h3 class="text-gray-500 text-sm">মোট সদস্য</h3>
-                <p class="text-2xl font-bold text-gray-800">৩৫০+</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500 text-center">
-                <i class="fa-solid fa-user-tie text-3xl text-blue-500 mb-2"></i>
-                <h3 class="text-gray-500 text-sm">উপদেষ্টা</h3>
-                <p class="text-2xl font-bold text-gray-800">১২ জন</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-red-500 text-center">
-                <i class="fa-solid fa-droplet text-3xl text-red-500 mb-2"></i>
-                <h3 class="text-gray-500 text-sm">রক্তদাতা</h3>
-                <p class="text-2xl font-bold text-gray-800">১৮০+</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-amber-500 text-center">
-                <i class="fa-solid fa-calendar-check text-3xl text-amber-500 mb-2"></i>
-                <h3 class="text-gray-500 text-sm">চলমান প্রজেক্ট</h3>
-                <p class="text-2xl font-bold text-gray-800">৪ টি</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 💉 BLOOD DONOR MANAGEMENT -->
-    <section id="blood" class="bg-red-50 py-12 px-6">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="text-3xl font-bold text-center text-red-700 mb-4"><i class="fa-solid fa-heart-pulse mr-2"></i>জরুরি রক্তদাতা খুঁজুন</h2>
-            <p class="text-center text-gray-600 mb-8">রক্তের গ্রুপ এবং এলাকা সিলেক্ট করে দ্রুত রক্তদাতার সন্ধান করুন।</p>
-            
-            <div class="bg-white p-6 rounded-xl shadow-md flex flex-col md:flex-row gap-4 mb-8">
-                <select id="bloodGroupFilter" class="w-full md:w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
-                    <option value="">সব রক্তের গ্রুপ</option>
-                    <option value="A+">A+</option>
-                    <option value="B+">B+</option>
-                    <option value="O+">O+</option>
-                    <option value="AB+">AB+</option>
-                    <option value="A-">A-</option>
-                    <option value="B-">B-</option>
-                </select>
-                <input type="text" id="bloodLocationFilter" placeholder="এলাকা/লোকেশন লিখুন..." class="w-full md:w-2/3 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
-                <button onclick="searchBloodDonors()" class="bg-red-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition"><i class="fa-solid fa-magnifying-glass mr-2"></i>খুঁজুন</button>
-            </div>
-
-            <!-- Donor Results Table -->
-            <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                <table class="w-full text-left border-collapse">
-                    <thead class="bg-red-600 text-white">
-                        <tr>
-                            <th class="p-4">নাম</th>
-                            <th class="p-4">গ্রুপ</th>
-                            <th class="p-4">লোকেশন</th>
-                            <th class="p-4">যোগাযোগ</th>
-                        </tr>
-                    </thead>
-                    <tbody id="donorTableBody">
-                        <!-- JavaScript will load data here -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- 👥 MEMBER MANAGEMENT (CRUD Interface Front) -->
-    <section id="members" class="container mx-auto px-6 py-12">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-            <h2 class="text-3xl font-bold text-emerald-800"><i class="fa-solid fa-users-gear mr-2"></i>সদস্য ব্যবস্থাপনা</h2>
-            <button onclick="toggleMemberModal()" class="mt-4 md:mt-0 bg-emerald-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-emerald-700 transition"><i class="fa-solid fa-user-plus mr-2"></i>নতুন সদস্য যোগ করুন</button>
+    <div class="flex flex-1 overflow-hidden">
+        <div class="w-64 bg-white shadow-md p-4 space-y-2">
+            <button onclick="render('home')" class="w-full text-left p-3 hover:bg-emerald-100 rounded transition"><i class="fas fa-home"></i> হোম</button>
+            <button onclick="render('members')" class="w-full text-left p-3 hover:bg-emerald-100 rounded transition"><i class="fas fa-users"></i> সদস্য তালিকা</button>
+            <button onclick="render('finance')" class="w-full text-left p-3 hover:bg-emerald-100 rounded transition"><i class="fas fa-wallet"></i> আয়-ব্যয়</button>
         </div>
 
-        <!-- Member List Table -->
-        <div class="bg-white rounded-xl shadow-sm overflow-x-auto border">
-            <table class="w-full text-left">
-                <thead class="bg-gray-100 border-b border-gray-200">
-                    <tr>
-                        <th class="p-4 text-gray-600 font-semibold">আইডি</th>
-                        <th class="p-4 text-gray-600 font-semibold">সদস্যের নাম</th>
-                        <th class="p-4 text-gray-600 font-semibold">মোবাইল</th>
-                        <th class="p-4 text-gray-600 font-semibold">রক্তের গ্রুপ</th>
-                        <th class="p-4 text-gray-600 font-semibold">পদবী/পেশা</th>
-                        <th class="p-4 text-gray-600 font-semibold">অ্যাকশন</th>
-                    </tr>
-                </thead>
-                <tbody id="memberTableBody">
-                    <!-- JavaScript will load members here -->
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- 💰 DONATION MODULE -->
-    <section id="donate" class="bg-emerald-900 text-white py-16 px-6 text-center">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-3xl font-bold mb-4"><i class="fa-solid fa-hand-holding-heart text-yellow-300 mr-2"></i>তহবিল ও সাধারণ অনুদান</h2>
-            <p class="text-emerald-200 mb-8">আপনার দেওয়া প্রতিটি টাকা স্বচ্ছতার সাথে আমাদের সামাজিক উন্নয়ন ও ত্রাণ প্রজেক্টে ব্যবহার করা হয়।</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-800">
-                <div class="bg-white p-6 rounded-xl text-center shadow-lg">
-                    <span class="text-xl font-bold text-pink-600 block mb-2">বিকাশ (Personal)</span>
-                    <p class="font-mono text-lg bg-gray-100 p-2 rounded">০১৮XXXXXXXX</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl text-center shadow-lg">
-                    <span class="text-xl font-bold text-orange-600 block mb-2">নগদ (Personal)</span>
-                    <p class="font-mono text-lg bg-gray-100 p-2 rounded">০১৬XXXXXXXX</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl text-center shadow-lg">
-                    <span class="text-xl font-bold text-blue-700 block mb-2">ব্যাংক অ্যাকাউন্ট</span>
-                    <p class="text-sm font-semibold">চলতি হিসাব: ১০০২২০৩৪০১</p>
-                    <p class="text-xs text-gray-500">রুপালী ব্যাংক, কক্সবাজার শাখা</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 📝 ADD MEMBER MODAL (Hidden by default) -->
-    <div id="memberModal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden">
-        <div class="bg-white w-full max-w-md p-6 rounded-xl shadow-xl">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold text-gray-800">নতুন সদস্য ফরম</h3>
-                <button onclick="toggleMemberModal()" class="text-gray-500 text-2xl hover:text-gray-800">&times;</button>
-            </div>
-            <form id="memberForm" onsubmit="addMember(event)" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-semibold mb-1">পূর্ণ নাম *</label>
-                    <input type="text" id="mName" required class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-1">মোবাইল নাম্বার *</label>
-                    <input type="tel" id="mPhone" required class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">রক্তের গ্রুপ</label>
-                        <select id="mBlood" class="w-full p-2 border rounded-lg">
-                            <option value="A+">A+</option>
-                            <option value="B+">B+</option>
-                            <option value="O+">O+</option>
-                            <option value="AB+">AB+</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">পেশা</label>
-                        <input type="text" id="mJob" class="w-full p-2 border rounded-lg">
-                    </div>
-                </div>
-                <button type="submit" class="w-full bg-emerald-600 text-white p-3 rounded-lg font-bold hover:bg-emerald-700 transition">সদস্য হিসেবে যুক্ত করুন</button>
-            </form>
-        </div>
+        <main id="content" class="flex-1 p-8 overflow-y-auto">
+            </main>
     </div>
 
-    <!-- 📄 FOOTER -->
-    <footer class="bg-gray-900 text-gray-400 py-8 text-center border-t border-gray-800">
-        <p>&copy; ২০২৬ স্বপ্নতরী স্বেচ্ছাসেবী সংগঠন। সর্বস্বত্ব সংরক্ষিত।</p>
-        <p class="text-xs mt-2 text-gray-600">ডিজিটাল অ্যাডমিন প্যানেল ভার্সন ১.০ (Firebase Ready Structure)</p>
-    </footer>
-
-    <!-- ⚙️ JAVASCRIPT LOGIC (Mock Backend Data) -->
     <script>
-        // ডামি ডাটাবেজ (রক্তদাতা)
-        const bloodDonors = [
-            { name: "আরিফুর রহমান", group: "B+", location: "কক্সবাজার সদর", phone: "01811-XXXXXX" },
-            { name: "নুরুল হক", group: "A+", location: "টেকনাফ", phone: "01722-XXXXXX" },
-            { name: "মোহাম্মদ রিয়াজ", group: "O+", location: "চকরিয়া", phone: "01633-XXXXXX" },
-            { name: "তাসমিয়া জাহান", group: "B+", location: "কক্সবাজার সদর", phone: "01544-XXXXXX" }
-        ];
-
-        // ডামি ডাটাবেজ (সদস্য)
-        let members = [
-            { id: "ST-2026-001", name: "এমডি রিয়াজ উদ্দিন", phone: "018XXXXXXXX", blood: "O+", job: "গ্রাফিক ডিজাইনার" },
-            { id: "ST-2026-002", name: "কামরুল হাসান", phone: "017XXXXXXXX", blood: "A+", job: "ছাত্র" }
-        ];
-
-        // রক্তদাতা সার্চ ফাংশন
-        function renderDonors(data) {
-            const tbody = document.getElementById('donorTableBody');
-            tbody.innerHTML = '';
-            if(data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-500">কোনো রক্তদাতা পাওয়া যায়নি!</td></tr>`;
-                return;
-            }
-            data.forEach(donor => {
-                tbody.innerHTML += `
-                    <tr class="border-b">
-                        <td class="p-4 font-semibold">${donor.name}</td>
-                        <td class="p-4 text-red-600 font-bold">${donor.group}</td>
-                        <td class="p-4 text-gray-600">${donor.location}</td>
-                        <td class="p-4"><a href="tel:${donor.phone}" class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded text-xs font-bold hover:bg-emerald-200 transition"><i class="fa-solid fa-phone mr-1"></i> কল করুন</a></td>
-                    </tr>
-                `;
-            });
-        }
-
-        function searchBloodDonors() {
-            const group = document.getElementById('bloodGroupFilter').value;
-            const location = document.getElementById('bloodLocationFilter').value.toLowerCase();
-            
-            const filtered = bloodDonors.filter(donor => {
-                const matchGroup = group === "" || donor.group === group;
-                const matchLocation = location === "" || donor.location.toLowerCase().includes(location);
-                return matchGroup && matchLocation;
-            });
-            renderDonors(filtered);
-        }
-
-        // সদস্য তালিকা রেন্ডার ফাংশন (CRUD - Read)
-        function renderMembers() {
-            const tbody = document.getElementById('memberTableBody');
-            tbody.innerHTML = '';
-            members.forEach((member, index) => {
-                tbody.innerHTML += `
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="p-4 font-mono text-sm">${member.id}</td>
-                        <td class="p-4 font-semibold">${member.name}</td>
-                        <td class="p-4 text-gray-600">${member.phone}</td>
-                        <td class="p-4 text-red-500 font-bold">${member.blood}</td>
-                        <td class="p-4 text-gray-600">${member.job}</td>
-                        <td class="p-4 flex gap-2">
-                            <button onclick="deleteMember(${index})" class="text-red-500 hover:text-red-700 p-1"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-
-        // নতুন সদস্য যোগ করা (CRUD - Create)
-        function addMember(e) {
-            e.preventDefault();
-            const name = document.getElementById('mName').value;
-            const phone = document.getElementById('mPhone').value;
-            const blood = document.getElementById('mBlood').value;
-            const job = document.getElementById('mJob').value || "স্বেচ্ছাসেবক";
-            
-            const newId = `ST-2026-0${members.length + 1}`;
-            members.push({ id: newId, name, phone, blood, job });
-            
-            renderMembers();
-            toggleMemberModal();
-            document.getElementById('memberForm').reset();
-            alert("নতুন সদস্য সফলভাবে রেজিস্টার্ড হয়েছে!");
-        }
-
-        // সদস্য ডিলিট করা (CRUD - Delete)
-        function deleteMember(index) {
-            if(confirm("আপনি কি নিশ্চিতভাবে এই সদস্যকে রিমুভ করতে চান?")) {
-                members.splice(index, 1);
-                renderMembers();
-            }
-        }
-
-        // মোডাল ওপেন/ক্লোজ
-        function toggleMemberModal() {
-            const modal = document.getElementById('memberModal');
-            modal.classList.toggle('hidden');
-        }
-
-        // পেজ লোড হলে ইনিশিয়াল ডাটা দেখাবে
-        window.onload = function() {
-            renderDonors(bloodDonors);
-            renderMembers();
+        // Database
+        let db = {
+            members: [{name: "রিয়াজ", phone: "01811111111"}, {name: "কামরুল", phone: "01722222222"}],
+            finance: [{type: "আয়", amount: "500"}]
         };
+
+        function render(view) {
+            const content = document.getElementById('content');
+            if(view === 'home') {
+                content.innerHTML = `<h2 class="text-2xl font-bold mb-4">স্বাগতম!</h2><p>স্বপ্নতরী ম্যানেজমেন্ট সিস্টেমের হোম পেজ।</p>`;
+            } 
+            else if(view === 'members') {
+                content.innerHTML = `<h2 class="text-2xl font-bold mb-4">সদস্য তালিকা</h2>
+                    <div class="mb-4 flex gap-2">
+                        <input type="text" id="mName" placeholder="সদস্যের নাম" class="border p-2 rounded">
+                        <button onclick="addMember()" class="bg-emerald-600 text-white px-4 py-2 rounded">যোগ করুন</button>
+                    </div>
+                    <table class="w-full bg-white shadow-md rounded">
+                        <tr class="bg-gray-200"><th>নাম</th><th>মোবাইল</th></tr>
+                        <tbody id="memberList">${db.members.map(m => `<tr><td class="p-2 border">${m.name}</td><td class="p-2 border">${m.phone}</td></tr>`).join('')}</tbody>
+                    </table>`;
+            }
+            else if(view === 'finance') {
+                content.innerHTML = `<h2 class="text-2xl font-bold mb-4">আয়-ব্যয় হিসাব</h2>
+                    <p class="text-gray-600">বর্তমানে মোট ট্রানজেকশন: ${db.finance.length} টি</p>
+                    <button onclick="alert('ভবিষ্যতে এখানে ফর্ম যুক্ত করা হবে')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">নতুন এন্ট্রি</button>`;
+            }
+        }
+
+        function addMember() {
+            const name = document.getElementById('mName').value;
+            if(name) {
+                db.members.push({name: name, phone: "নতুন সদস্য"});
+                render('members');
+            } else {
+                alert("নাম লিখুন!");
+            }
+        }
+
+        // Clock
+        setInterval(() => {
+            document.getElementById('live-clock').innerText = new Date().toLocaleTimeString('bn-BD');
+        }, 1000);
+
+        render('home'); // Init
     </script>
 </body>
 </html>
