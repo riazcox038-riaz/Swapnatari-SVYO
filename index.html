@@ -1,440 +1,653 @@
-<script>
-        const FIREBASE_URL = "https://swapnatari-svyo-default-rtdb.firebaseio.com/";
-        const DEFAULT_AVATAR = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
 
-        let db_members = [];
-        let db_donors = [];
-        let db_pending = [];
-        let db_pending_donors = [];
-        let db_posts = [];
-        let system_notice = "কোনো নোটিশ আপলোড করা হয়নি।";
-        let isAdminAuthenticated = false;
+    <!-- TOP NAVIGATION BAR -->
+    <nav class="bg-blue-600 text-white p-4 sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold tracking-wide">SVYO - স্বপ্নতরী</h1>
+            <div class="space-x-4 text-sm md:text-base">
+                <a href="#about" class="hover:underline">পরিচিতি</a>
+                <a href="#directory" class="hover:underline">ডিরেক্টরি</a>
+                <a href="#register" class="hover:underline">নিবন্ধন ফরম</a>
+                <a href="#blood" class="hover:underline">রক্তের সন্ধান</a>
+                <a href="#admin" class="bg-yellow-500 text-blue-900 px-3 py-1 rounded font-bold hover:bg-yellow-400">অ্যাডমিন প্যানেল</a>
+            </div>
+        </div>
+    </nav>
 
-        window.addEventListener("DOMContentLoaded", () => {
-            fetchLiveDatabase();
-            setTimeout(() => { document.getElementById('splash-screen').classList.add('hidden'); }, 1500);
-        });
+    <!-- HERO & ABOUT SECTION -->
+    <section id="about" class="container mx-auto my-8 p-6 bg-white rounded-lg shadow">
+        <div class="text-center mb-6">
+            <h2 class="text-3xl font-bold text-blue-600 border-b-2 border-blue-200 pb-2 inline-block">সংগঠনের পরিচিতি (About SVYO)</h2>
+        </div>
+        <p class="text-lg leading-relaxed mb-6 text-justify bg-blue-50 p-4 rounded border-l-4 border-blue-600">
+            <strong>স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO)</strong> একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও মানবকল্যাণমূলক যুব সংগঠন। ২০২১ সালের ৪ জুন কক্সবাজারে একঝাঁক স্বপ্নবাজ তরুণের হাত ধরে এটি প্রতিষ্ঠিত হয়।
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-gray-100 p-4 rounded shadow-sm">
+                <h3 class="font-bold text-xl mb-2 text-blue-700"><i class="fa-solid fa-map-location-dot"></i> কার্য এলাকা (Working Area)</h3>
+                <p class="text-sm">কক্সবাজার জেলার সকল উপজেলা, পর্যায়ক্রমে দেশ ও বিদেশে কাজ করার সম্ভবনা আছে।</p>
+                <div class="mt-4 p-2 bg-white border border-gray-300 rounded text-center text-gray-500 font-mono text-xs">
+                    [ Live Map Active ]
+                </div>
+            </div>
+            <div class="bg-gray-100 p-4 rounded shadow-sm">
+                <h3 class="font-bold text-xl mb-2 text-blue-700"><i class="fa-solid fa-building"></i> অফিসের ঠিকানা</h3>
+                <p class="text-sm"><strong>প্রধান কার্যালয়:</strong> সোনাআলী ভবন, দক্ষিণ রুমালিয়ার ছরা, পৌরসভা কক্সবাজার।</p>
+                <p class="text-sm mt-2"><strong>অস্থায়ী ঠিকানা:</strong> সাওতুল কুরআন International হিফয মাদরাসা কক্সবাজার।</p>
+            </div>
+            <div class="bg-gray-100 p-4 rounded shadow-sm">
+                <h3 class="font-bold text-xl mb-2 text-blue-700"><i class="fa-solid fa-address-book"></i> যোগাযোগ (Contact)</h3>
+                <p class="text-sm"><strong>মোবাইল:</strong> 01839-369388</p>
+                <p class="text-sm mt-1"><strong>E-mail:</strong> swapnataricoxbd@gmail.com</p>
+            </div>
+        </div>
+    </section>
 
-        // 🔄 লাইভ ডাটাবেজ সিঙ্ক ও কিউ ম্যাপিং
-        async function fetchLiveDatabase() {
-            try {
-                const res = await fetch(`${FIREBASE_URL}.json`);
-                const data = await res.json();
-                
-                if (data) {
-                    db_members = data.live_members ? Object.keys(data.live_members).map(k => ({...data.live_members[k], id: k})) : [];
-                    db_donors = data.donors ? Object.keys(data.donors).map(k => ({...data.donors[k], id: k})) : [];
-                    
-                    db_pending = data.pending_members ? Object.keys(data.pending_members).map(key => ({...data.pending_members[key], _fbKey: key})) : [];
-                    db_pending_donors = data.pending_donors ? Object.keys(data.pending_donors).map(key => ({...data.pending_donors[key], _fbKey: key})) : [];
-                    
-                    db_posts = data.posts ? Object.values(data.posts).sort((a,b) => b.id - a.id) : [];
-                    system_notice = data.notice || "স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO) পোর্টালে স্বাগতম।";
-                } else {
-                    db_members = []; db_donors = []; db_pending = []; db_pending_donors = []; db_posts = [];
-                }
-                
-                document.getElementById('stat-members').innerText = db_members.length;
-                document.getElementById('stat-blood').innerText = db_donors.length;
-                
-                loadLiveDatabaseUI();
-                renderFeeds();
-                searchGlobalDonors();
-                if (isAdminAuthenticated) renderAdminDashboard();
-                
-            } catch (err) {
-                console.error("ডাটাবেজ সিঙ্ক ত্রুটি:", err);
+    <!-- LIVE NOTICE BOARD -->
+    <section class="container mx-auto my-6 p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded shadow-sm">
+        <h3 class="font-bold text-lg text-yellow-800"><i class="fa-solid fa-bullhorn"></i> সর্বশেষ নোটিশ বোর্ড (Notice Board):</h3>
+        <p id="liveNotice" class="mt-1 text-gray-700 italic">চলতি কোনো নোটিশ নেই।</p>
+    </section>
+
+    <!-- CATEGORY DIRECTORY -->
+    <section id="directory" class="container mx-auto my-8 p-6 bg-white rounded-lg shadow">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">সদস্য ডিরেক্টরি (Member Directory)</h2>
+        <div class="flex justify-center space-x-2 mb-6 overflow-x-auto pb-2">
+            <button onclick="filterDirectory('Founders Council')" class="bg-blue-100 hover:bg-blue-600 hover:text-white px-4 py-2 rounded font-medium transition">Founders Council</button>
+            <button onclick="filterDirectory('Executive Body')" class="bg-blue-100 hover:bg-blue-600 hover:text-white px-4 py-2 rounded font-medium transition">Executive Body</button>
+            <button onclick="filterDirectory('Adviser Body')" class="bg-blue-100 hover:bg-blue-600 hover:text-white px-4 py-2 rounded font-medium transition">Adviser Body</button>
+            <button onclick="filterDirectory('General Member')" class="bg-blue-100 hover:bg-blue-600 hover:text-white px-4 py-2 rounded font-medium transition">General Members</button>
+        </div>
+        <div id="directoryContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- BLOOD SEARCH SYSTEM -->
+    <section id="blood" class="container mx-auto my-8 p-6 bg-red-50 rounded-lg shadow border border-red-200">
+        <h2 class="text-2xl font-bold text-red-600 mb-4"><i class="fa-solid fa-droplet"></i> রক্তদাতার সন্ধান (Blood Search System)</h2>
+        <div class="flex gap-4 mb-6">
+            <select id="searchBloodGroup" class="p-2 border border-gray-300 rounded w-full bg-white">
+                <option value="">রক্তের গ্রুপ সিলেক্ট করুন</option>
+                <option value="A+">A+</option><option value="A-">A-</option>
+                <option value="B+">B+</option><option value="B-">B-</option>
+                <option value="O+">O+</option><option value="O-">O-</option>
+                <option value="AB+">AB+</option><option value="AB-">AB-</option>
+            </select>
+            <button onclick="searchBlood()" class="bg-red-600 text-white px-6 py-2 rounded font-bold hover:bg-red-700 transition">খুঁজুন</button>
+        </div>
+        <div id="bloodResultContainer" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+    </section>
+
+    <!-- REGISTRATION SECTION -->
+    <section id="register" class="container mx-auto my-8 p-6 bg-white rounded-lg shadow">
+        <div class="flex justify-between border-b-2 border-gray-200 pb-2 mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">অনলাইন নিবন্ধন পোর্টাল</h2>
+            <div class="space-x-2">
+                <button onclick="switchForm('member')" id="btnFormMember" class="bg-blue-600 text-white px-4 py-1 rounded">সদস্য/উপদেষ্টা ফরম</button>
+                <button onclick="switchForm('donor')" id="btnFormDonor" class="bg-gray-200 text-gray-700 px-4 py-1 rounded">রক্তদাতা ফরম</button>
+            </div>
+        </div>
+
+        <!-- সদস্য/উপদেষ্টা/ফাউন্ডার কমপ্লিট নিবন্ধন ফরম -->
+        <div id="memberFormWrapper">
+            <form id="mainMemberForm" onsubmit="handleMemberSubmit(event)" class="space-y-6">
+                <div class="text-center bg-gray-100 p-4 rounded border">
+                    <h3 class="text-xl font-bold text-blue-700">স্বেচ্ছায় সেবক ও উপদেষ্টা নিবন্ধন ফরম</h3>
+                    <p class="text-sm text-gray-600 font-bold">সংগঠনের নাম: স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন</p>
+                    <p class="text-xs text-red-500 font-bold mt-1">উপদেষ্টা/সদস্য নম্বর (অফিস কর্তৃক পূরণীয়): SVYO-21XXXX</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-blue-50 p-4 rounded">
+                    <div>
+                        <label class="block font-bold mb-1">নিবন্ধনের ধরন (Category) *</label>
+                        <select name="formCategory" id="formCategory" required class="w-full p-2 bg-white border rounded">
+                            <option value="General Member">General Member</option>
+                            <option value="Adviser Body">Adviser Body</option>
+                            <option value="Executive Body">Executive Body</option>
+                            <option value="Founders Council">Founders Council</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-1">পাসপোর্ট সাইজ ছবি আপলোড *</label>
+                        <input type="file" id="memberImage" accept="image/*" required class="w-full p-1 bg-white border rounded">
+                    </div>
+                </div>
+
+                <!-- ১. ব্যক্তিগত তথ্য -->
+                <div class="border p-4 rounded bg-white">
+                    <h4 class="font-bold text-blue-700 mb-3 border-b pb-1">১. ব্যক্তিগত তথ্য</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" name="nameBn" placeholder="পূর্ণ নাম (বাংলায়) *" required class="p-2 border rounded w-full">
+                        <input type="text" name="nameEn" placeholder="পূর্ণ নাম (ইংরেজিতে) *" required class="p-2 border rounded w-full">
+                        <input type="text" name="father" placeholder="পিতার নাম *" required class="p-2 border rounded w-full">
+                        <input type="text" name="mother" placeholder="মাতার নাম *" required class="p-2 border rounded w-full">
+                        <div class="flex items-center gap-2 border p-2 rounded bg-white">
+                            <span class="text-gray-500 text-sm">জন্ম তারিখ:</span>
+                            <input type="date" name="dob" required class="w-full">
+                        </div>
+                        <select name="gender" required class="p-2 border rounded bg-white">
+                            <option value="">লিঙ্গ সিলেক্ট করুন *</option>
+                            <option value="পুরুষ">पुरुष</option><option value="নারী">নারী</option><option value="অন্যান্য">অন্যান্য</option>
+                        </select>
+                        <input type="text" name="nid" placeholder="জাতীয় পরিচয়পত্র নম্বর (NID)" class="p-2 border rounded w-full">
+                        <input type="text" name="blood" placeholder="রক্তের গ্রুপ (যেমন: A+)" class="p-2 border rounded w-full">
+                        <input type="text" name="profession" placeholder="পেশা" class="p-2 border rounded w-full">
+                        <input type="text" name="workplace" placeholder="প্রতিষ্ঠান/কর্মস্থল" class="p-2 border rounded w-full">
+                        <input type="text" name="designation" placeholder="পদবী" class="p-2 border rounded w-full">
+                    </div>
+                </div>
+
+                <!-- ২. যোগাযোগের তথ্য -->
+                <div class="border p-4 rounded bg-white">
+                    <h4 class="font-bold text-blue-700 mb-3 border-b pb-1">২. যোগাযোগের তথ্য</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <textarea name="presentAddress" placeholder="বর্তমান ঠিকানা *" required class="p-2 border rounded w-full h-16"></textarea>
+                        <textarea name="permanentAddress" placeholder="স্থায়ী ঠিকানা *" required class="p-2 border rounded w-full h-16"></textarea>
+                        <input type="tel" name="phone" placeholder="মোবাইল নম্বর *" required class="p-2 border rounded w-full">
+                        <input type="tel" name="phoneOpt" placeholder="বিকল্প মোবাইল নম্বর" class="p-2 border rounded w-full">
+                        <input type="email" name="email" placeholder="ই-মেইল ঠিকানা" class="p-2 border rounded w-full">
+                    </div>
+                </div>
+
+                <!-- ৩. শিক্ষাগত যোগ্যতা -->
+                <div class="border p-4 rounded overflow-x-auto bg-white">
+                    <h4 class="font-bold text-blue-700 mb-3 border-b pb-1">৩. শিক্ষাগত যোগ্যতা</h4>
+                    <table class="w-full text-sm text-left border">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="p-2 border">ডিগ্রি/পরীক্ষা</th>
+                                <th class="p-2 border">প্রতিষ্ঠান</th>
+                                <th class="p-2 border">বিষয়</th>
+                                <th class="p-2 border">পাশের বছর</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-1 border"><input type="text" name="eduDegree" placeholder="উদা: SSC / BSS" class="w-full p-1 border-none"></td>
+                                <td class="p-1 border"><input type="text" name="eduInstitute" placeholder="প্রতিষ্ঠানের নাম" class="w-full p-1 border-none"></td>
+                                <td class="p-1 border"><input type="text" name="eduSubject" placeholder="বিভাগ/বিষয়" class="w-full p-1 border-none"></td>
+                                <td class="p-1 border"><input type="text" name="eduYear" placeholder="বছর" class="w-full p-1 border-none"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ৪. পেশাগত ও সামাজিক অভিজ্ঞতা -->
+                <div class="border p-4 rounded grid grid-cols-1 md:grid-cols-2 gap-4 bg-white">
+                    <div class="col-span-2"><h4 class="font-bold text-blue-700 mb-1 border-b pb-1">৪. পেশাগত ও সামাজিক অভিজ্ঞতা</h4></div>
+                    <textarea name="expProf" placeholder="বর্তমান পেশাগত অভিজ্ঞতা..." class="p-2 border rounded w-full h-16"></textarea>
+                    <textarea name="expSocial" placeholder="সামাজিক/স্বেচ্ছাসেবী কার্যক্রমে সম্পৃক্ততার বিবরণ..." class="p-2 border rounded w-full h-16"></textarea>
+                </div>
+
+                <!-- ৫. আগ্রহের ক্ষেত্র -->
+                <div class="border p-4 rounded bg-white">
+                    <h4 class="font-bold text-blue-700 mb-2 border-b pb-1">৫. আগ্রহের ক্ষেত্র</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                        <label><input type="checkbox" name="interest" value="শিক্ষা"> শিক্ষা</label>
+                        <label><input type="checkbox" name="interest" value="স্বাস্থ্য"> স্বাস্থ্য</label>
+                        <label><input type="checkbox" name="interest" value="যুব উন্নয়ন"> যুব উন্নয়ন</label>
+                        <label><input type="checkbox" name="interest" value="পরিবেশ"> পরিবেশ</label>
+                        <label><input type="checkbox" name="interest" value="দুর্যোগ ব্যবস্থাপনা"> দুর্যোগ ব্যবস্থাপনা</label>
+                        <label><input type="checkbox" name="interest" value="সাংগঠনিক উন্নয়ন"> সাংগঠনিক উন্নয়ন</label>
+                        <label><input type="checkbox" name="interest" value="অর্থায়ন ও তহবিল"> অর্থায়ন ও তহবিল</label>
+                        <label><input type="checkbox" name="interest" value="গণসংযোগ"> গণসংযোগ ও মিডিয়া</label>
+                    </div>
+                </div>
+
+                <!-- ৬. জরুরি যোগাযোগ -->
+                <div class="border p-4 rounded bg-red-50/50">
+                    <h4 class="font-bold text-red-700 mb-3 border-b pb-1">৬. জরুরি যোগাযোগ (Emergency Contact)</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <input type="text" name="emName" placeholder="নাম *" required class="p-2 border rounded w-full bg-white">
+                        <input type="text" name="emRelation" placeholder="সম্পর্ক *" required class="p-2 border rounded w-full bg-white">
+                        <input type="tel" name="emPhone" placeholder="মোবাইল নম্বর *" required class="p-2 border rounded w-full bg-white">
+                        <input type="text" name="emAddress" placeholder="ঠিকানা" class="col-span-1 md:col-span-3 p-2 border rounded w-full bg-white">
+                    </div>
+                </div>
+
+                <!-- ৭. অঙ্গীকারনামা -->
+                <div class="bg-gray-50 p-4 rounded border text-sm text-gray-700 space-y-2">
+                    <h4 class="font-bold text-gray-900">৭. অঙ্গীকারনামা</h4>
+                    <p>আমি ঘোষণা করছি যে, এই ফরমে প্রদত্ত সকল তথ্য সঠিক ও সত্য। আমি স্বেচ্ছায় সংগঠনের লক্ষ্য ও উদ্দেশ্য বাস্তবায়নে প্রয়োজনীয় পরামর্শ ও সহযোগিতা প্রদান করব।</p>
+                    <label class="flex items-center gap-2 font-bold text-blue-700 cursor-pointer">
+                        <input type="checkbox" required> আমি এই অঙ্গীকারনামা মেনে নিচ্ছি *
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded hover:bg-blue-700 shadow-md transition">নিবন্ধন আবেদন জমা দিন</button>
+            </form>
+        </div>
+
+        <!-- রক্তদাতা ফরম -->
+        <div id="donorFormWrapper" class="hidden">
+            <form id="mainDonorForm" onsubmit="handleDonorSubmit(event)" class="space-y-4 max-w-xl mx-auto">
+                <h3 class="text-xl font-bold text-red-600 text-center">রক্তদাতা নিবন্ধন ফরম (Blood Donor)</h3>
+                <input type="text" name="donorName" placeholder="পূর্ণ নাম *" required class="p-2 border rounded w-full">
+                <select name="donorBlood" required class="p-2 border rounded w-full bg-white">
+                    <option value="">রক্তের গ্রুপ সিলেক্ট করুন *</option>
+                    <option value="A+">A+</option><option value="A-">A-</option>
+                    <option value="B+">B+</option><option value="B-">B-</option>
+                    <option value="O+">O+</option><option value="O-">O-</option>
+                    <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                </select>
+                <input type="tel" name="donorPhone" placeholder="মোবাইল নম্বর *" required class="p-2 border rounded w-full">
+                <input type="text" name="donorVillage" placeholder="গ্রাম / এলাকা *" required class="p-2 border rounded w-full">
+                <input type="text" name="donorUpazila" placeholder="উপজেলা / থানা *" required class="p-2 border rounded w-full">
+                <button type="submit" class="w-full bg-red-600 text-white font-bold py-2 rounded hover:bg-red-700">রক্তদাতা হিসেবে যুক্ত হোন</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- COMPLETE ADMIN PANEL -->
+    <section id="admin" class="container mx-auto my-12 p-6 bg-slate-900 text-white rounded-lg shadow-xl">
+        <div class="flex justify-between items-center border-b border-slate-700 pb-4 mb-6">
+            <h2 class="text-2xl font-bold text-yellow-400"><i class="fa-solid fa-lock"></i> অ্যাডমিন এ-টু-জেড মডারেশন প্যানেল (A to Z Control Panel)</h2>
+            <button onclick="toggleAdminView()" id="adminLoginBtn" class="bg-yellow-500 text-slate-900 font-bold px-4 py-1 rounded">লগইন করুন</button>
+        </div>
+
+        <div id="adminContent" class="hidden space-y-8">
+            <!-- নোটিশ বোর্ড আপডেট -->
+            <div class="bg-slate-800 p-4 rounded border border-slate-700">
+                <h3 class="font-bold text-lg mb-2 text-yellow-300">১. নোটিশ বোর্ড লাইভ টেক্সট</h3>
+                <div class="flex gap-2">
+                    <input type="text" id="noticeInput" placeholder="জরুরি নোটিশ এখানে টাইপ করুন..." class="w-full p-2 bg-slate-700 text-white rounded border border-slate-600">
+                    <button onclick="postNotice()" class="bg-blue-600 px-6 rounded font-bold hover:bg-blue-700">আপডেট</button>
+                </div>
+            </div>
+
+            <!-- মেম্বার এপ্রুভাল ও সম্পূর্ণ এডিট সিস্টেম -->
+            <div class="bg-slate-800 p-4 rounded border border-slate-700">
+                <h3 class="font-bold text-lg mb-4 text-yellow-300">২. মেম্বার ও উপদেষ্টা তালিকা (A to Z Edit / Approval / Delete System)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm whitespace-nowrap">
+                        <thead class="bg-slate-700 text-yellow-400">
+                            <tr>
+                                <th class="p-3">ছবি</th>
+                                <th class="p-3">আইডি & নাম</th>
+                                <th class="p-3">ক্যাটাগরি/টাইপ</th>
+                                <th class="p-3">রক্ত</th>
+                                <th class="p-3">মোবাইল</th>
+                                <th class="p-3">পদবী/পেশা</th>
+                                <th class="p-3">ঠিকানা</th>
+                                <th class="p-3">অবস্থা</th>
+                                <th class="p-3 text-center">অ্যাকশন বাটন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminMemberTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- রক্তদাতা মডারেশন ও এডিট -->
+            <div class="bg-slate-800 p-4 rounded border border-slate-700">
+                <h3 class="font-bold text-lg mb-4 text-yellow-300">৩. রক্তদাতা ডাটাবেজ ম্যানেজমেন্ট</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-700 text-yellow-400">
+                            <tr>
+                                <th class="p-3">নাম</th>
+                                <th class="p-3">রক্তের গ্রুপ</th>
+                                <th class="p-3">মোবাইল নম্বর</th>
+                                <th class="p-3">উপজেলা & এলাকা</th>
+                                <th class="p-3">অবস্থা</th>
+                                <th class="p-3 text-center">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminDonorTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-200 text-center py-6 text-sm text-gray-600">
+        <p>&copy; 2026 স্বপ্নতরী স্বেচ্ছাসেবী যুব সংগঠন (SVYO). অল রাইটস রিজার্ভড।</p>
+    </footer>
+
+    <!-- ======================================================== -->
+    <!-- CORE JAVASCRIPT & FIREBASE INTEGRATION WITH A-Z EDIT -->
+    <!-- ======================================================== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, push, get, update, remove, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // ⚠️ আপনার Firebase কনফিগ এখানে আপডেট করে দিন
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // গ্লোবাল উইন্ডো ফাংশনস ম্যাপিং (A-Z অ্যাক্সেস)
+        window.switchForm = switchForm;
+        window.handleMemberSubmit = handleMemberSubmit;
+        window.handleDonorSubmit = handleDonorSubmit;
+        window.toggleAdminView = toggleAdminView;
+        window.postNotice = postNotice;
+        window.approveMember = approveMember;
+        window.rejectMember = rejectMember;
+        window.editMemberAtoZ = editMemberAtoZ;
+        window.approveDonor = approveDonor;
+        window.deleteDonorRecord = deleteDonorRecord;
+        window.editDonorAtoZ = editDonorAtoZ;
+        window.filterDirectory = filterDirectory;
+        window.searchBlood = searchBlood;
+
+        let isAdminLoggedIn = false;
+
+        initApp();
+
+        function initApp() {
+            loadNotice();
+            loadDirectory();
+            if(isAdminLoggedIn) {
+                loadAdminPanelData();
             }
         }
 
-        // 🖼️ ইমেজ হ্যান্ডলিং
-        function convertImageToBase64(fileInputId) {
-            return new Promise((resolve) => {
-                const fileInput = document.getElementById(fileInputId);
-                if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
-                    resolve(DEFAULT_AVATAR);
-                    return;
-                }
-                const file = fileInput.files[0];
-                const reader = new FileReader();
-                reader.onloadend = function() { resolve(reader.result); };
-                reader.onerror = function() { resolve(DEFAULT_AVATAR); };
-                reader.readAsDataURL(file);
-            });
-        }
-
-        function switchScreen(screenId) {
-            if (screenId === 'admin' && !isAdminAuthenticated) {
-                document.getElementById('panel-mode-selector').value = 'user';
-                handlePanelSwitch('admin');
-                return;
-            }
-            document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
-            document.getElementById('screen-' + screenId).classList.add('active');
-            
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            const idxMap = { 'home': 0, 'about': 1, 'forms': 2, 'blood': 3 };
-            if (idxMap[screenId] !== undefined) document.querySelectorAll('.nav-item')[idxMap[screenId]].classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        function handlePanelSwitch(selectedMode) {
-            if (selectedMode === 'admin') {
-                if (isAdminAuthenticated) {
-                    switchScreen('admin');
-                    renderAdminDashboard();
-                } else {
-                    let secretPass = prompt("🔐 মাস্টার অ্যাডমিন সিকিউরিটি কোড দিন:");
-                    if (secretPass === null) { document.getElementById('panel-mode-selector').value = 'user'; return; }
-                    let enteredPass = secretPass.trim();
-
-                    if (enteredPass === "9388093") {
-                        isAdminAuthenticated = true;
-                        document.getElementById('admin-id-tag').classList.add('active');
-                        switchScreen('admin');
-                        renderAdminDashboard();
-                    } else {
-                        alert("❌ ভুল পাসওয়ার্ড! অ্যাক্সেস রিফিউজড।");
-                        document.getElementById('panel-mode-selector').value = 'user';
-                    }
-                }
+        function switchForm(type) {
+            if(type === 'member') {
+                document.getElementById('memberFormWrapper').classList.remove('hidden');
+                document.getElementById('donorFormWrapper').classList.add('hidden');
+                document.getElementById('btnFormMember').className = "bg-blue-600 text-white px-4 py-1 rounded";
+                document.getElementById('btnFormDonor').className = "bg-gray-200 text-gray-700 px-4 py-1 rounded";
             } else {
-                switchScreen('home');
+                document.getElementById('memberFormWrapper').classList.add('hidden');
+                document.getElementById('donorFormWrapper').classList.remove('hidden');
+                document.getElementById('btnFormMember').className = "bg-gray-200 text-gray-700 px-4 py-1 rounded";
+                document.getElementById('btnFormDonor').className = "bg-red-600 text-white px-4 py-1 rounded";
             }
         }
 
-        // 📝 মেম্বার পাবলিক রেজিস্ট্রেশন (ফরম সাবমিশন)
-        async function handlePublicRegistration(e) {
-            e.preventDefault();
-            const submitBtn = document.getElementById('submit-member-btn');
-            submitBtn.disabled = true;
-            submitBtn.innerText = "প্রসেসিং হচ্ছে...";
+        async function generateNextId() {
+            const counterRef = ref(db, "metadata/memberCounter");
+            await runTransaction(counterRef, (current) => {
+                if (current === null) return 210001;
+                return current + 1;
+            });
+            const snap = await get(counterRef);
+            return snap.val();
+        }
 
-            const imgBase64 = await convertImageToBase64('reg-img-file');
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        async function handleMemberSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const imageFile = document.getElementById('memberImage').files[0];
             
-            const payload = {
-                name: document.getElementById('reg-name').value,
-                father: document.getElementById('reg-father').value,
-                mother: document.getElementById('reg-mother').value,
-                blood: document.getElementById('reg-blood').value,
-                nid: document.getElementById('reg-nid').value,
-                phone: document.getElementById('reg-phone').value,
-                panel: document.getElementById('reg-panel').value,
-                role: document.getElementById('reg-role').value,
-                image: imgBase64,
+            let base64Image = "";
+            if(imageFile) { base64Image = await fileToBase64(imageFile); }
+
+            const nextId = await generateNextId();
+            const memberIdStr = `SVYO-${nextId}`;
+            const interests = [];
+            document.querySelectorAll('input[name="interest"]:checked').forEach(cb => interests.push(cb.value));
+
+            const memberData = {
+                memberId: memberIdStr,
+                category: form.formCategory.value,
+                nameBn: form.nameBn.value,
+                nameEn: form.nameEn.value,
+                father: form.father.value,
+                mother: form.mother.value,
+                dob: form.dob.value,
+                gender: form.gender.value,
+                nid: form.nid.value,
+                blood: form.blood.value,
+                profession: form.profession.value,
+                workplace: form.workplace.value,
+                designation: form.designation.value,
+                presentAddress: form.presentAddress.value,
+                permanentAddress: form.permanentAddress.value,
+                phone: form.phone.value,
+                phoneOpt: form.phoneOpt.value,
+                email: form.email.value,
+                adviserType: "সাধারণ উপদেষ্টা",
+                image: base64Image,
+                status: "Pending",
                 timestamp: new Date().toISOString()
             };
 
-            try {
-                const response = await fetch(`${FIREBASE_URL}pending_members.json`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (response.ok) {
-                    alert("🎉 আপনার মেম্বারশিপ আবেদনটি পেন্ডিং কিউতে সফলভাবে জমা হয়েছে!");
-                    document.getElementById('main-member-form').reset();
-                    fetchLiveDatabase();
-                    switchScreen('home');
-                } else {
-                    alert("❌ সার্ভার এরর! আবার চেষ্টা করুন।");
-                }
-            } catch (err) {
-                console.error(err);
-                alert("❌ নেটওয়ার্ক এরর! ফায়ারবেজ কানেকশন চেক করুন।");
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = "আবেদনপত্র সাবমিট করুন";
-            }
+            await set(push(ref(db, "members")), memberData);
+            alert(`নিবন্ধন সফল হয়েছে!\nআইডি নম্বর: ${memberIdStr}`);
+            form.reset();
+            initApp();
         }
 
-        // 🩸 রক্তদাতা রেজিস্ট্রেশন (ফরম সাবমিশন)
-        async function handleDonorRegistration(e) {
+        async function handleDonorSubmit(e) {
             e.preventDefault();
-            const imgBase64 = await convertImageToBase64('don-img-file');
-
-            const payload = {
-                name: document.getElementById('don-name').value,
-                blood: document.getElementById('don-blood').value,
-                phone: document.getElementById('don-phone').value,
-                district: document.getElementById('don-dist').value,
-                image: imgBase64,
+            const form = e.target;
+            const donorData = {
+                name: form.donorName.value,
+                blood: form.donorBlood.value,
+                phone: form.donorPhone.value,
+                village: form.donorVillage.value,
+                upazila: form.donorUpazila.value,
+                status: "Pending",
                 timestamp: new Date().toISOString()
             };
+            await set(push(ref(db, "donors")), donorData);
+            alert("রক্তদাতা আবেদন জমা হয়েছে!");
+            form.reset();
+            initApp();
+        }
 
-            try {
-                const response = await fetch(`${FIREBASE_URL}pending_donors.json`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+        async function loadNotice() {
+            const noticeSnap = await get(ref(db, "notices/current"));
+            if(noticeSnap.exists()) { document.getElementById('liveNotice').innerText = noticeSnap.val(); }
+        }
+
+        async function postNotice() {
+            const txt = document.getElementById('noticeInput').value;
+            if(!txt) return;
+            await set(ref(db, "notices/current"), txt);
+            alert("নোটিশ আপডেট হয়েছে!");
+            document.getElementById('noticeInput').value = "";
+            loadNotice();
+        }
+
+        async function loadDirectory(filterCat = "General Member") {
+            const container = document.getElementById('directoryContainer');
+            container.innerHTML = "<p class='text-center col-span-3'>লোড হচ্ছে...</p>";
+            const snap = await get(ref(db, "members"));
+            container.innerHTML = "";
+
+            if(snap.exists()) {
+                let found = false;
+                Object.entries(snap.val()).forEach(([key, val]) => {
+                    if(val.status === "Approved" && val.category === filterCat) {
+                        found = true;
+                        const card = document.createElement('div');
+                        card.className = "bg-white border rounded-lg p-4 shadow-sm flex flex-col items-center text-center";
+                        card.innerHTML = `
+                            <img src="${val.image || 'https://via.placeholder.com/150'}" class="w-24 h-24 object-cover rounded-full border-2 border-blue-500 mb-2">
+                            <h4 class="font-bold text-gray-900">${val.nameEn}</h4>
+                            <p class="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold my-1">${val.memberId}</p>
+                            <p class="text-sm text-gray-600 font-medium">${val.category === 'Adviser Body' ? val.adviserType : val.designation || 'সদস্য'}</p>
+                            <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-phone"></i> ${val.phone}</p>
+                            <p class="text-xs text-red-500 font-bold">রক্ত: ${val.blood || 'অজানা'}</p>
+                        `;
+                        container.appendChild(card);
+                    }
                 });
-
-                if (response.ok) {
-                    alert("🩸 রক্তদাতা তালিকায় যুক্ত হওয়ার আবেদন সফলভাবে পেন্ডিং কিউতে জমা হয়েছে!");
-                    document.getElementById('main-donor-form').reset();
-                    fetchLiveDatabase();
-                } else {
-                    alert("❌ আবেদন ব্যর্থ হয়েছে।");
-                }
-            } catch (err) {
-                console.error(err);
-                alert("❌ কানেকশন ত্রুটি।");
+                if(!found) container.innerHTML = "<p class='text-center col-span-3 text-gray-400'>কোনো ডাটা নেই।</p>";
             }
         }
 
-        // 📢 নোটিশ ও ফিড রেন্ডারিং
-        function renderFeeds() {
-            document.getElementById('live-marquee-notice').innerText = system_notice;
-            document.getElementById('notice-board-feed').innerText = system_notice;
-        }
+        function filterDirectory(cat) { loadDirectory(cat); }
 
-        function toggleDonorForm(show) {
-            document.getElementById('donor-register-zone').style.display = show ? 'block' : 'none';
-            document.getElementById('donor-search-zone').style.display = show ? 'none' : 'block';
-        }
+        async function searchBlood() {
+            const group = document.getElementById('searchBloodGroup').value;
+            const container = document.getElementById('bloodResultContainer');
+            if(!group) return;
+            container.innerHTML = "খোঁজা হচ্ছে...";
+            const snap = await get(ref(db, "donors"));
+            container.innerHTML = "";
 
-        // 🔍 রক্তদাতা সার্চ লজিক
-        function searchGlobalDonors() {
-            const bloodFilter = document.getElementById('search-blood').value.toUpperCase();
-            const areaFilter = document.getElementById('search-district').value.toLowerCase();
-            const resultsBox = document.getElementById('global-donors-results');
-            
-            if(!resultsBox) return;
-            resultsBox.innerHTML = "";
-
-            const filtered = db_donors.filter(d => {
-                const matchesBlood = bloodFilter === "" || d.blood.toUpperCase() === bloodFilter;
-                const matchesArea = areaFilter === "" || d.district.toLowerCase().includes(areaFilter);
-                return matchesBlood && matchesArea;
-            });
-
-            if(filtered.length === 0) {
-                resultsBox.innerHTML = "<div class='card' style='grid-column:1/-1; text-align:center;'>কোনো রক্তদাতা পাওয়া যায়নি।</div>";
-                return;
+            if(snap.exists()) {
+                Object.entries(snap.val()).forEach(([key, val]) => {
+                    if(val.blood === group && val.status === "Approved") {
+                        const dCard = document.createElement('div');
+                        dCard.className = "bg-white p-4 border-l-4 border-red-500 rounded shadow-sm";
+                        dCard.innerHTML = `<h4 class="font-bold">${val.name}</h4><p class="text-sm text-gray-600">${val.village}, ${val.upazila}</p><a href="tel:${val.phone}" class="text-xs text-red-600 font-bold"><i class="fa-solid fa-phone"></i> ${val.phone}</a>`;
+                        container.appendChild(dCard);
+                    }
+                });
             }
-
-            filtered.forEach(d => {
-                resultsBox.innerHTML += `
-                    <div class="donor-card card">
-                        <img src="${d.image || DEFAULT_AVATAR}" class="table-avatar" style="width:50px; height:50px;">
-                        <div>
-                            <div style="font-weight:700;">${d.name}</div>
-                            <div style="font-size:11px; color:var(--text-muted); margin:3px 0;"><i class="fas fa-map-marker-alt"></i> ${d.district}</div>
-                            <a href="tel:${d.phone}" class="btn btn-success" style="padding:4px 10px; font-size:10px; margin-top:5px;"><i class="fas fa-phone"></i> কল করুন</a>
-                        </div>
-                        <span class="donor-blood-tag">${d.blood}</span>
-                    </div>
-                `;
-            });
         }
 
-        // 👥 পর্ষদ ভিত্তিক ইউজার ইন্টারফেস লোড
-        function loadLiveDatabaseUI() {
-            const panels = { Founder: [], Advisory: [], Executive: [], General: [] };
-            db_members.forEach(m => { if(panels[m.panel]) panels[m.panel].push(m); });
+        function toggleAdminView() {
+            if(!isAdminLoggedIn) {
+                const pass = prompt("অ্যাডমিন সিকিউরিটি কোড দিন:");
+                if(pass === "9388093") { 
+                    isAdminLoggedIn = true;
+                    document.getElementById('adminContent').classList.remove('hidden');
+                    document.getElementById('adminLoginBtn').innerText = "লগআউট";
+                    loadAdminPanelData();
+                } else { alert("ভুল পাসওয়ার্ড!"); }
+            } else {
+                isAdminLoggedIn = false;
+                document.getElementById('adminContent').classList.add('hidden');
+                document.getElementById('adminLoginBtn').innerText = "লগইন করুন";
+            }
+        }
 
-            const renderContainer = (id, list) => {
-                const box = document.getElementById(id);
-                if(!box) return;
-                box.innerHTML = list.length === 0 ? "<div style='color:var(--text-muted); font-size:12px;'>এই পর্ষদে কোনো সদস্য নেই।</div>" : "";
-                list.forEach(m => {
-                    box.innerHTML += `
-                        <div class="roster-card">
-                            <img src="${m.image || DEFAULT_AVATAR}" class="roster-avatar">
-                            <div class="roster-name">${m.name}</div>
-                            <div class="roster-designation">${m.role}</div>
-                        </div>
+        async function loadAdminPanelData() {
+            const memberTable = document.getElementById('adminMemberTable');
+            const donorTable = document.getElementById('adminDonorTable');
+            memberTable.innerHTML = ""; donorTable.innerHTML = "";
+
+            const mSnap = await get(ref(db, "members"));
+            if(mSnap.exists()) {
+                Object.entries(mSnap.val()).forEach(([key, val]) => {
+                    const tr = document.createElement('tr');
+                    tr.className = "border-b border-slate-800 hover:bg-slate-800";
+                    tr.innerHTML = `
+                        <td class="p-2"><img src="${val.image || ''}" class="w-8 h-8 rounded"></td>
+                        <td class="p-2 font-bold text-yellow-400">${val.memberId}<br><span class="text-white">${val.nameEn}</span></td>
+                        <td class="p-2">${val.category}<br><span class="text-xs text-gray-400">${val.adviserType || ''}</span></td>
+                        <td class="p-2 text-red-400 font-bold">${val.blood}</td>
+                        <td class="p-2">${val.phone}</td>
+                        <td class="p-2">${val.designation || 'N/A'}</td>
+                        <td class="p-2 text-xs max-w-xs overflow-hidden">${val.presentAddress}</td>
+                        <td class="p-2 font-bold ${val.status==='Approved'?'text-green-400':'text-orange-400'}">${val.status}</td>
+                        <td class="p-2 flex flex-col gap-1 items-center">
+                            ${val.status === 'Pending' ? `<button onclick="approveMember('${key}')" class="bg-green-600 px-2 py-0.5 rounded text-xs">Approve</button>` : ''}
+                            <button onclick="editMemberAtoZ('${key}')" class="bg-blue-600 text-white px-2 py-0.5 rounded text-xs w-full"><i class="fa-solid fa-pen-to-square"></i> A-Z Edit</button>
+                            <button onclick="rejectMember('${key}')" class="bg-red-600 text-white px-2 py-0.5 rounded text-xs w-full"><i class="fa-solid fa-trash"></i> Delete</button>
+                        </td>
                     `;
+                    memberTable.appendChild(tr);
                 });
-            };
+            }
 
-            renderContainer('founder-render-box', panels.Founder);
-            renderContainer('advisory-render-box', panels.Advisory);
-            renderContainer('executive-render-box', panels.Executive);
-            renderContainer('general-render-box', panels.General);
-
-            // মাস্টার টেবিল রেন্ডার
-            const tbody = document.getElementById('general-table-body');
-            if(tbody) {
-                tbody.innerHTML = db_members.length === 0 ? "<tr><td colspan='4' style='text-align:center;'>কোনো ডাটা নেই</td></tr>" : "";
-                db_members.forEach(m => {
-                    tbody.innerHTML += `
-                        <tr>
-                            <td><img src="${m.image || DEFAULT_AVATAR}" class="table-avatar"></td>
-                            <td><b>${m.name}</b></td>
-                            <td>${m.role}</td>
-                            <td><span class="badge-table badge-${m.panel.toLowerCase()}">${m.panel}</span></td>
-                        </tr>
+            const dSnap = await get(ref(db, "donors"));
+            if(dSnap.exists()) {
+                Object.entries(dSnap.val()).forEach(([key, val]) => {
+                    const tr = document.createElement('tr');
+                    tr.className = "border-b border-slate-800 hover:bg-slate-800";
+                    tr.innerHTML = `
+                        <td class="p-2">${val.name}</td>
+                        <td class="p-2 text-red-400 font-bold">${val.blood}</td>
+                        <td class="p-2">${val.phone}</td>
+                        <td class="p-2">${val.village}, ${val.upazila}</td>
+                        <td class="p-2 text-orange-400">${val.status}</td>
+                        <td class="p-2 text-center space-x-1">
+                            ${val.status === 'Pending' ? `<button onclick="approveDonor('${key}')" class="bg-green-600 px-2 py-0.5 rounded text-xs">Approve</button>` : ''}
+                            <button onclick="editDonorAtoZ('${key}')" class="bg-blue-500 px-2 py-0.5 rounded text-xs">Edit</button>
+                            <button onclick="deleteDonorRecord('${key}')" class="bg-red-600 px-2 py-0.5 rounded text-xs">Delete</button>
+                        </td>
                     `;
+                    donorTable.appendChild(tr);
                 });
             }
         }
 
-        // 👑 অ্যাডমিন ড্যাশবোর্ড কন্ট্রোল এবং ম্যানেজমেন্ট লজিক
-        function renderAdminDashboard() {
-            document.getElementById('count-pending-members').innerText = db_pending.length;
-            document.getElementById('count-pending-donors').innerText = db_pending_donors.length;
+        // 📝 মেম্বার ও উপদেষ্টা সম্পূর্ণ এ-টু-জেড লাইভ এডিট অপশন
+        async function editMemberAtoZ(key) {
+            const snap = await get(ref(db, `members/${key}`));
+            if(!snap.exists()) return;
+            const data = snap.val();
 
-            // ১. পেন্ডিং মেম্বার কিউ রেন্ডার
-            const memQueueBox = document.getElementById('admin-pending-list');
-            memQueueBox.innerHTML = db_pending.length === 0 ? "<p style='font-size:12px; color:var(--text-muted);'>কোনো পেন্ডিং মেম্বার আবেদন নেই।</p>" : "";
-            db_pending.forEach(p => {
-                memQueueBox.innerHTML += `
-                    <div class="card" style="border: 1px dashed var(--warning); margin-bottom:10px;">
-                        <div style="display:flex; gap:12px; align-items:center;">
-                            <img src="${p.image || DEFAULT_AVATAR}" class="table-avatar" style="width:45px; height:45px;">
-                            <div style="font-size:12px; flex:1;">
-                                <strong>${p.name}</strong> (${p.blood})<br>
-                                পদবী: ${p.role} | পর্ষদ: ${p.panel}<br>
-                                ফোন: ${p.phone} | NID: ${p.nid}
-                            </div>
-                            <div style="display:flex; flex-direction:column; gap:5px;">
-                                <button class="btn btn-success" style="padding:4px 8px; font-size:10px;" onclick="approveMember('${p._fbKey}')">Approve</button>
-                                <button class="btn btn-danger" style="padding:4px 8px; font-size:10px;" onclick="rejectPendingItem('pending_members', '${p._fbKey}')">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
+            const nName = prompt("১. নতুন নাম (ইংরেজিতে):", data.nameEn);
+            const nPhone = prompt("২. নতুন মোবাইল নম্বর:", data.phone);
+            const nBlood = prompt("৩. নতুন রক্তের গ্রুপ:", data.blood);
+            const nCat = prompt("৪. ক্যাটাগরি বদলান (General Member / Adviser Body / Executive Body / Founders Council):", data.category);
+            const nDes = prompt("৫. পদবী পরিবর্তন:", data.designation || "");
+            const nAddr = prompt("৬. ঠিকানা পরিবর্তন:", data.presentAddress);
+            const nAdvType = data.category === "Adviser Body" ? prompt("৭. উপদেষ্টার ধরন (সাধারণ উপদেষ্টা / প্রধান উপদেষ্টা / সম্মানিত উপদেষ্টা):", data.adviserType) : data.adviserType;
 
-            // ২. পেন্ডিং রক্তদাতা কিউ রেন্ডার
-            const donQueueBox = document.getElementById('admin-pending-donors-list');
-            donQueueBox.innerHTML = db_pending_donors.length === 0 ? "<p style='font-size:12px; color:var(--text-muted);'>কোনো পেন্ডিং রক্তদাতা আবেদন নেই।</p>" : "";
-            db_pending_donors.forEach(p => {
-                donQueueBox.innerHTML += `
-                    <div class="card" style="border: 1px dashed var(--danger); margin-bottom:10px;">
-                        <div style="display:flex; gap:12px; align-items:center;">
-                            <img src="${p.image || DEFAULT_AVATAR}" class="table-avatar" style="width:45px; height:45px;">
-                            <div style="font-size:12px; flex:1;">
-                                <strong>${p.name}</strong> (${p.blood})<br>
-                                এলাকা: ${p.district} | ফোন: ${p.phone}
-                            </div>
-                            <div style="display:flex; flex-direction:column; gap:5px;">
-                                <button class="btn btn-success" style="padding:4px 8px; font-size:10px;" onclick="approveDonor('${p._fbKey}')">Approve</button>
-                                <button class="btn btn-danger" style="padding:4px 8px; font-size:10px;" onclick="rejectPendingItem('pending_donors', '${p._fbKey}')">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
+            const updates = {};
+            if(nName) updates.nameEn = nName;
+            if(nPhone) updates.phone = nPhone;
+            if(nBlood) updates.blood = nBlood;
+            if(nCat) updates.category = nCat;
+            if(nDes !== null) updates.designation = nDes;
+            if(nAddr) updates.presentAddress = nAddr;
+            if(nAdvType) updates.adviserType = nAdvType;
 
-            // ৩. লাইভ মডারেশন মেম্বার লিস্ট
-            const liveMemBox = document.getElementById('admin-live-members-list');
-            liveMemBox.innerHTML = "";
-            db_members.forEach(m => {
-                liveMemBox.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); padding:8px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
-                        <span style="font-size:12px;">${m.name} (${m.role})</span>
-                        <button class="btn btn-danger" style="padding:3px 8px; font-size:10px;" onclick="deleteLiveNode('live_members', '${m.id}')"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                `;
-            });
-
-            // ৪. লাইভ মডারেশন রক্তদাতা লিস্ট
-            const liveDonBox = document.getElementById('admin-live-donors-list');
-            liveDonBox.innerHTML = "";
-            db_donors.forEach(d => {
-                liveDonBox.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); padding:8px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
-                        <span style="font-size:12px;">${d.name} [${d.blood}]</span>
-                        <button class="btn btn-danger" style="padding:3px 8px; font-size:10px;" onclick="deleteLiveNode('donors', '${d.id}')"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                `;
-            });
+            await update(ref(db, `members/${key}`), updates);
+            alert("সদস্যের সকল ডাটা সফলভাবে মডিফাই করা হয়েছে!");
+            loadAdminPanelData();
+            loadDirectory();
         }
 
-        // 📢 নোটিশ পাবলিশ ম্যানেজার
-        async function publishNotice() {
-            const text = document.getElementById('admin-notice-input').value.trim();
-            if(!text) return alert("নোটিশ খালি রাখা যাবে না।");
-            try {
-                await fetch(`${FIREBASE_URL}notice.json`, { method: 'PUT', body: JSON.stringify(text) });
-                alert("📢 গ্লোবাল নোটিশ ব্রডকাস্ট লাইভ করা হয়েছে!");
-                document.getElementById('admin-notice-input').value = "";
-                fetchLiveDatabase();
-            } catch(e) { alert("ত্রুটি হয়েছে।"); }
+        // 📝 রক্তদাতা এডিট অপশন
+        async function editDonorAtoZ(key) {
+            const snap = await get(ref(db, `donors/${key}`));
+            const data = snap.val();
+            const nName = prompt("নতুন নাম:", data.name);
+            const nPhone = prompt("নতুন মোবাইল:", data.phone);
+            const nBlood = prompt("রক্তের গ্রুপ:", data.blood);
+
+            if(nName && nPhone && nBlood) {
+                await update(ref(db, `donors/${key}`), { name: nName, phone: nPhone, blood: nBlood });
+                alert("রক্তদাতার তথ্য আপডেট হয়েছে!");
+                loadAdminPanelData();
+            }
         }
 
-        // ✅ মেম্বারশিপ এপ্রুভাল প্রসেস
         async function approveMember(key) {
-            const target = db_pending.find(p => p._fbKey === key);
-            if(!target) return;
-            const cleanData = { ...target };
-            delete cleanData._fbKey;
-
-            try {
-                // ১. লাইভ মেম্বার নোডে পুশ
-                await fetch(`${FIREBASE_URL}live_members.json`, { method: 'POST', body: JSON.stringify(cleanData) });
-                // ২. পেন্ডিং লিস্ট থেকে রিমুভ
-                await fetch(`${FIREBASE_URL}pending_members/${key}.json`, { method: 'DELETE' });
-                alert("✅ মেম্বার সফলভাবে এপ্রুভ করা হয়েছে!");
-                fetchLiveDatabase();
-            } catch(e) { alert("এপ্রুভাল ফেইল্ড।"); }
+            await update(ref(db, `members/${key}`), { status: "Approved" });
+            alert("অনুমোদিত হয়েছে!"); loadAdminPanelData(); loadDirectory();
         }
 
-        // ✅ ব্লাড ডোনার এপ্রুভাল প্রসেস
+        async function rejectMember(key) {
+            if(confirm("মুছে ফেলবেন?")) { await remove(ref(db, `members/${key}`)); loadAdminPanelData(); loadDirectory(); }
+        }
+
         async function approveDonor(key) {
-            const target = db_pending_donors.find(p => p._fbKey === key);
-            if(!target) return;
-            const cleanData = { ...target };
-            delete cleanData._fbKey;
-
-            try {
-                await fetch(`${FIREBASE_URL}donors.json`, { method: 'POST', body: JSON.stringify(cleanData) });
-                await fetch(`${FIREBASE_URL}pending_donors/${key}.json`, { method: 'DELETE' });
-                alert("🩸 রক্তদাতা সফলভাবে ডাটাবেজে এপ্রুভ করা হয়েছে!");
-                fetchLiveDatabase();
-            } catch(e) { alert("এপ্রুভাল ফেইল্ড।"); }
+            await update(ref(db, `donors/${key}`), { status: "Approved" });
+            loadAdminPanelData();
         }
 
-        // ❌ পেন্ডিং আইটেম রিজেক্ট বা ডিলিট
-        async function rejectPendingItem(node, key) {
-            if(!confirm("আবেদনটি ডিলিট করতে চান?")) return;
-            try {
-                await fetch(`${FIREBASE_URL}${node}/${key}.json`, { method: 'DELETE' });
-                fetchLiveDatabase();
-            } catch(e) { alert("ডিলিট ব্যর্থ হয়েছে।"); }
-        }
-
-        // 🗑️ লাইভ ডাটাবেজ নোড ডিলিট (মডারেশন)
-        async function deleteLiveNode(node, id) {
-            if(!confirm("সদস্যকে ডাটাবেজ থেকে চিরতরে মুছে ফেলতে চান?")) return;
-            try {
-                await fetch(`${FIREBASE_URL}${node}/${id}.json`, { method: 'DELETE' });
-                fetchLiveDatabase();
-            } catch(e) { alert("মুছে ফেলা ব্যর্থ হয়েছে।"); }
-        }
-
-        // ➕ সরাসরি মেম্বার ইনজেকশন ফরম (অ্যাডমিন মোড)
-        function openDirectMemberForm() {
-            switchScreen('forms');
-            document.getElementById('submit-member-btn').innerText = "সরাসরি লাইভ মেম্বার যুক্ত করুন";
-            document.getElementById('main-member-form').onsubmit = async function(e) {
-                e.preventDefault();
-                const imgBase64 = await convertImageToBase64('reg-img-file');
-                const payload = {
-                    name: document.getElementById('reg-name').value,
-                    father: document.getElementById('reg-father').value,
-                    mother: document.getElementById('reg-mother').value,
-                    blood: document.getElementById('reg-blood').value,
-                    nid: document.getElementById('reg-nid').value,
-                    phone: document.getElementById('reg-phone').value,
-                    panel: document.getElementById('reg-panel').value,
-                    role: document.getElementById('reg-role').value,
-                    image: imgBase64,
-                    timestamp: new Date().toISOString()
-                };
-                try {
-                    await fetch(`${FIREBASE_URL}live_members.json`, { method: 'POST', body: JSON.stringify(payload) });
-                    alert("🎉 সরাসরি লাইভ মেম্বার ডাটাবেজে যুক্ত করা হয়েছে!");
-                    document.getElementById('main-member-form').reset();
-                    document.getElementById('main-member-form').onsubmit = handlePublicRegistration;
-                    document.getElementById('submit-member-btn').innerText = "আবেদনপত্র সাবমিট করুন";
-                    fetchLiveDatabase();
-                    handlePanelSwitch('admin');
-                } catch(err) { alert("ব্যর্থ হয়েছে।"); }
-            };
+        async function deleteDonorRecord(key) {
+            if(confirm("মুছে ফেলবেন?")) { await remove(ref(db, `donors/${key}`)); loadAdminPanelData(); }
         }
     </script>
 </body>
